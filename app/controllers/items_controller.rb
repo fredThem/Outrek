@@ -5,11 +5,15 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    authorize @item
     @labels = Label.all
   end
 
   def create
     @item = Item.new(items_params)
+    authorize @item
+    @label = params[:label]
+    @item.label = @label
   end
 
   def show
