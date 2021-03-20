@@ -1,13 +1,15 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = policy_scope(Item).order(created_at: :desc)
   end
 
   def new
-
+    @item = Item.new
+    @labels = Label.all
   end
 
   def create
+    @item = Item.new(items_params)
   end
 
   def show
@@ -25,6 +27,7 @@ class ItemsController < ApplicationController
   private
 
   def items_params
+    params.require(:item).permit(:name)
   end
 
   def set_item
