@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  
   def index
     @items = policy_scope(Item).order(created_at: :desc)
   end
@@ -14,6 +16,11 @@ class ItemsController < ApplicationController
     authorize @item
     @label = params[:label]
     @item.label = @label
+    if @item.save
+      redirect_to item_page(@item)
+    else
+      render :new
+    end
   end
 
   def show
