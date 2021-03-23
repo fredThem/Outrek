@@ -1,0 +1,4 @@
+// @function linear-grad($color-start, $color-end, $inclination: 0deg) {
+//   $inverse: change-color($color, $hue: hue($color) + 180);
+//   @return mix($inverse, $color, $amount);
+// }
