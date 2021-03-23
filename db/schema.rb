@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_190257) do
+ActiveRecord::Schema.define(version: 2021_03_22_152132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,22 @@ ActiveRecord::Schema.define(version: 2021_03_20_190257) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["trip_id"], name: "index_activities_on_trip_id"
+  end
+
+  create_table "checklist_items", force: :cascade do |t|
+    t.bigint "checklist_id", null: false
+    t.bigint "label_id", null: false
+    t.text "detail"
+    t.boolean "checked"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "checklists_id"
+    t.bigint "labels_id"
+    t.index ["checklist_id"], name: "index_checklist_items_on_checklist_id"
+    t.index ["checklists_id"], name: "index_checklist_items_on_checklists_id"
+    t.index ["label_id"], name: "index_checklist_items_on_label_id"
+    t.index ["labels_id"], name: "index_checklist_items_on_labels_id"
   end
 
   create_table "checklists", force: :cascade do |t|
@@ -87,6 +103,8 @@ ActiveRecord::Schema.define(version: 2021_03_20_190257) do
   end
 
   add_foreign_key "activities", "trips"
+  add_foreign_key "checklist_items", "checklists"
+  add_foreign_key "checklist_items", "labels"
   add_foreign_key "checklists", "trips"
   add_foreign_key "invitations", "trips"
   add_foreign_key "invitations", "users"
