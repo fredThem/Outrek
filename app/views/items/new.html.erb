@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>Add an Item</h1>
+  <hr>
+  <%= simple_form_for @item do |f| %>
+    <%= f.input :name %>
+
+    <%# do we need a category for the item?
+    <%= f.association :category, collection: Category.order(:name), prompt: "Choose a Category" %>
+
+    <%= f.button :submit, class:"btn btn-primary btn-block" %>
+  <% end %>
+</div>
