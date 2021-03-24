@@ -14,8 +14,8 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(items_params)
     authorize @item
-    @label = params[:label]
-    @item.label = @label
+    @labels = params[:label]
+    @item.label = @labels
     if @item.save
       redirect_to item_page(@item)
     else
@@ -30,9 +30,17 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @item.update(items_params)
+    if @item.save
+      redirect_to item_page(@item)
+    else
+      render :new
+    end
   end
 
   def destroy
+    @item.destroy
+    redirect_to items_page
   end
 
   private
