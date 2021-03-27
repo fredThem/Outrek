@@ -14,13 +14,16 @@ class InvitationsController < ApplicationController
       InvitationMailer.with(email: params[:email], owner: @trip.user).invite_email.deliver_later
     else
       render :new
+    end
   end
 
   def accept
     @participant = current_user
     @invitation.user = @participant
     @invitation.status = "Accepted"
-    @invitation.save
+    if @invitation.save
+      redirect_to trip_page(@invitation.trip)
+    end
   end
 
   def update
