@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     resources :invitations, only: [:new, :create]
   end
   resources :invitations, only: [:update]
+  post '/invitation/:id', to: 'invitation#accept', as: :accept
   resources :trips, only: [:new, :edit, :update]
 end

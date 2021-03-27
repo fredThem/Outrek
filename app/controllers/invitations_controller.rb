@@ -9,6 +9,7 @@ class InvitationsController < ApplicationController
   def create
     @trip = Trip.find(params[:trip_id])
     @invitation = Invitation.create(invitation_params)
+    @invitation.status = "Pending"
   end
 
   def accept
