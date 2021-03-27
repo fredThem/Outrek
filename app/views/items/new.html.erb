@@ -3,7 +3,7 @@
   <hr>
   <%= simple_form_for @item do |f| %>
     <%= f.input :name %>
-    <%= f.association :category, type_of_item: Category.order(:name), prompt: "Choose a Category" %>
+    <%= f.association :label %>
 
     <%= f.button :submit, class:"btn btn-primary btn-block" %>
   <% end %>
