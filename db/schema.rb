@@ -10,17 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_152132) do
+ActiveRecord::Schema.define(version: 2021_03_27_150223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
-    t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["trip_id"], name: "index_activities_on_trip_id"
   end
 
   create_table "checklist_items", force: :cascade do |t|
@@ -60,6 +58,10 @@ ActiveRecord::Schema.define(version: 2021_03_22_152132) do
     t.integer "weight"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "label_id"
+    t.index ["label_id"], name: "index_items_on_label_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -76,6 +78,15 @@ ActiveRecord::Schema.define(version: 2021_03_22_152132) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["activity_id"], name: "index_recommended_item_labels_on_activity_id"
     t.index ["label_id"], name: "index_recommended_item_labels_on_label_id"
+  end
+
+  create_table "trip_activities", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "trips_id"
+    t.bigint "activities_id"
+    t.index ["activities_id"], name: "index_trip_activities_on_activities_id"
+    t.index ["trips_id"], name: "index_trip_activities_on_trips_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -102,7 +113,6 @@ ActiveRecord::Schema.define(version: 2021_03_22_152132) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "activities", "trips"
   add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklist_items", "labels"
   add_foreign_key "checklists", "trips"
