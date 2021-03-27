@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :items
   resources :trips do
-    resources :invitations, only: [:create]
+    resources :invitations, only: [:new, :create]
   end
   resources :invitations, only: [:update]
-  resources :trips, only: [:edit, :update]
+  post '/invitation/:id', to: 'invitation#accept', as: :accept
+  resources :trips, only: [:new, :edit, :update]
 end
