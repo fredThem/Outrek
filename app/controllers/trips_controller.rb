@@ -64,5 +64,3 @@ class TripsController < ApplicationController
     authorize @trip
   end
 end
-
-end
