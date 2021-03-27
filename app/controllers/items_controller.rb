@@ -8,14 +8,11 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     authorize @item
-    @labels = Label.all
   end
 
   def create
     @item = Item.new(items_params)
     authorize @item
-    @labels = params[:label]
-    @item.label = @labels
     if @item.save
       redirect_to item_page(@item)
     else
@@ -46,7 +43,7 @@ class ItemsController < ApplicationController
   private
 
   def items_params
-    params.require(:item).permit(:name)
+    params.require(:item).permit(:name, :label)
   end
 
   def set_item
