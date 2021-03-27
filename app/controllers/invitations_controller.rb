@@ -8,17 +8,24 @@ class InvitationsController < ApplicationController
   
   def create
     @trip = Trip.find(params[:trip_id])
-    @invitation = Invitation.create(invitation_params)
+    @invitation = Invitation.new(invitation_params)
     @invitation.status = "Pending"
+    if @invitation.save
+      InvitationMailer.with(email: params[:email], owner: @trip.user).invite_email.deliver_later
+    else
+      render :new
   end
 
   def accept
-    participant = current_user
-    @invitation.user = participant
+    @participant = current_user
+    @invitation.user = @participant
+    @invitation.status = "Accepted"
+    @invitation.save
   end
 
   def update
     @invitation.status = params[:status]
+    @invitation.save
   end
 
   def destroy
