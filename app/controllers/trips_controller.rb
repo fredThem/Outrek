@@ -8,26 +8,29 @@ class TripsController < ApplicationController
   def new
     @trip = Trip.new
     authorize @trip
-    @activities = Activity.all
   end
 
   def create
     @trip = Trip.new(trips_params)
+    @trip.finished = false
+    @trip.user = current_user
     authorize @trip
-    @activities = params[:activities]
-    @trip.activities = @activities
-    @checklist = Checklist.create
-    @activities.each do |activity|
-    relevant_labels = []
-      activity.recommended_item_labels.each do |rec|
-        if !relevent_labels.include? rec.label
-          relevant_labels << rec.label
-          @checklist << ChecklistItem.create(label: rec.label, checked: rec.label.items != nil)
+    @checklist = Checklist.create(trip: @trip)
+    params[:trip][:activity_ids].map do |activity_id|
+      if activity_id != ""
+        @activity = Activity.find(activity_id)
+        relevant_labels = []
+        @activity.recommended_item_labels.each do |rec|
+          if !relevant_labels.include? rec.label
+            relevant_labels << rec.label
+            ChecklistItem.create(label: rec.label, checked: rec.label.items != nil, checklist: @checklist)
+          end
         end
+        @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
       end
     end
     if @trip.save
-      redirect_to trip_page(@trip)
+      redirect_to trip_path(@trip)
     else
       render :new
     end
@@ -56,7 +59,7 @@ class TripsController < ApplicationController
   private
 
   def trips_params
-    params.require(:trip).permit(:name)
+    params.require(:trip).permit(:destination, :description, :start_date, :end_date, :activity_ids)
   end
 
   def set_trip

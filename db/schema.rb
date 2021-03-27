@@ -85,10 +85,10 @@ ActiveRecord::Schema.define(version: 2021_03_27_153501) do
   create_table "trip_activities", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "trips_id"
-    t.bigint "activities_id"
-    t.index ["activities_id"], name: "index_trip_activities_on_activities_id"
-    t.index ["trips_id"], name: "index_trip_activities_on_trips_id"
+    t.bigint "trip_id"
+    t.bigint "activity_id"
+    t.index ["activity_id"], name: "index_trip_activities_on_activity_id"
+    t.index ["trip_id"], name: "index_trip_activities_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|

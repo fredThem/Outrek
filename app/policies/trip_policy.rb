@@ -10,7 +10,8 @@ class TripPolicy < ApplicationPolicy
   end
 
   def show?
-    current_user == user
+    # current_user == user
+    true
   end
 
   def update?
