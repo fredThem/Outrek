@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Invite a Friend to Your Trip</h1>
+  <hr>
+  <%# Select from list of friends? List of trips? %>
+
+  <%= simple_form_for @invitation do |f| %>
+    <%= f.input :name %>
+
+    <%= f.button :submit, class:"btn btn-primary btn-block" %>
+  <% end %>
+</div>

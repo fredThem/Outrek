@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
-  has_and_belongs_to_many :labels
+  belongs_to :label
 
   validates :name, presence: true
 end
