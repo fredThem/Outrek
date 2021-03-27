@@ -26,16 +26,9 @@ activities.each do |activity|
 end
 
 all_labels = Label.all
-cooking_labels = Label.where(category: "cooking")
 
 puts "Populating recommendation for hiking..."
 all_labels.each do |label|
-  RecommendedItemLabel.create!(label: label, activity: Activity.first)
-end
-puts "Done!"
-
-puts "Populating recommendations for camping..."
-cooking_labels.each do |c_label|
-  RecommendedItemLabel.create!(label: c_label, activity: Activity[1])
+  Activity.first.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: Activity.first)
 end
 puts "Done!"
