@@ -12,9 +12,11 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(items_params)
+    @item.user = current_user
+    @item.label = Label.find(params[:item][:label_id])
     authorize @item
     if @item.save
-      redirect_to item_page(@item)
+      redirect_to item_path(@item)
     else
       render :new
     end
@@ -29,7 +31,7 @@ class ItemsController < ApplicationController
   def update
     @item.update(items_params)
     if @item.save
-      redirect_to item_page(@item)
+      redirect_to item_path(@item)
     else
       render :new
     end
@@ -43,7 +45,7 @@ class ItemsController < ApplicationController
   private
 
   def items_params
-    params.require(:item).permit(:name, :label)
+    params.require(:item).permit(:name)
   end
 
   def set_item
