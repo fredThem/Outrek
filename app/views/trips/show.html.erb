@@ -1,0 +1,11 @@
+Trip to <%= @trip.destination %> from <%= @trip.start_date %> to <%= @trip.end_date %>
+
+<h3>Your smart checklist</h3>
+<%= @trip.checklist %>
+<h3>recommended items to bring:</h3>
+<%# @trip.activities[0].recommended_item_labels[0].label.name %>
+<% @trip.activities.each do |activity| %>
+  <% activity.recommended_item_labels.each do |recommendation| %>
+    <p><%= recommendation.label.category %> | <%= recommendation.label.name %></p>
+  <% end %>
+<% end %>
