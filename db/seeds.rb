@@ -36,10 +36,10 @@ labels = {
 puts "cleaning labels..."
 Label.destroy_all
 
-labels.each do |category|
-  category.each do |label|
-    puts "Adding #{label} of #{category} to labels"
-    Label.create(category: category, name: label)
+labels.each do |label|
+  label.values.each do |name|
+    puts "Adding #{label.key} of #{name} to labels"
+    Label.create(category: label.key, name: name)
     puts "Done!"
   end
 end
