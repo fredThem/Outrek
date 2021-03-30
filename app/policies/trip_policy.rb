@@ -10,15 +10,14 @@ class TripPolicy < ApplicationPolicy
   end
 
   def show?
-    # current_user == user
-    true
+    @user == @record.user || @user == @record.invitations.user
   end
 
   def update?
-    current_user == user || current_user == record.invitations.user
+    @user == @record.user || @user == @record.invitations.user
   end
 
   def destroy?
-    current_user == user
+    @user == @record.user
   end
 end

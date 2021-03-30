@@ -10,28 +10,66 @@
 # item.label = label
 # item.save!
 
-require 'csv'
+# require 'csv'
 
-CSV.foreach('app/assets/csv/gosford_overnight_packing.csv') do |row|
-  label_name = row[1]
-  label_category = row[0]
-  puts "Adding one label from Fred's past trip..."
-  Label.create!(name: label_name, category: label_category)
-  puts "Added #{label_name}!"
+# CSV.foreach('app/assets/csv/gosford_overnight_packing.csv') do |row|
+#   label_name = row[1]
+#   label_category = row[0]
+#   puts "Adding one label from Fred's past trip..."
+#   Label.create!(name: label_name, category: label_category)
+#   puts "Added #{label_name}!"
+# end
+
+# Labels seed 2.0
+labels = {
+  "navigation" => ["map", "compass"], 
+  "sun protection" => ["sunglasses", "sunscreen"],
+  "insulation" => ["extra clothing"],
+  "illumination" => ["headlamp/flashlight"],
+  "medical supplies" => ["first-aid kit"],
+  "fire" => ["waterproof matches/lighter/candle"],
+  "repair kit and tools" => ["knife", "cordage", "duct tape"],
+  "nutrition" => ["extra food"],
+  "hydration" => ["extra water"],
+  "emergency shelter" => ["tent/emergency blanket"]
+}
+
+puts "cleaning labels..."
+
+Label.destroy_all
+
+labels.keys.each do |category|
+  labels[category].each do |name|
+    puts "Adding label '#{name}' of category '#{category}' to labels"
+    Label.create(category: category, name: name)
+    puts "Done!"
+  end
 end
 
-  # Need to add Activity and Recommended_label
+  # Add Activity and Recommended_label
 activities = ['hiking', 'camping', 'hunting', 'fishing', 'canoeing', 'kayaking', 'rafting', 'sailing', 'motorboating', 'biking', 'rock climbing', 'horseback riding', 'skiing']
 
+puts "cleaning activities..."
+Activity.destroy_all
+
 activities.each do |activity|
-  puts "Adding an activity..."
+  puts "Adding the activity #{activity}"
   Activity.create!(name: activity)
   puts "Added #{activity}!"
 end
 
 all_labels = Label.all
 
-puts "Populating recommendation for hiking..."
+puts "cleaning recommendations..."
+RecommendedItemLabel.destroy_all
+
+puts "Populating recommendations for hiking..."
+all_labels.each do |label|
+  Activity.first.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: Activity.first)
+end
+puts "Done!"
+
+puts "Populating recommendations for camping..."
 all_labels.each do |label|
   Activity.first.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: Activity.first)
 end
