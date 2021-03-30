@@ -37,6 +37,14 @@ class TripsController < ApplicationController
   end
 
   def show
+    @recommendations = []
+    @trip.activities.each do |activity|
+      activity.recommended_item_labels.each do |recommendation|
+        if !@recommendations.include? recommendation.label
+          @recommendations << recommendation.label
+        end
+      end
+    end
   end
 
   def edit

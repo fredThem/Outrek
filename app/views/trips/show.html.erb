@@ -1,11 +1,76 @@
-Trip to <%= @trip.destination %> from <%= @trip.start_date %> to <%= @trip.end_date %>
+<div class="row">
+  <div class="col-8">
+    <div class="container-sm">
+      <h4>Your Smart Checklist</h4>
+      <div class="row card-header p-2 m-0">
+        <i class="col-1 fas fa-user"></i>
+        <% @trip.invitations.each do |invitation| %>  
+          <% if invitation.user != @trip.user %>
+            <div class="col-1 card-header"><i class="fas fa-user"></i></div>
+          <% end %>
+        <% end %>
+        <div class="col-sm">Category</div>
+        <div class="col-sm">Label</div>
+      </div>
+      <% @trip.checklist.checklist_items.each do |item| %>
+      <div class="card p-0">
+        <div class="row card-body p-2 m-0">
+          <div class="col-1 dropdown">
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-plus-circle"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Bringing</a></li>
+              <li><a class="dropdown-item" href="#">Buying</a></li>
+              <li><a class="dropdown-item" href="#">Borrowing</a></li>
+            </ul>
+          </div>
+          <% @trip.invitations.each do |invitation| %>
+            <% if invitation.user != @trip.user %>
+              <div class="col-1 dropdown">
+                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-plus-circle"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="#">Bringing</a></li>
+                  <li><a class="dropdown-item" href="#">Buying</a></li>
+                  <li><a class="dropdown-item" href="#">Borrowing</a></li>
+                </ul>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="col-sm">
+            <%= item.label.category %>
+          </div>
+          <div class="col-sm">
+            <%= item.label.name %>
+          </div>
+        </div>
+      </div>
+      <% end %>  
 
-<h3>Your smart checklist</h3>
-<%= @trip.checklist %>
-<h3>recommended items to bring:</h3>
-<%# @trip.activities[0].recommended_item_labels[0].label.name %>
-<% @trip.activities.each do |activity| %>
-  <% activity.recommended_item_labels.each do |recommendation| %>
-    <p><%= recommendation.label.category %> | <%= recommendation.label.name %></p>
-  <% end %>
-<% end %>
+    </div>
+  </div>
+  <div class="col-4">
+    <h4>Trip Info</h4>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <p class="card-text">from <%= @trip.start_date %> to <%= @trip.end_date %></p>
+        <h5 class="card-title">Trip to <%= @trip.destination %></h5>
+        <p class="card-text"></p>
+        <% @trip.activities.each do |activity| %>
+          <span class="badge bg-info text-dark"><%= activity.name %></span>
+        <% end %>
+      </div>
+    </div>
+    <h4>Recommended for Your Activities:</h4>
+    <div class="card" style="width: 18rem;">
+      <ul class="list-group list-group-flush">
+      <% @recommendations.each do |recommendation| %>
+        <button type="button" class="list-group-item p-1 btn btn-outline-dark"><%= recommendation.name %> for <%= recommendation.category %></button>
+
+      <% end %>
+      </ul>
+  </div>
+  </div>
+</div>
