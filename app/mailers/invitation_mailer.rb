@@ -6,4 +6,5 @@ class InvitationMailer < ApplicationMailer
     @url = "http://outrek.app/invitation/:id/accept"
     @owner = params[:owner]
     mail(to: @email, subject: 'Please respond to the invitation')
+  end
 end
