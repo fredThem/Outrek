@@ -10,7 +10,7 @@ class TripPolicy < ApplicationPolicy
   end
 
   def show?
-    @user == @record.user
+    @user == @record.user || @user == @record.invitations.user
   end
 
   def update?
