@@ -33,13 +33,15 @@ labels = {
   "hydration" => ["extra water"],
   "emergency shelter" => ["tent/emergency blanket"]
 }
+
 puts "cleaning labels..."
+
 Label.destroy_all
 
-labels.each do |label|
-  label.values.each do |name|
-    puts "Adding #{label.key} of #{name} to labels"
-    Label.create(category: label.key, name: name)
+labels.keys.each do |category|
+  labels[category].each do |name|
+    puts "Adding label '#{name}' of category '#{category}' to labels"
+    Label.create(category: category, name: name)
     puts "Done!"
   end
 end
