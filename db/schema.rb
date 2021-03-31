@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_010709) do
+ActiveRecord::Schema.define(version: 2021_03_31_043800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,21 +81,23 @@ ActiveRecord::Schema.define(version: 2021_03_31_010709) do
   create_table "trip_activities", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "trips_id"
-    t.bigint "activities_id"
-    t.index ["activities_id"], name: "index_trip_activities_on_activities_id"
-    t.index ["trips_id"], name: "index_trip_activities_on_trips_id"
+    t.bigint "trip_id"
+    t.bigint "activity_id"
+    t.index ["activity_id"], name: "index_trip_activities_on_activity_id"
+    t.index ["trip_id"], name: "index_trip_activities_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
     t.string "destination"
     t.date "start_date"
     t.date "end_date"
-    t.text "description"
+    t.string "description"
     t.boolean "finished"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.time "meetup_time"
+    t.time "expected_end_time"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 

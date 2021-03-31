@@ -6,5 +6,8 @@ class Trip < ApplicationRecord
   has_many :activities, through: :trip_activities
 
   validates :destination, presence: true
-  validates :description, presence: true, length: { maximum: 500, too_long: "%{count} characters is the maximum allowed" }
+  validates :description, presence: true,
+                          length: { maximum: 500, too_long: "%{count} characters is the maximum allowed" }
+  validates :meetup_time, presence: true, timeliness: { type: :time, before: '12:00' }
+  validates :expected_end_time, presence: true, timeliness: { type: :time, before: '12:00' }
 end
