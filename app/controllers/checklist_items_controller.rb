@@ -1,5 +1,8 @@
 class ChecklistItemsController < ApplicationController
+  before_action :set_checklist_item, only: [:edit, :update, :destroy]
+  
   def new
+    @trip = Trip.find(params[:trip_id])
     @checklist_item = ChecklistItem.new
     authorize @checklist_item
     @labels = Label.all
@@ -10,6 +13,11 @@ class ChecklistItemsController < ApplicationController
     authorize @checklist_item
     @trip = Trip.find(params[:trip_id])
     @checklist_item.checklist = @trip.checklist
+    if @checklist_item.save
+      redirect_to trip_path(@trip)      
+    else
+      render :new
+    end
   end
   
   def import
@@ -24,9 +32,31 @@ class ChecklistItemsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    @checklist_item.update(checklist_item_params)
+    if @checklist_item.save
+      redirect_to trip_path(@checklist_item.checklist.trip)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @checklist_item.destroy
+    redirect_to trip_path(@checklist_item.checklist.trip)
+  end
+
   private
 
   def checklist_item_params
-    params.require(:checklist_item).permit(:detail, :checked, :status, :checklist_id, :trip_id)
+    params.require(:checklist_item).permit(:detail, :checked, :status, :checklist_id, :trip_id, :label_id)
+  end
+
+  def set_checklist_item
+    @checklist_item = ChecklistItem.find(params[:id])
+    authorize @checklist_item   
   end
 end
