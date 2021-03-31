@@ -10,11 +10,9 @@ class Trip < ApplicationRecord
                           length: { maximum: 500, too_long: "%{count} characters is the maximum allowed" }
   validates :start_date, presence: true
 
-  validates :meetup_time, presence: true,
-                          timeliness: { type: :time, before: '12:00' }
+  validates :meetup_time, presence: true
 
-  validates :expected_end_time, presence: true,
-                                timeliness: { type: :time, before: '12:00' }
+  validates :expected_end_time, presence: true
   # geocoded_by :destination
   # after_validation :geocode
 end
