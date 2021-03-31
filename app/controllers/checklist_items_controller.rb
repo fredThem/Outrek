@@ -13,8 +13,9 @@ class ChecklistItemsController < ApplicationController
     authorize @checklist_item
     @trip = Trip.find(params[:trip_id])
     @checklist_item.checklist = @trip.checklist
+    @checklist_item.checked = false
     if @checklist_item.save
-      redirect_to trip_path(@trip)      
+      redirect_to trip_path(@trip)
     else
       render :new
     end
@@ -28,7 +29,7 @@ class ChecklistItemsController < ApplicationController
     @checklist_item.checked = false
     authorize @checklist_item
     if @checklist_item.save
-      redirect_to trip_path(@trip)
+      redirect_to trip_path(@checklist_item.checklist.trip)
     end
   end
 
@@ -52,7 +53,7 @@ class ChecklistItemsController < ApplicationController
   private
 
   def checklist_item_params
-    params.require(:checklist_item).permit(:detail, :checked, :status, :checklist_id, :trip_id, :label_id)
+    params.require(:checklist_item).permit(:detail, :checked, :status, :checklist_id, :label_id)
   end
 
   def set_checklist_item
