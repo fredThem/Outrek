@@ -17,7 +17,7 @@
         <div class="row card-body p-2 m-0">
           <div class="col-1 dropdown">
             <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-plus-circle"></i>
+              <i class="text-secondary fas fa-plus-circle"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li><a class="dropdown-item" href="#">Bringing</a></li>
@@ -47,8 +47,8 @@
           </div>
         </div>
       </div>
-      <% end %>  
-
+      <% end %>
+      <%= link_to '+ item',  new_trip_checklist_item_path(@trip), class: "btn btn-dark" %>
     </div>
   </div>
   <div class="col-4">
@@ -67,9 +67,9 @@
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
       <% @recommendations.each do |recommendation| %>
-        <%= link_to "#{recommendation.name} for #{recommendation.category}", trip_label_checklist_items_path(@trip, recommendation), method: :post, class: "list-group-item p-1 btn btn-outline-dark" %>
+        <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, class: "list-group-item p-1 btn btn-outline-dark" %>
       <% end %>
       </ul>
-  </div>
+    </div>
   </div>
 </div>

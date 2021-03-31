@@ -8,4 +8,8 @@ class ChecklistItemPolicy < ApplicationPolicy
   def create?
     true
   end
+
+  def import?
+    true
+  end
 end

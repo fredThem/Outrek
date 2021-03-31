@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   resources :items
   resources :trips do
     resources :invitations, only: [:new, :create]
+    resources :checklist_items, only: [:new, :create, :edit, :destroy]
     resources :labels do
-      resources :checklist_items, only: [:create]
+      post '/checklist_items', to: 'checklist_items#import', as: :import
     end
   end
   resources :invitations, only: [:update]
