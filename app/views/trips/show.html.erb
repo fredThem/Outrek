@@ -67,7 +67,7 @@
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
       <% @recommendations.each do |recommendation| %>
-        <button type="button" class="list-group-item p-1 btn btn-outline-dark"><%= recommendation.name %> for <%= recommendation.category %></button>
+        <%= link_to "#{recommendation.name} for #{recommendation.category}", trip_label_checklist_items_path(@trip, recommendation), method: :post, class: "list-group-item p-1 btn btn-outline-dark" %>
       <% end %>
       </ul>
   </div>
