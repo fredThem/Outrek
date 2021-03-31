@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :items
   resources :trips do
     resources :invitations, only: [:new, :create]
+    resources :labels do
+      resources :checklist_items, only: [:create]
+    end
   end
   resources :invitations, only: [:update]
   post '/invitation/:id', to: 'invitation#accept', as: :accept

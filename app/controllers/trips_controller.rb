@@ -23,7 +23,7 @@ class TripsController < ApplicationController
         @activity.recommended_item_labels.each do |rec|
           if !relevant_labels.include? rec.label
             relevant_labels << rec.label
-            ChecklistItem.create(label: rec.label, checked: rec.label.items != nil, checklist: @checklist)
+            ChecklistItem.create(label: rec.label, checked: false, checklist: @checklist)
           end
         end
         @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
@@ -37,6 +37,14 @@ class TripsController < ApplicationController
   end
 
   def show
+    @recommendations = []
+    @trip.activities.each do |activity|
+      activity.recommended_item_labels.each do |recommendation|
+        if !@recommendations.include? recommendation.label
+          @recommendations << recommendation.label
+        end
+      end
+    end
   end
 
   def edit
