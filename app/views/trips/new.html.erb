@@ -6,19 +6,23 @@
     <%= f.input :destination, label: "Where to meet" %>
     <div class="container">
       <div class="row">
-        <div class="flex-grow-1">
-          <%= f.input :start_date, as: :date, html5: true%>
+        <div class="d-flex flex-grow-1">
+          <div class="flex-grow-1">
+            <%= f.input :start_date, as: :date, html5: true%>
+          </div>
+          <div class="">
+            <%= f.input :meetup_time, class:"mr-3"%>
+          </div>
         </div>
-        <div class="pr-3 mr-3 border-right border-dark">
-          <%= f.input :meetup_time, class:"mr-3"%>
+        <div class="d-flex flex-grow-1">
+          <div class="collapse flex-grow-1" id="collapseDateEnd">
+            <%= f.input :end_date, as: :date, html5: true%>
+          </div>
+          <%= f.input :expected_end_time %>
         </div>
-        <div class="collapse flex-grow-1" id="collapseDateEnd">
-          <%= f.input :end_date, as: :date, html5: true%>
-        </div>
-        <%= f.input :expected_end_time %>
       </div>
       <button class="btn btn-link mb-3 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDateEnd" aria-expanded="false" aria-controls="collapseDateEnd">
-        +/- End date and Time
+        +/- End date and time
       </button>
     </div>
     <%= f.association :activities, as: :check_boxes%>
