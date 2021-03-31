@@ -15,4 +15,6 @@ class Trip < ApplicationRecord
 
   validates :expected_end_time, presence: true,
                                 timeliness: { type: :time, before: '12:00' }
+  # geocoded_by :destination
+  # after_validation :geocode
 end
