@@ -23,7 +23,12 @@
               <%= f.input :expected_end_time %>
             </div>
           </div>
-          <button class="btn btn-link mb-3 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDateEnd" aria-expanded="false" aria-controls="collapseDateEnd">
+          <button class="btn btn-link mb-3 p-0" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapseDateEnd" 
+          aria-expanded="false" 
+          aria-controls="collapseDateEnd">
             +/- End date and time
           </button>
         </div>
@@ -33,3 +38,9 @@
     </div>
   </div>
 </div>
+<%# to clear the input field for DateEnd %>
+<script>
+  document.querySelector('[data-bs-target="#collapseDateEnd"]').onclick = function clearInput(){
+    document.querySelector('#trip_end_date').value = "";
+  }
+</script>
