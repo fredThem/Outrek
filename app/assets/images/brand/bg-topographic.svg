@@ -1,4 +1,5 @@
-<svg id="pattern" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 800">
+<svg id="pattern" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 800"
+  preserveAspectRatio="none" class="topographic-bg">
   <defs>
     <style>
       .cls-1,
