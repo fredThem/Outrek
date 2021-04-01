@@ -13,6 +13,6 @@ class Trip < ApplicationRecord
   validates :meetup_time, presence: true
 
   validates :expected_end_time, presence: true
-  # geocoded_by :destination
-  # after_validation :geocode
+  geocoded_by :destination
+  after_validation :geocode, if: :will_save_change_to_destination?
 end
