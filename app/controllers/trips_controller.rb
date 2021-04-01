@@ -6,9 +6,10 @@ class TripsController < ApplicationController
     @my_trips = current_user.trips
     @trips.each do |trip|
       trip.invitations.each do |invitation|
-        @my_trip << invitation.trip if invitation.user == current_user
+        @my_trips << invitation.trip if invitation.user == current_user
       end
     end
+    @my_trips = @my_trips.order(:start_date)
   end
 
   def new
@@ -24,7 +25,6 @@ class TripsController < ApplicationController
     @checklist = Checklist.new(trip: @trip)
     params[:trip][:activity_ids].map do |activity_id|
       next unless activity_id != ""
-
       @activity = Activity.find(activity_id)
       relevant_labels = []
       @activity.recommended_item_labels.each do |rec|
@@ -48,6 +48,10 @@ class TripsController < ApplicationController
       activity.recommended_item_labels.each do |recommendation|
         @recommendations << recommendation.label unless @recommendations.include? recommendation.label
       end
+    end
+    @users = [@trip.user]
+    @trip.invitations.each do |invitation|
+      @users << invitation.user
     end
   end
 
