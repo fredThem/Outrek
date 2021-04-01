@@ -79,7 +79,11 @@
     <h4>Trip Info</h4>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
-        <p class="card-text">from <%= @trip.start_date %> to <%= @trip.end_date %></p>
+        <% if @trip.end_date != nil %>
+          <p class="card-text">Planned for <%= @trip.start_date %> to <%= @trip.end_date %></p>
+        <% else %>
+          <p class="card-text">Planned for <%= @trip.start_date %></p>
+        <% end %>
         <h5 class="card-title"><%= @trip.description %></h5>
         <p><i class="fas fa-map-marker-alt"></i> <%= @trip.destination %></p>
         <p class="card-text"></p>
@@ -91,6 +95,17 @@
             <%= user.email %>
           <% end %>
         </p>
+
+        <div class="dropdown">
+          <a class="text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-ellipsis-h"></i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><%= link_to "Invite an Outreker", new_trip_invitation_path(@trip, @invitation), class: "dropdown-item" %></li>
+            <li><%= link_to "Cancel Trip", trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
+          </ul>
+        </div>
+
       </div>
     </div>
     <h4>Recommended for Your Activities:</h4>
