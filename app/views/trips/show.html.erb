@@ -3,10 +3,10 @@
     <div class="container-sm">
       <h4>Your Smart Checklist</h4>
       <div class="row card-header p-2 m-0">
-        <i class="col-xm fas fa-user"></i>
+        <i class="col-xm fas fa-user px-1"></i>
         <% @trip.invitations.each do |invitation| %>  
           <% if invitation.user != @trip.user %>
-            <div class="col-xm card-header"><i class="fas fa-user"></i></div>
+            <i class="col-xm fas fa-user px-1"></i>
           <% end %>
         <% end %>
         <div class="col-sm">Category</div>
@@ -19,7 +19,7 @@
           <div class="col-xs dropdown">
             <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <% if !item.users.include? @trip.user %>
-                <i class="text-secondary fas fa-plus-circle"></i>
+                <i class="text-secondary fas fa-plus-circle px-1"></i>
               <% else %>
                 <% @duty = @trip.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
                 <%= @duty.status %>
@@ -40,8 +40,8 @@
             <% if invitation.user != @trip.user %>
               <div class="col-xs dropdown">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <% if !item.users.include? @invitation.user %>
-                    <i class="fas fa-plus-circle"></i>
+                  <% if !item.users.include? invitation.user %>
+                    <i class="text-secondary fas fa-plus-circle"></i>
                   <% else %>
                     <% @duty = invitation.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
                     <%= @duty.status %>
