@@ -21,7 +21,7 @@ class TripsController < ApplicationController
     @trip.finished = false
     @trip.user = current_user
     authorize @trip
-    @checklist = Checklist.create(trip: @trip)
+    @checklist = Checklist.new(trip: @trip)
     params[:trip][:activity_ids].map do |activity_id|
       next unless activity_id != ""
 
@@ -35,7 +35,7 @@ class TripsController < ApplicationController
       end
       @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     end
-    if @trip.save
+    if @trip.save && @checklist.save
       redirect_to trip_path(@trip)
     else
       render :new
