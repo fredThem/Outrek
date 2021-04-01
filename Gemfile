@@ -36,7 +36,6 @@ gem 'pundit'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
-gem 'validates_timeliness', '~> 4.1'
 gem 'geocoder', '~> 1.6', '>= 1.6.6'
 
 group :development, :test do
