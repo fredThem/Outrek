@@ -3,6 +3,12 @@ class TripsController < ApplicationController
 
   def index
     @trips = policy_scope(Trip).order(created_at: :desc)
+    @my_trips = current_user.trips
+    @trips.each do |trip|
+      trip.invitations.each do |invitation|
+        @my_trip << invitation.trip if invitation.user == current_user
+      end
+    end
   end
 
   def new

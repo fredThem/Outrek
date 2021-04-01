@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_043800) do
+
+ActiveRecord::Schema.define(version: 2021_03_31_184754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +39,16 @@ ActiveRecord::Schema.define(version: 2021_03_31_043800) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["trip_id"], name: "index_checklists_on_trip_id"
+  end
+
+  create_table "duties", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "checklist_item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+    t.index ["checklist_item_id"], name: "index_duties_on_checklist_item_id"
+    t.index ["user_id"], name: "index_duties_on_user_id"
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -116,6 +127,8 @@ ActiveRecord::Schema.define(version: 2021_03_31_043800) do
   add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklist_items", "labels"
   add_foreign_key "checklists", "trips"
+  add_foreign_key "duties", "checklist_items"
+  add_foreign_key "duties", "users"
   add_foreign_key "invitations", "trips"
   add_foreign_key "invitations", "users"
   add_foreign_key "recommended_item_labels", "activities"

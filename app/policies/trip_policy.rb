@@ -10,11 +10,11 @@ class TripPolicy < ApplicationPolicy
   end
 
   def show?
-    @user == @record.user || @user == @record.invitations.user
+    @user == @record.user || @record.invitations.select{ |invitation| invitation.user == @user} != []
   end
 
   def update?
-    @user == @record.user || @user == @record.invitations.user
+    @user == @record.user || @record.invitations.select{ |invitation| invitation.user == @user} != []
   end
 
   def destroy?
