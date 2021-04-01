@@ -80,11 +80,17 @@
     <div class="card" style="width: 18rem;">
       <div class="card-body">
         <p class="card-text">from <%= @trip.start_date %> to <%= @trip.end_date %></p>
-        <h5 class="card-title">Trip to <%= @trip.destination %></h5>
+        <h5 class="card-title"><%= @trip.description %></h5>
+        <p><i class="fas fa-map-marker-alt"></i> <%= @trip.destination %></p>
         <p class="card-text"></p>
         <% @trip.activities.each do |activity| %>
           <span class="badge bg-info text-dark"><%= activity.name %></span>
         <% end %>
+        <p>currently going:
+          <% @users.each do |user| %>
+            <%= user.email %>
+          <% end %>
+        </p>
       </div>
     </div>
     <h4>Recommended for Your Activities:</h4>
