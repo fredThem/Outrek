@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: %i[show edit update destroy]
-
+  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  
   def index
     @trips = policy_scope(Trip).order(created_at: :desc)
     @my_trips = current_user.trips
@@ -23,17 +23,17 @@ class TripsController < ApplicationController
     authorize @trip
     @checklist = Checklist.create(trip: @trip)
     params[:trip][:activity_ids].map do |activity_id|
-      next unless activity_id != ""
-
-      @activity = Activity.find(activity_id)
-      relevant_labels = []
-      @activity.recommended_item_labels.each do |rec|
-        unless relevant_labels.include? rec.label
-          relevant_labels << rec.label
-          ChecklistItem.create(label: rec.label, checked: false, checklist: @checklist)
+      if activity_id != ""
+        @activity = Activity.find(activity_id)
+        relevant_labels = []
+        @activity.recommended_item_labels.each do |rec|
+          if !relevant_labels.include? rec.label
+            relevant_labels << rec.label
+            ChecklistItem.create(label: rec.label, checked: false, checklist: @checklist)
+          end
         end
+        @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
       end
-      @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     end
     if @trip.save
       redirect_to trip_path(@trip)
@@ -46,7 +46,9 @@ class TripsController < ApplicationController
     @recommendations = []
     @trip.activities.each do |activity|
       activity.recommended_item_labels.each do |recommendation|
-        @recommendations << recommendation.label unless @recommendations.include? recommendation.label
+        if !@recommendations.include? recommendation.label
+          @recommendations << recommendation.label
+        end
       end
     end
   end
@@ -71,8 +73,7 @@ class TripsController < ApplicationController
   private
 
   def trips_params
-    params.require(:trip).permit(:destination, :description, :start_date, :meetup_time, :end_date, :expected_end_time,
-                                 :activity_ids)
+    params.require(:trip).permit(:destination, :description, :start_date, :end_date, :activity_ids)
   end
 
   def set_trip
