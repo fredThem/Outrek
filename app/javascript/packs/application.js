@@ -7,11 +7,11 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import {initAutocomplete} from "../plugins/init_autocomplete"
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
 
 // ----------------------------------------------------
 // Note(lewagon): ABOVE IS RAILS DEFAULT CONFIGURATION
@@ -27,4 +27,5 @@ import "bootstrap";
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  initAutocomplete();
 });
