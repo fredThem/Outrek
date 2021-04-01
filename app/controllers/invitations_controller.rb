@@ -17,7 +17,7 @@ class InvitationsController < ApplicationController
     @invitation.status = "Pending"
     authorize @invitation
     if @invitation.save
-      InvitationMailer.with(email: params[:email], owner: @trip.user).invite_email.deliver_later
+      InvitationMailer.with(email: params[:email], invitation: @invitation, owner: @trip.user).invite_email.deliver_later
       redirect_to trip_path(@invitation.trip)
     else
       render :new

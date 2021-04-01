@@ -6,7 +6,7 @@
     <h1>Welcome to Outrek</h1>
     <p>
       You have been invited to join the trip created by <%= @owner.email %>
-      To accept, just follow this link: <%= @url %>.<br>
+      To accept, just follow this link: <%= link_to "Accept Trip", @url %>.<br>
     </p>
     <p>Thanks for using Outrek and have a great day!</p>
   </body>
