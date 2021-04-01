@@ -5,12 +5,13 @@
       <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 24rem;">
         <div class="card-body position-relative">
           <p class="card-text">from <%= trip.start_date %> to <%= trip.end_date %></p>
-          <h5 class="card-title"><%= trip.description %></h5>
+          <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
-          <p class="card-text"></p>
+          <p class="card-text">
           <% trip.activities.each do |activity| %>
-            <span class="badge bg-info text-dark"><%= activity.name %></span>
+            <span class="badge bg-info"><%= activity.name %></span>
           <% end %>
+          </p>
           <p>Currently Going:
             <%= trip.user.email %>
             <% trip.invitations.each do |invitation| %>
