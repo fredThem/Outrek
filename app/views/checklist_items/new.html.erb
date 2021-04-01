@@ -1,0 +1,8 @@
+<div class="containter">
+  <h1>Create a new item for your trip to <%= @trip.destination %></h1>
+  <%= simple_form_for [@trip, @checklist_item] do |f| %>
+    <%= f.input :detail %>
+    <%= f.association :label %>
+    <%= f.button :submit %>
+  <% end %>
+</div>

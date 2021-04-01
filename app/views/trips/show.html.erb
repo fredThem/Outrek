@@ -3,38 +3,49 @@
     <div class="container-sm">
       <h4>Your Smart Checklist</h4>
       <div class="row card-header p-2 m-0">
-        <i class="col-1 fas fa-user"></i>
+        <i class="col-xm fas fa-user"></i>
         <% @trip.invitations.each do |invitation| %>  
           <% if invitation.user != @trip.user %>
-            <div class="col-1 card-header"><i class="fas fa-user"></i></div>
+            <div class="col-xm card-header"><i class="fas fa-user"></i></div>
           <% end %>
         <% end %>
         <div class="col-sm">Category</div>
         <div class="col-sm">Label</div>
+        <div class="col-sm">Note</div>
       </div>
       <% @trip.checklist.checklist_items.each do |item| %>
       <div class="card p-0">
         <div class="row card-body p-2 m-0">
-          <div class="col-1 dropdown">
+          <div class="col-xs dropdown">
             <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-plus-circle"></i>
+              <i class="text-secondary fas fa-plus-circle"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Bringing</a></li>
-              <li><a class="dropdown-item" href="#">Buying</a></li>
-              <li><a class="dropdown-item" href="#">Borrowing</a></li>
+              <li class="py-0 px-2 border-bottom border-top">Item Actions</li>
+              <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
+              <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
+              <li class="py-0 px-2 border-bottom border-top">Claim Duty</li>
+              <li><a class="dropdown-item" href="#">🎒 To Bring</a></li>
+              <li><a class="dropdown-item" href="#">✅ Bringing</a></li>
+              <li><a class="dropdown-item" href="#">🛒 Buying</a></li>
+              <li><a class="dropdown-item" href="#">😭 Help</a></li>
             </ul>
           </div>
           <% @trip.invitations.each do |invitation| %>
             <% if invitation.user != @trip.user %>
-              <div class="col-1 dropdown">
+              <div class="col-xs dropdown">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-plus-circle"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Bringing</a></li>
-                  <li><a class="dropdown-item" href="#">Buying</a></li>
-                  <li><a class="dropdown-item" href="#">Borrowing</a></li>
+                  <li class="py-0 px-2 border-bottom border-top">Item Actions</li>
+                  <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
+                  <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
+                  <li class="py-0 px-2 border-bottom border-top">Claim Duty</li>
+                  <li><a class="dropdown-item" href="#">🎒 To Bring</a></li>
+                  <li><a class="dropdown-item" href="#">✅ Bringing</a></li>
+                  <li><a class="dropdown-item" href="#">🛒 Buying</a></li>
+                  <li><a class="dropdown-item" href="#">😭 Help</a></li>
                 </ul>
               </div>
             <% end %>
@@ -45,10 +56,13 @@
           <div class="col-sm">
             <%= item.label.name %>
           </div>
+          <div class="col-sm">
+            <%= item.detail %>
+          </div>
         </div>
       </div>
-      <% end %>  
-
+      <% end %>
+      <%= link_to '+ item',  new_trip_checklist_item_path(@trip), class: "btn btn-dark" %>
     </div>
   </div>
   <div class="col-4">
@@ -67,9 +81,9 @@
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
       <% @recommendations.each do |recommendation| %>
-        <%= link_to "#{recommendation.name} for #{recommendation.category}", trip_label_checklist_items_path(@trip, recommendation), method: :post, class: "list-group-item p-1 btn btn-outline-dark" %>
+        <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
       <% end %>
       </ul>
-  </div>
+    </div>
   </div>
 </div>
