@@ -4,11 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :trips
-  has_many :invitations
-  has_many :items
+  has_many :trips, dependent: :destroy
+  has_many :invitations, dependent: :destroy
+  has_many :items, dependent: :destroy
   has_many :activities, through: :trips
   has_many :checklists, through: :trips
-  has_many :duties
+  has_many :duties, dependent: :destroy
   has_many :checklist_items, through: :duties
 end

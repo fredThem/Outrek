@@ -2,20 +2,43 @@
   <h1 class="font-weight-light py-3 text-center">Upcoming</h1>
   <% @my_trips.each do |trip| %>
     <% if !trip.finished %>
-      <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 24rem;">
+      <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 40rem;">
         <div class="card-body position-relative">
-          <p class="card-text">from <%= trip.start_date %> to <%= trip.end_date %></p>
+          <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
-          <p><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
+          <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
           <% trip.activities.each do |activity| %>
             <span class="badge bg-info"><%= activity.name %></span>
           <% end %>
           </p>
-          <p>Currently Going:
-            <%= trip.user.email %>
+          <p><strong>Trip Outrekers:</strong>
+           <span class="badge badge-primary"><%= trip.user.email %></span>
             <% trip.invitations.each do |invitation| %>
-              <%= invitation.user.email %>
+              <span class="badge badge-secondary"><%= invitation.user.email %></span>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <h1 class="font-weight-light py-3 text-center">Past Trips</h1>
+    <% @my_trips.each do |trip| %>
+    <% if trip.finished %>
+      <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 32rem;">
+        <div class="card-body position-relative">
+          <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
+          <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
+          <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
+          <p class="card-text">
+          <% trip.activities.each do |activity| %>
+            <span class="badge bg-info"><%= activity.name %></span>
+          <% end %>
+          </p>
+          <p><strong>Trip Outrekers:</strong>
+            <span class="badge badge-primary"><%= trip.user.email %></span>
+            <% trip.invitations.each do |invitation| %>
+              <span class="badge badge-secondary"><%= invitation.user.email %></span>
             <% end %>
           </p>
         </div>
