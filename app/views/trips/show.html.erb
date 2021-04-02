@@ -1,76 +1,88 @@
 <div class="row">
   <div class="col-8">
     <div class="container-sm">
-      <h4>Your Smart Checklist</h4>
-      <div class="row card-header p-2 m-0">
-        <i class="col-xm fas fa-user"></i>
-        <% @trip.invitations.each do |invitation| %>  
-          <% if invitation.user != @trip.user %>
-            <div class="col-xm card-header"><i class="fas fa-user"></i></div>
-          <% end %>
-        <% end %>
-        <div class="col-sm">Category</div>
-        <div class="col-sm">Label</div>
-        <div class="col-sm">Note</div>
-      </div>
-      <% @trip.checklist.checklist_items.each do |item| %>
-      <div class="card p-0">
-        <div class="row card-body p-2 m-0">
-          <div class="col-xs dropdown">
-            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <% if !item.users.include? @trip.user %>
-                <i class="text-secondary fas fa-plus-circle"></i>
-              <% else %>
-                <% @duty = @trip.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
-                <%= @duty.status %>
+      <table class="table caption-top">
+        <caption>Your Smart Checklist</caption>
+        <thead>
+          <tr>
+            <th>
+              <i class="fas fa-user"></i>
+            </th>
+            <% @trip.invitations.each do |invitation| %>
+              <% if invitation.user != @trip.user %>
+                <th class="col"><i class="fas fa-user"></i></th>
               <% end %>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li class="py-0 px-2 border-bottom border-top bg-secondary text-white">Item Actions</li>
-              <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
-              <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
-              <li class="py-0 px-2 border-bottom border-top bg-secondary text-white">Claim Duty</li>
-              <li><%= link_to "🎒 To Bring", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "🎒" }), method: :post, remote: true, class: "dropdown-item" %></li>
-              <li><%= link_to "✅ Bringing", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "✅" }), method: :post, remote: true, class: "dropdown-item" %></li>
-              <li><%= link_to "🛒 Buying", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "🛒" }), method: :post, remote: true, class: "dropdown-item" %></li>
-              <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
-            </ul>
-          </div>
-          <% @trip.invitations.each do |invitation| %>
-            <% if invitation.user != @trip.user %>
-              <div class="col-xs dropdown">
-                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <% if !item.users.include? @invitation.user %>
-                    <i class="fas fa-plus-circle"></i>
-                  <% else %>
-                    <% @duty = invitation.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
-                    <%= @duty.status %>
-                  <% end %>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li class="py-0 px-2 border-bottom border-top">Item Actions</li>
-                  <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
-                  <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
-                  <li class="py-0 px-2 border-bottom border-top">Claim Duty</li>
-                  <li><%= link_to "🎒 To Bring", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "🎒" }), method: :post, remote: true, class: "dropdown-item" %></li>
-                  <li><%= link_to "✅ Bringing", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "✅" }), method: :post, remote: true, class: "dropdown-item" %></li>
-                  <li><%= link_to "🛒 Buying", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "🛒" }), method: :post, remote: true, class: "dropdown-item" %></li>
-                  <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
-                </ul>
-              </div>
             <% end %>
-          <% end %>
-          <div class="col-sm">
-            <%= item.label.category %>
-          </div>
-          <div class="col-sm">
-            <%= item.label.name %>
-          </div>
-          <div class="col-sm">
-            <%= item.detail %>
+            <th scope="col">Category</th>
+            <th scope="col">Label</th>
+            <th scope="col">Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <th scope="row">#</th>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tbody>
+      </table>
+      <% @trip.checklist.checklist_items.each do |item| %>
+        <div class="card p-0">
+          <div class="row card-body p-2 m-0">
+            <div class="col-xs dropdown">
+              <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <% if !item.users.include? @trip.user %>
+                  <i class="text-secondary fas fa-plus-circle"></i>
+                <% else %>
+                  <% @duty = @trip.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
+                  <%= @duty.status %>
+                <% end %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li class="py-0 px-2 border-bottom border-top bg-secondary text-white">Item Actions</li>
+                <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
+                <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
+                <li class="py-0 px-2 border-bottom border-top bg-secondary text-white">Claim Duty</li>
+                <li><%= link_to "🎒 To Bring", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "🎒" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                <li><%= link_to "✅ Bringing", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "✅" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                <li><%= link_to "🛒 Buying", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "🛒" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
+              </ul>
+            </div>
+            <% @trip.invitations.each do |invitation| %>
+              <% if invitation.user != @trip.user %>
+                <div class="col-xs dropdown">
+                  <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <% if !item.users.include? @invitation.user %>
+                      <i class="fas fa-plus-circle"></i>
+                    <% else %>
+                      <% @duty = invitation.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
+                      <%= @duty.status %>
+                    <% end %>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li class="py-0 px-2 border-bottom border-top">Item Actions</li>
+                    <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
+                    <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
+                    <li class="py-0 px-2 border-bottom border-top">Claim Duty</li>
+                    <li><%= link_to "🎒 To Bring", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "🎒" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                    <li><%= link_to "✅ Bringing", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "✅" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                    <li><%= link_to "🛒 Buying", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "🛒" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                    <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                  </ul>
+                </div>
+              <% end %>
+            <% end %>
+            <div class="col-sm">
+              <%= item.label.category %>
+            </div>
+            <div class="col-sm">
+              <%= item.label.name %>
+            </div>
+            <div class="col-sm">
+              <%= item.detail %>
+            </div>
           </div>
         </div>
-      </div>
       <% end %>
       <%= link_to '+ item',  new_trip_checklist_item_path(@trip), class: "btn btn-dark" %>
     </div>
@@ -96,9 +108,9 @@
     <h4>Recommended for Your Activities:</h4>
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
-      <% @recommendations.each do |recommendation| %>
-        <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
-      <% end %>
+        <% @recommendations.each do |recommendation| %>
+          <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
+        <% end %>
       </ul>
     </div>
   </div>
