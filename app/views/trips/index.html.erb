@@ -13,9 +13,9 @@
           <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
-           <span class="badge badge-primary"><%= trip.user.email.split("@").first %></span>
+           <span class="badge badge-primary"><%= trip.user.email.split("@").first.capitalize %></span>
             <% trip.invitations.each do |invitation| %>
-              <span class="badge badge-secondary"><%= invitation.user.email.split("@").first %></span>
+              <span class="badge badge-secondary"><%= invitation.user.email.split("@").first.capitalize %></span>
             <% end %>
           </p>
         </div>
@@ -36,9 +36,9 @@
           <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
-            <span class="badge badge-primary"><%= trip.user.email.split("@").first %></span>
+            <span class="badge badge-primary"><%= trip.user.email.split("@").first.capitalize %></span>
             <% trip.invitations.each do |invitation| %>
-              <span class="badge badge-secondary"><%= invitation.user.email.split("@").first %></span>
+              <span class="badge badge-secondary"><%= invitation.user.email.split("@").first.capitalize %></span>
             <% end %>
           </p>
         </div>
