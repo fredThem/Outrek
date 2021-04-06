@@ -3,6 +3,6 @@ class InvitationMailerPreview < ActionMailer::Preview
   def invite_email
     @trip = Trip.last
     @invitation = Invitation.create(trip: @trip, user: @trip.user)
-    InvitationMailer.with(email: 'pianoquin@gmail.com', invitation: @invitation, owner: @trip.user).invite_email
+    InvitationMailer.with(email: 'pianoquin@gmail.com', invitation: @invitation, trip: @trip).invite_email
   end
 end
