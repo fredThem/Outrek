@@ -14,7 +14,7 @@
 
       .cls-3,
       .cls-4 {
-        stroke: #f9f5f1;
+        stroke: #f7f2ec;
         stroke-miterlimit: 10;
       }
 
