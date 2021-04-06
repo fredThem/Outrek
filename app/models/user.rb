@@ -11,4 +11,9 @@ class User < ApplicationRecord
   has_many :checklists, through: :trips
   has_many :duties
   has_many :checklist_items, through: :duties
+  has_one_attached :avatar
+
+  has_person_name
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end
