@@ -51,7 +51,7 @@ class TripsController < ApplicationController
     end
     @users = [@trip.user]
     @trip.invitations.each do |invitation|
-      @users << invitation.user
+      @users << invitation.user unless invitation.user == @trip.user
     end
   end
 
@@ -61,7 +61,7 @@ class TripsController < ApplicationController
   def update
     @trip.update(trips_params)
     if @trip.save
-      redirect_to trip_page(@trip)
+      redirect_to trip_path(@trip)
     else
       render :new
     end
@@ -69,7 +69,7 @@ class TripsController < ApplicationController
 
   def destroy
     @trip.destroy
-    redirect_to trips_page
+    redirect_to trips_path
   end
 
   private
