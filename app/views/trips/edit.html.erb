@@ -1,11 +1,5 @@
 <div class="container">
   <h1>Edit a Trip</h1>
   <hr>
-  <%= simple_form_for @trip do |f| %>
-    <%= f.input :destination %>
-    <%= f.input :description %>
-    <%= f.input :start_date, as: :date, html5: true%>
-    <%= f.input :end_date, as: :date, html5: true%>
-    <%= f.button :submit, class:"btn btn-primary btn-block" %>
-  <% end %>
+  <%= render "form", trip: @trip %>
 </div>
