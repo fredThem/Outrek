@@ -2,20 +2,21 @@
 // 1. All Bootstrap variables are here => https://github.com/twbs/bootstrap/blob/master/scss/_variables.scss
 // 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
 // 3. You can override them below!
-
+$enable-responsive-font-sizes: true;
 $brand: Outrek !default;
 $brand-color: #00307b !default;
 $brand-color-alt: #e2eaf2 !default;
 $brand-texture: url("brand/bg-topographic") !default;
-$brand-background-1: hsla(0, 0%, 97%, 1) !default;
+$brand-background-1: hsla(0,
+0%,
+97%,
+1) !default;
 $brand-bg-dark: $brand-color !default;
-
 // General style
 // $font-family-sans-serif:  $body-font;
 // $headings-font-family:    $headers-font;
 // $body-bg:                 $light-gray;
 // $font-size-base: 1rem;
-
 // Colors
 // $body-color: $gray;
 // $primary:    $blue;
@@ -23,10 +24,8 @@ $brand-bg-dark: $brand-color !default;
 // $info:       $yellow;
 // $danger:     $red;
 // $warning:    $orange;
-
 // Buttons & inputs' radius
 // $border-radius:    2px;
 // $border-radius-lg: 2px;
 // $border-radius-sm: 2px;
-
 // Override other variables below!
