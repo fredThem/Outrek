@@ -53,7 +53,7 @@
               <% if invitation.user != @trip.user %>
                 <div class="col-xs dropdown">
                   <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <% if !item.users.include? @invitation.user %>
+                    <% if !item.users.include? invitation.user %>
                       <i class="fas fa-plus-circle"></i>
                     <% else %>
                       <% @duty = invitation.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
