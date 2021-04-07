@@ -4,7 +4,11 @@
     <% if !trip.finished %>
       <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 40rem;">
         <div class="card-body position-relative">
-          <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
+          <% if trip.end_date != nil %>
+            <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
+          <% else %>
+            <p class="card-text">Planned for <%= trip.start_date %></p>
+          <% end %>
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
@@ -13,9 +17,9 @@
           <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
-           <span class="badge badge-primary"><%= trip.user.email.split("@").first.capitalize %></span>
+           <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
             <% trip.invitations.each do |invitation| %>
-              <span class="badge badge-secondary"><%= invitation.user.email.split("@").first.capitalize %></span>
+              <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
             <% end %>
           </p>
         </div>
@@ -23,11 +27,15 @@
     <% end %>
   <% end %>
   <h1 class="font-weight-light py-3 text-center">Past Trips</h1>
-    <% @my_trips.each do |trip| %>
+  <% @my_trips.each do |trip| %>
     <% if trip.finished %>
       <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 32rem;">
         <div class="card-body position-relative">
-          <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
+          <% if trip.end_date != nil %>
+            <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
+          <% else %>
+            <p class="card-text">Planned for <%= trip.start_date %></p>
+          <% end %>
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
@@ -36,9 +44,9 @@
           <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
-            <span class="badge badge-primary"><%= trip.user.email.split("@").first.capitalize %></span>
+            <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
             <% trip.invitations.each do |invitation| %>
-              <span class="badge badge-secondary"><%= invitation.user.email.split("@").first.capitalize %></span>
+              <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
             <% end %>
           </p>
         </div>

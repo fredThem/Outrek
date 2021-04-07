@@ -23,12 +23,12 @@
 # Past trips seed 1.0
 User.destroy_all
 user = User.create!([
-  {email: "Me@a.com", password: "123456"},
-  {email: "Ross@a.com", password: "123456"},
-  {email: "Rachel@a.com", password: "123456"},
-  {email: "Joey@a.com", password: "123456"},
-  {email: "Monica@a.com", password: "123456"},
-  {email: "Phoebe@a.com", password: "123456"}
+  {email: "a@a.com", first_name: "Jane", last_name: "Lee", password: "123456"},
+  {email: "ross@a.com", first_name: "Ross", last_name: "Geller", password: "123456"},
+  {email: "rachel@a.com", first_name: "Rachel", last_name: "Green", password: "123456"},
+  {email: "joey@a.com", first_name: "Joey", last_name: "Tribbiani", password: "123456"},
+  {email: "monica@a.com", first_name: "Monica", last_name: "Geller", password: "123456"},
+  {email: "phoebe@a.com", first_name: "Phoebe", last_name: "Buffay", password: "123456"}
 ])
 
 # Labels seed 2.0
@@ -85,6 +85,26 @@ all_labels.each do |label|
   Activity.first.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: Activity.first)
 end
 puts "Done!"
+
+trip = Trip.create!(
+  {
+    destination: "Big Sur, California",
+    description: "Ventana Big Sur. 48123 CA-1, Big Sur, CA 93920",
+    start_date: "Sep 15, 2021",
+    end_date: "Sep 23, 2021",
+    meetup_time: "9:00",
+    expected_end_time: "23:00",
+    finished: false,
+    user_id: user.first.id
+  }
+)
+
+Tripactivity6 = TripActivity.create({trip_id: trip.id, activity_id: Activity.first.id})
+
+invitation6 = Invitation.create([
+  {trip_id: trip.id, user_id: user.second.id},
+  {trip_id: trip.id, user_id: user.third.id}
+])
 
 trip = Trip.create!(
   {
@@ -202,5 +222,14 @@ invitation5 = Invitation.create([
   {trip_id: trip.id, user_id: user.fourth.id},
   {trip_id: trip.id, user_id: user.fifth.id}
 ])
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+# Activity.first.recommended_item_labels.each do |rec|
+#   unless relevant_labels.include? rec.label
+#     relevant_labels << rec.label
+#     ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+#   end
+# end
 
 puts "Done with trip and activity create!"

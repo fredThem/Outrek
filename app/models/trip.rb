@@ -1,6 +1,7 @@
 class Trip < ApplicationRecord
   belongs_to :user
   has_one :checklist, dependent: :destroy
+  has_many :checklist_items, through: :checklist, dependent: :destroy
   has_many :invitations, dependent: :destroy
   has_many :trip_activities, dependent: :destroy
   has_many :activities, through: :trip_activities
