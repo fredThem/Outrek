@@ -22,12 +22,12 @@
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
-          <% trip.activities.each do |activity| %>
-            <span class="badge bg-info"><%= activity.name %></span>
-          <% end %>
+            <% trip.activities.each do |activity| %>
+              <span class="badge bg-info"><%= activity.name %></span>
+            <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
-           <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
+            <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
             <% trip.invitations.each do |invitation| %>
               <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
             <% end %>
@@ -49,9 +49,9 @@
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
-          <% trip.activities.each do |activity| %>
-            <span class="badge bg-info"><%= activity.name %></span>
-          <% end %>
+            <% trip.activities.each do |activity| %>
+              <span class="badge bg-info"><%= activity.name %></span>
+            <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
             <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
