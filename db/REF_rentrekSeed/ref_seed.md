@@ -1,6 +1,120 @@
+#Seeding reference
+> based on [https://github.com/scionet/rentrek](https://github.com/scionet/rentrek)
+
+Required for scraping
+```ruby
 require "open-uri"
 require 'nokogiri'
+```
 
+Scraping functions
+```ruby
+
+def scrape_elements(url, selector)
+  html_file = open(url).read
+  html_doc = Nokogiri::HTML(html_file)
+  html_doc.search(selector)
+end
+```
+```ruby
+
+def scrape_product(url)
+  html_file = open(url).read
+  html_doc = Nokogiri::HTML(html_file)
+
+  prng = Random.new
+  random_price_per_day = prng.rand(6..40)
+
+  gear = {
+    name:   html_doc.search("h1.product_title").text,
+    description: html_doc.search(".woocommerce-product-details__short-description").text.strip,
+
+    price_per_day: random_price_per_day,
+    location: Faker::Address.full_address,
+    photo: html_doc.search(".woocommerce-product-gallery__image a").attribute('href').value
+
+  }
+  puts gear
+
+  return gear
+end
+```
+
+List to scrape through
+
+```ruby
+@equipment_category_urls = [
+  ["Backpacks",
+    ["https://www.outdoorsgeek.com/product/deuter-act-lite-6010-slim-line-backpack-rental/",
+      "https://www.outdoorsgeek.com/product/gregory-jade-backpack-rental/",
+      "https://www.outdoorsgeek.com/product/backpack-raincover-rental/"]
+  ],["Tents",
+    ["https://www.outdoorsgeek.com/product/marmot-tungsten-ultralight-1-person-tent-rental/",
+      "https://www.outdoorsgeek.com/product/big-agnes-copper-spur-hv-ul-2p-tent-rental/",
+      "https://www.outdoorsgeek.com/product/marmot-limelight-3p-rental/",
+      "https://www.outdoorsgeek.com/product/marmot-limestone-8p-rental/"]
+  ],["Sleeping Bags",
+    ["https://www.outdoorsgeek.com/product/north-face-campforter-double-20-sleeping-bag-rental/",
+      "https://www.outdoorsgeek.com/product/marmot-kids-trestles-30-degree-bag-rental/",
+      "https://www.outdoorsgeek.com/product/the-north-face-inferno-20-degree-down-bag-rental/"]
+  ],["Snowshoes",
+    ["https://www.outdoorsgeek.com/product/kids-snowshoe-rental/",
+      "https://www.outdoorsgeek.com/product/shoe-traction-chains-rental/",
+      "https://www.outdoorsgeek.com/product/black-diamond-cirque-gaiter-rental/",
+      "https://www.outdoorsgeek.com/product/adult-snowshoe-rental/"]
+  ],["Sleeping Pads",
+    ["https://www.outdoorsgeek.com/product/klymit-insulated-hammock-v-pad-rental/",
+      "https://www.outdoorsgeek.com/product/big-agnes-insulated-air-core-ultra-pad-rental/",
+      "https://www.outdoorsgeek.com/product/klymit-double-v-pad-rental/"]
+  ],["Cooking",
+    ["https://www.outdoorsgeek.com/product/msr-superfly-stove-without-autostart-rental/",
+      "https://www.outdoorsgeek.com/product/jetboil-minimo-rental/",
+      "https://www.outdoorsgeek.com/product/ao-soft-side-cooler-48-pack-rental/",
+      "https://www.outdoorsgeek.com/product/gsi-pinnacle-dualist-cookware-2-rental/"]
+  ],["GPS",
+    ["https://www.outdoorsgeek.com/product/inreach-mini-rental/",
+      "https://www.outdoorsgeek.com/product/inreach-explorer-rental/"]
+  ],["Bear Cans",
+    ["https://www.outdoorsgeek.com/product/bear-canister-rental/"]
+  ],
+]
+```
+Creating equipments for fake_users
+```ruby
+def seed_equipment_enhanced(users)
+  puts 'Cleaning database...'
+  puts "__________________"
+
+
+
+  @equipment_category_urls.each do |category|
+    category[1].each do |url|
+      gear = scrape_product(url)
+
+      e =  Equipment.create(
+        name: gear[:name],
+        description: gear[:description],
+
+        user_id: User.order(Arel.sql('RANDOM()')).first.id,
+
+        category: Category.find_by(name: category[0]),
+        price_per_day: gear[:price_per_day],
+        location: "Montreal, Qc"
+      )
+      e.photos.attach( io: URI.open(gear[:photo]), filename: "thumnail.png",  content_type: 'image/png')
+      e.save if e.valid?
+      puts "#{e.name} created"
+      puts gear
+    end
+  end
+
+  puts "Equipment Generated!"
+end
+```
+
+#### fake users
+List of users
+```ruby
 @fake_users = [
   {
     "name": "Sasha Ho",
@@ -51,101 +165,9 @@ require 'nokogiri'
     "photo": "https:\/\/uifaces.co\/our-content\/donated\/Zh_4oc5l.jpg"
   }
 ]
+```
 
-def scrape_elements(url, selector)
-  html_file = open(url).read
-  html_doc = Nokogiri::HTML(html_file)
-  html_doc.search(selector)
-end
-
-def scrape_product(url)
-  html_file = open(url).read
-  html_doc = Nokogiri::HTML(html_file)
-
-  prng = Random.new
-  random_price_per_day = prng.rand(6..40)
-  # random_category = Category.order(Arel.sql('RANDOM()')).first
-
-  gear = {
-    name:   html_doc.search("h1.product_title").text,
-    description: html_doc.search(".woocommerce-product-details__short-description").text.strip,
-
-    price_per_day: random_price_per_day,
-    location: Faker::Address.full_address,
-    photo: html_doc.search(".woocommerce-product-gallery__image a").attribute('href').value
-
-  }
-  puts gear
-
-  return gear
-end
-
-@equipment_category_urls = [
-  ["Backpacks",
-    ["https://www.outdoorsgeek.com/product/deuter-act-lite-6010-slim-line-backpack-rental/",
-      "https://www.outdoorsgeek.com/product/gregory-jade-backpack-rental/",
-      "https://www.outdoorsgeek.com/product/backpack-raincover-rental/"]
-  ],["Tents",
-    ["https://www.outdoorsgeek.com/product/marmot-tungsten-ultralight-1-person-tent-rental/",
-      "https://www.outdoorsgeek.com/product/big-agnes-copper-spur-hv-ul-2p-tent-rental/",
-      "https://www.outdoorsgeek.com/product/marmot-limelight-3p-rental/",
-      "https://www.outdoorsgeek.com/product/marmot-limestone-8p-rental/"]
-  ],["Sleeping Bags",
-    ["https://www.outdoorsgeek.com/product/north-face-campforter-double-20-sleeping-bag-rental/",
-      "https://www.outdoorsgeek.com/product/marmot-kids-trestles-30-degree-bag-rental/",
-      "https://www.outdoorsgeek.com/product/the-north-face-inferno-20-degree-down-bag-rental/"]
-  ],["Snowshoes",
-    ["https://www.outdoorsgeek.com/product/kids-snowshoe-rental/",
-      "https://www.outdoorsgeek.com/product/shoe-traction-chains-rental/",
-      "https://www.outdoorsgeek.com/product/black-diamond-cirque-gaiter-rental/",
-      "https://www.outdoorsgeek.com/product/adult-snowshoe-rental/"]
-  ],["Sleeping Pads",
-    ["https://www.outdoorsgeek.com/product/klymit-insulated-hammock-v-pad-rental/",
-      "https://www.outdoorsgeek.com/product/big-agnes-insulated-air-core-ultra-pad-rental/",
-      "https://www.outdoorsgeek.com/product/klymit-double-v-pad-rental/"]
-  ],["Cooking",
-    ["https://www.outdoorsgeek.com/product/msr-superfly-stove-without-autostart-rental/",
-      "https://www.outdoorsgeek.com/product/jetboil-minimo-rental/",
-      "https://www.outdoorsgeek.com/product/ao-soft-side-cooler-48-pack-rental/",
-      "https://www.outdoorsgeek.com/product/gsi-pinnacle-dualist-cookware-2-rental/"]
-  ],["GPS",
-    ["https://www.outdoorsgeek.com/product/inreach-mini-rental/",
-      "https://www.outdoorsgeek.com/product/inreach-explorer-rental/"]
-  ],["Bear Cans",
-    ["https://www.outdoorsgeek.com/product/bear-canister-rental/"]
-  ],
-]
-
-def seed_equipment_enhanced(users)
-  puts 'Cleaning database...'
-  puts "__________________"
-
-
-
-  @equipment_category_urls.each do |category|
-    category[1].each do |url|
-      gear = scrape_product(url)
-
-      e =  Equipment.create(
-        name: gear[:name],
-        description: gear[:description],
-
-        user_id: User.order(Arel.sql('RANDOM()')).first.id,
-
-        category: Category.find_by(name: category[0]),
-        price_per_day: gear[:price_per_day],
-        location: "Montreal, Qc"
-      )
-      e.photos.attach( io: URI.open(gear[:photo]), filename: "thumnail.png",  content_type: 'image/png')
-      e.save if e.valid?
-      puts "#{e.name} created"
-      puts gear
-    end
-  end
-
-  puts "Equipment Generated!"
-end
-
+```ruby
 @fake_users_created = []
 def seed_users
 
@@ -175,6 +197,10 @@ def seed_users
   puts @fake_users_created
   seed_equipment_enhanced(@fake_users_created)
 end
+```
+#### Categories
+Here we are scraping for categories 
+```ruby
 
 def seed_categories_enhanced
   puts 'Cleaning categories...'
@@ -201,5 +227,11 @@ def seed_categories_enhanced
   puts "__________________"
   puts Category.all
 end
+```
+Keeping all methods call at the end makes it easy to comment out unrequired seedings and visualize the code flow.
+```ruby
+
 seed_categories_enhanced
 seed_users
+
+```
