@@ -1,3 +1,5 @@
+require "down"
+
 class TripsController < ApplicationController
   before_action :set_trip, only: %i[show edit update destroy]
 
@@ -35,6 +37,8 @@ class TripsController < ApplicationController
       end
       @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     end
+    @map_image = Down.download("https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+601d72(#{@trip.longitude},#{@trip.latitude})/#{@trip.longitude},#{@trip.latitude},7,0/300x300?access_token=#{ENV["MAPBOX_API_KEY"]}")
+    @trip.photo.attach(io: @map_image, filename: 'map_image.png', content_type: 'image/png')
     if @trip.save && @checklist.save
       redirect_to trip_path(@trip)
     else
