@@ -35,6 +35,8 @@ class TripsController < ApplicationController
       end
       @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     end
+    raise
+    # add download and upload map_image
     if @trip.save && @checklist.save
       redirect_to trip_path(@trip)
     else
