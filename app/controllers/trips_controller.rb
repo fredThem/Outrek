@@ -14,7 +14,6 @@ class TripsController < ApplicationController
     @trip_next = @trips_future.first
     @trips_future.delete_at(0)
     @trips_past = @my_trips.select { |trip| trip.start_date < Date.today}
-    raise
   end
 
   def new
