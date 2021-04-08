@@ -11,7 +11,14 @@ class TripsController < ApplicationController
         @my_trips << invitation.trip if invitation.user == current_user
       end
     end
-    @my_trips = @my_trips.order(:start_date)
+    @my_trips = @my_trips.order(start_date: :asc)
+  end
+
+  def index_split
+    # raise
+    # @up_next = @my_trips.first
+    # @upcoming = @my_trips...
+    # @past_trip = @my_trips...
   end
 
   def new

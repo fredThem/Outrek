@@ -1,0 +1,15 @@
+<% yield %>
+
+<div role="display-dates" class="d-flex gx-5 h6">
+  <div class="">
+    <%= trip.start_date.strftime("%b %e, %Y,") %>
+    <%= trip.meetup_time.time.strftime("%R") %>
+  </div>
+  <i class="bi bi-arrow-right mx-2"></i>
+  <div class="">
+    <% if trip.end_date != nil %>
+      <%= trip.start_date.strftime("%b %e, %Y,") %>
+    <% end %>
+    <%= trip.expected_end_time.time.strftime("%R") %>
+  </div>
+</div>
