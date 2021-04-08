@@ -4,20 +4,30 @@
     <% if !trip.finished %>
       <div class="card rounded flex-md-row mb-4 shadow mx-auto" style="width: 40rem;">
         <div class="card-body position-relative">
-          <% if trip.end_date != nil %>
-            <p class="card-text"><strong>from</strong> <%= trip.start_date %> <strong>to</strong> <%= trip.end_date %></p>
-          <% else %>
-            <p class="card-text">Planned for <%= trip.start_date %></p>
-          <% end %>
+          <div class="d-flex gx-5">
+            <div class="">
+              <%= trip.start_date.strftime("%b %e, %Y,") %>
+              <%= trip.meetup_time.time.strftime("%R") %>
+            </div>
+            <i class="bi bi-arrow-right"></i>
+            <div class="">
+              <% if trip.end_date != nil %>
+                <%= trip.start_date.strftime("%b %e, %Y,") %>
+              <% end %>
+              <%= trip.expected_end_time.time.strftime("%R") %>
+            </div>
+          </div>
+          <%# raise %>
+
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
-          <% trip.activities.each do |activity| %>
-            <span class="badge bg-info"><%= activity.name %></span>
-          <% end %>
+            <% trip.activities.each do |activity| %>
+              <span class="badge bg-info"><%= activity.name %></span>
+            <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
-           <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
+            <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
             <% trip.invitations.each do |invitation| %>
               <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
             <% end %>
@@ -39,9 +49,9 @@
           <h5 class="card-title"><%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark" %></h5>
           <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
           <p class="card-text">
-          <% trip.activities.each do |activity| %>
-            <span class="badge bg-info"><%= activity.name %></span>
-          <% end %>
+            <% trip.activities.each do |activity| %>
+              <span class="badge bg-info"><%= activity.name %></span>
+            <% end %>
           </p>
           <p><strong>Trip Outrekers:</strong>
             <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
