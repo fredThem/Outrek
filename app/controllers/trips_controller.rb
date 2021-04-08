@@ -9,7 +9,8 @@ class TripsController < ApplicationController
         @my_trips << invitation.trip if invitation.user == current_user
       end
     end
-    @my_trips = @my_trips.order(:start_date)
+    @my_trips = @my_trips.order(start_date: :asc)
+  end
   end
 
   def new
