@@ -1,9 +1,16 @@
 <div class="card mb-4 shadow">
   <div class="row no-gutters">
-    <div class="col-md-4 order-md-1">
-      <img class="card-img h-100" styles="objet-fit: cover;" src="https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/<%= trip.longitude %>,<%= trip.latitude %>,9,0/300x300@2x?access_token=<%= ENV['MAPBOX_API_KEY'] %>" alt="">
-    </div>
-    <div class="col-md-8">
+
+    <% if local_assigns[:map] %>
+
+      <div class="<%= local_assigns[:card_img_col] %>">
+
+        <img class="card-img h-100" style="object-fit: cover; <%= local_assigns[:map_img_style] %>" 
+        src="https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/<%= trip.longitude %>,<%= trip.latitude %>,9,0/300x300@2x?access_token=<%= ENV['MAPBOX_API_KEY'] %>" alt="">
+      </div>
+
+    <% end %>
+    <div class="<%= local_assigns[:card_body_col] %>">
       <div class="card-body position-relative">
         <%= render 'trips/card/display_dates', { trip: trip } %>
         <%# raise %>

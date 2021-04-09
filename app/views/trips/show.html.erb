@@ -1,6 +1,15 @@
-<div class="row">
-  <div class="col-8">
-    <div class="container-sm">
+<div class="container-fluid p-5 vh-100">
+  <div class="row mb-2">
+
+    <button type="button" class="btn btn-outline-primary">
+      <i class="bi bi-plus-circle-fill"></i>
+      <%= link_to 'Add item',  new_trip_checklist_item_path(@trip), class: "" %>
+    </button>
+
+  </div>
+  <div class="row">
+    <div class="flex-grow-1 overflow-scroll">
+
       <table class="table caption-top">
         <caption>Your Smart Checklist</caption>
         <thead>
@@ -85,49 +94,52 @@
           </div>
         </div>
       <% end %>
-      <%= link_to '+ item',  new_trip_checklist_item_path(@trip), class: "btn btn-dark" %>
+
     </div>
-  </div>
-  <div class="col-4">
-    <h4>Trip Info</h4>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <% if @trip.end_date != nil %>
-          <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %> <strong>to</strong> <%= @trip.end_date %></p>
-        <% else %>
-          <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %></p>
-        <% end %>
-        <h5 class="card-title"><%= @trip.description %></h5>
-        <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= @trip.destination %></p>
-        <p class="card-text"></p>
-        <% @trip.activities.each do |activity| %>
-          <span class="badge bg-info text-dark"><%= activity.name %></span>
-        <% end %>
-        <p><strong>Trip Outrekers:</strong>
-          <% @users.each do |user| %>
-            <%= user.first_name.capitalize %>
+    <div class="col-md-4 col-lg-3 overflow-scroll">
+
+      <%= render partial: "trips/card/trip_card", locals: { trip: @trip, card_img_col: 'w-100', card_body_col: 'w-100', map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
+
+      <h4>Trip Info</h4>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <% if @trip.end_date != nil %>
+            <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %> <strong>to</strong> <%= @trip.end_date %></p>
+          <% else %>
+            <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %></p>
           <% end %>
-        </p>
+          <h5 class="card-title"><%= @trip.description %></h5>
+          <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= @trip.destination %></p>
+          <p class="card-text"></p>
+          <% @trip.activities.each do |activity| %>
+            <span class="badge bg-info text-dark"><%= activity.name %></span>
+          <% end %>
+          <p><strong>Trip Outrekers:</strong>
+            <% @users.each do |user| %>
+              <%= user.first_name.capitalize %>
+            <% end %>
+          </p>
 
-        <div class="dropdown">
-          <a class="text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-ellipsis-h"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><%= link_to "Invite an Outreker", new_trip_invitation_path(@trip, @invitation), class: "dropdown-item" %></li>
-            <li><%= link_to "Cancel Trip", trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
-          </ul>
+          <div class="dropdown">
+            <a class="text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-ellipsis-h"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><%= link_to "Invite an Outreker", new_trip_invitation_path(@trip, @invitation), class: "dropdown-item" %></li>
+              <li><%= link_to "Cancel Trip", trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
+            </ul>
+          </div>
+
         </div>
-
       </div>
-    </div>
-    <h4>Recommended for Your Activities:</h4>
-    <div class="card" style="width: 18rem;">
-      <ul class="list-group list-group-flush">
-        <% @recommendations.each do |recommendation| %>
-          <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
-        <% end %>
-      </ul>
+      <h4>Recommended for Your Activities:</h4>
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <% @recommendations.each do |recommendation| %>
+            <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
