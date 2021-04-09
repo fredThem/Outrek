@@ -1,3 +1,5 @@
+require "down"
+
 class TripsController < ApplicationController
   before_action :set_trip, only: %i[show edit update destroy]
 

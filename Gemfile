@@ -40,6 +40,9 @@ gem 'geocoder', '~> 1.6', '>= 1.6.6'
 gem 'cloudinary', '~> 1.16.0'
 gem 'name_of_person'
 
+# Stream downloads using net/http, http.rb or wget
+gem "down", "~> 5.0"
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
