@@ -8,6 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import {initAutocomplete} from "../plugins/init_autocomplete"
+import { initMapbox } from '../plugins/init_mapbox';
 
 Rails.start()
 Turbolinks.start()
@@ -28,4 +29,13 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
   initAutocomplete();
+  initMapbox();
+});
+
+var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+ 
+mapboxgl.accessToken = ENV["MAPBOX_API_KEY"];
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/outdoors-v11'
 });

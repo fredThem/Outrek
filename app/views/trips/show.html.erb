@@ -92,6 +92,7 @@
     <h4>Trip Info</h4>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
+        <div id='map' style='width: 100%; height: 200px;'></div>
         <% if @trip.end_date != nil %>
           <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %> <strong>to</strong> <%= @trip.end_date %></p>
         <% else %>
