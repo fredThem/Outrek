@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
 
+  # change to this main page for users logged in
+  # root to: 'trips#index'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
     # post '/duties', to: 'duties#to_bring', as: :to_bring
   resources :items
