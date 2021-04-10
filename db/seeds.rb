@@ -1,35 +1,38 @@
-# This was created for testing
-# Item.destroy_all
-# Label.destroy_all
-# User.destroy_all
+require "open-uri"
 
-# user = User.create!(email: 'a@a.com', password: '123456')
-# label = Label.create!(name: 'boots', category: 'hiking')
-# item = Item.new(name: 'boots')
-# item.user = user
-# item.label = label
-# item.save!
-
-# require 'csv'
-
-# CSV.foreach('app/assets/csv/gosford_overnight_packing.csv') do |row|
-#   label_name = row[1]
-#   label_category = row[0]
-#   puts "Adding one label from Fred's past trip..."
-#   Label.create!(name: label_name, category: label_category)
-#   puts "Added #{label_name}!"
-# end
-
-# Past trips seed 1.0
 User.destroy_all
-user = User.create!([
-  {email: "a@a.com", first_name: "Jane", last_name: "Lee", password: "123456"},
-  {email: "ross@a.com", first_name: "Ross", last_name: "Geller", password: "123456"},
-  {email: "rachel@a.com", first_name: "Rachel", last_name: "Green", password: "123456"},
-  {email: "joey@a.com", first_name: "Joey", last_name: "Tribbiani", password: "123456"},
-  {email: "monica@a.com", first_name: "Monica", last_name: "Geller", password: "123456"},
-  {email: "phoebe@a.com", first_name: "Phoebe", last_name: "Buffay", password: "123456"}
-])
+
+def addUser(picture, name)
+  user = User.create!(
+    {email: "#{name}@email.com", first_name: name, last_name: "lee", password: "123456"}
+  )
+
+  user.avatar.attach(
+    io: URI.open(picture), filename: "#{name}-pic.png"
+  )
+  return user
+end
+
+janeAvatar = "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80"
+jane = addUser(janeAvatar, "jane")
+
+rossAvatar = "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+ross = addUser(rossAvatar, "ross")
+
+rachelAvatar = "https://images.unsplash.com/photo-1498551172505-8ee7ad69f235?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+rachel = addUser(rachelAvatar, "rachel")
+
+joeyAvatar = "https://images.unsplash.com/photo-1590086782957-93c06ef21604?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8bWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+joey = addUser(joeyAvatar, "joey")
+
+monicaAvatar = "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8d29tYW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+monica = addUser(monicaAvatar, "monica")
+
+phoebeAvatar = "https://images.unsplash.com/photo-1482849297070-f4fae2173efe?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTA0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+phoebe = addUser(phoebeAvatar, "phoebe")
+
+chandlerAvatar = "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTd8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+chandler = addUser(chandlerAvatar, "chandler")
 
 # Labels seed 2.0
 labels = {
@@ -95,15 +98,15 @@ trip = Trip.create!(
     meetup_time: "9:00",
     expected_end_time: "23:00",
     finished: false,
-    user_id: user.first.id
+    user_id: jane.id
   }
 )
 
 Tripactivity6 = TripActivity.create({trip_id: trip.id, activity_id: Activity.first.id})
 
 invitation6 = Invitation.create([
-  {trip_id: trip.id, user_id: user.second.id},
-  {trip_id: trip.id, user_id: user.third.id}
+  {trip_id: trip.id, user_id: ross.id},
+  {trip_id: trip.id, user_id: rachel.id}
 ])
 
 trip = Trip.create!(
@@ -115,7 +118,7 @@ trip = Trip.create!(
     meetup_time: "8:00",
     expected_end_time: "12:00",
     finished: false,
-    user_id: user.first.id
+    user_id: jane.id
   }
 )
 
@@ -124,7 +127,7 @@ Tripactivity1 = TripActivity.create(
 )
 
 invitation1 = Invitation.create(
-  {trip_id: trip.id, user_id: user.second.id}
+  {trip_id: trip.id, user_id: monica.id}
 )
 
 trip = Trip.create!(
@@ -136,7 +139,7 @@ trip = Trip.create!(
     meetup_time: "10:00",
     expected_end_time: "19:00",
     finished: true,
-    user_id: user.first.id
+    user_id: jane.id
   }
 )
 
@@ -147,8 +150,8 @@ Tripactivity2 = TripActivity.create([
 ])
 
 invitation2 = Invitation.create([
-  {trip_id: trip.id, user_id: user.second.id},
-  {trip_id: trip.id, user_id: user.third.id}
+  {trip_id: trip.id, user_id: phoebe.id},
+  {trip_id: trip.id, user_id: joey.id}
 ])
 
 trip = Trip.create!(
@@ -160,7 +163,7 @@ trip = Trip.create!(
     meetup_time: "8:00",
     expected_end_time: "15:00",
     finished: true,
-    user_id: user.first.id
+    user_id: jane.id
   }
 )
 
@@ -170,8 +173,8 @@ Tripactivity3 = TripActivity.create([
 ])
 
 invitation3 = Invitation.create([
-  {trip_id: trip.id, user_id: user.fourth.id},
-  {trip_id: trip.id, user_id: user.fifth.id}
+  {trip_id: trip.id, user_id: chandler.id},
+  {trip_id: trip.id, user_id: ross.id}
 ])
 
 trip = Trip.create!(
@@ -183,7 +186,7 @@ trip = Trip.create!(
     meetup_time: "7:00",
     expected_end_time: "19:00",
     finished: true,
-    user_id: user.first.id
+    user_id: jane.id
   }
 )
 
@@ -194,10 +197,10 @@ Tripactivity4 = TripActivity.create([
 ])
 
 invitation4 = Invitation.create([
-  {trip_id: trip.id, user_id: user.second.id},
-  {trip_id: trip.id, user_id: user.third.id},
-  {trip_id: trip.id, user_id: user.fourth.id},
-  {trip_id: trip.id, user_id: user.fifth.id}
+  {trip_id: trip.id, user_id: chandler.id},
+  {trip_id: trip.id, user_id: monica.id},
+  {trip_id: trip.id, user_id: joey.id},
+  {trip_id: trip.id, user_id: ross.id}
 ])
 
 trip = Trip.create!(
@@ -209,7 +212,7 @@ trip = Trip.create!(
     meetup_time: "7:30",
     expected_end_time: "20:00",
     finished: true,
-    user_id: user.first.id
+    user_id: jane.id
   }
 )
 
@@ -219,17 +222,8 @@ Tripactivity5 = TripActivity.create([
 ])
 
 invitation5 = Invitation.create([
-  {trip_id: trip.id, user_id: user.fourth.id},
-  {trip_id: trip.id, user_id: user.fifth.id}
+  {trip_id: trip.id, user_id: joey.id},
+  {trip_id: trip.id, user_id: ross.id}
 ])
-
-checklist = Checklist.create!(trip_id: trip.id)
-
-# Activity.first.recommended_item_labels.each do |rec|
-#   unless relevant_labels.include? rec.label
-#     relevant_labels << rec.label
-#     ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
-#   end
-# end
 
 puts "Done with trip and activity create!"
