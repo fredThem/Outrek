@@ -244,7 +244,6 @@ GEM
       turbolinks-source (~> 5.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    ui_faces (0.1.4)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -306,7 +305,6 @@ DEPENDENCIES
   turbolinks (~> 5)
   turbolinks_render
   tzinfo-data
-  ui_faces
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
