@@ -65,7 +65,6 @@ class TripsController < ApplicationController
       @users << invitation.user unless invitation.user == @trip.user
     end
     @center = { lat: @trip.latitude, lng: @trip.longitude }
-    # raise
   end
 
   def edit
