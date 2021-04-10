@@ -1,5 +1,5 @@
 
-<%= render 'trips/card/display_dates', { trip: trip } %>
+
 
 <% trip.activities.each do |activity| %>
   <span class="badge bg-info"><%= activity.name %></span>
@@ -9,6 +9,7 @@
 <% trip.invitations.each do |invitation| %>
   <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
 <% end %>
+
 
 <%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark h3" %>
 

@@ -5,7 +5,6 @@ class Trip < ApplicationRecord
   has_many :invitations, dependent: :destroy
   has_many :trip_activities, dependent: :destroy
   has_many :activities, through: :trip_activities
-  has_one_attached :photo
 
   validates :destination, presence: true
   validates :description, presence: true,
