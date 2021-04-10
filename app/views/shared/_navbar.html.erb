@@ -1,27 +1,32 @@
 <nav class="navbar navbar-expand-sm navbar-light mb-5">
   <div class="container-fluid justify-content-between">
-    <%= link_to :root, class: "navbar-brand" do %>
-      <%= show_svg('brand/Outrek_logoType.svg')  %>
+    <%= link_to :root, class: "navbar-brand mb-2 mb-lg-0" do %>
+      <%= show_svg('brand/Outrek_logoType.svg') %>
     <% end %>
-    <ul class="navbar-nav justify-content-end align-items-center flex-row">
-      <li class="nav-item active">
-        <%= link_to 'Plan a trip', new_trip_path, class: 'btn btn-outline-primary my-2 my-sm-0 ml-2' %>
-      </li>
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <%= tag.i class: "bi bi-person-circle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
-            <%= link_to 'Edit My Profile', edit_user_registration_path(@user),class: "dropdown-item" %>
-            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-            <%#= link_to "My profile", profile_path, class: "dropdown-item" %>
-            <%= link_to "My Trips", trips_path, class: "dropdown-item" %>
-          </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav justify-content-end align-items-center flex-row">
+        <li class="nav-item active">
+          <%= link_to 'Plan a trip', new_trip_path, class: 'btn btn-primary my-2 my-sm-0 ml-2' %>
         </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link ml-3" %>
-        </li>
-      <% end %>
-    </ul>
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <%= tag.i class: "bi bi-person-circle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
+              <%= link_to 'Edit My Profile', edit_user_registration_path(@user),class: "dropdown-item" %>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+              <%#= link_to "My profile", profile_path, class: "dropdown-item" %>
+              <%= link_to "My Trips", trips_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link ml-3" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </nav>

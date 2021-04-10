@@ -1,23 +1,24 @@
-<div class="container py-5 mt-5 text-center" style="max-width: 400px;">
-  <h2>Edit Profile<%# resource_name.to_s.humanize %></h2>
+<div class="container text-center" style="max-width: 400px;">
+  <h2 class="mb-3">Edit Profile<%# resource_name.to_s.humanize %></h2>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
     <%= f.error_notification %>
-    <div class="form-group">
+    <div class="form-group d-flex flex flex-column bd-highlight mb-3 d-flex justify-content-center">
 
-      <div class=""><%= cl_image_tag resource.avatar.key, class:"avatar"  %></div>
-      <div class="p-0 avatar"
-                style="width: 230px; height: 100%; min-height;
+      <%#= cl_image_tag resource.avatar.key, class:"avatar"  %>
+
+      <div class="p-0 avatar mx-auto mb-2"
+                style="width: 200px; height: 100%; min-height;
                 background-image: url(
                   <%= cl_image_path(resource.avatar.key,
                   :transformation => {:effect => "blur:1000"}) %>);
                   background-size: cover;">
-        <%= cl_image_tag resource.avatar.key, style: "width: auto; height: 230px;"%>
+        <%= cl_image_tag resource.avatar.key, style: "width: auto; height: 200px;"%>
 
       </div>
       <div class="field">
-        <%= f.label :avatar %>
-        <%= f.file_field :avatar %>
+        <%# f.label :avatar %>
+        <%= f.file_field :avatar, class: "ml-5" %>
 
       </div>
 
