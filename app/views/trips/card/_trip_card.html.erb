@@ -9,7 +9,7 @@
       </div>
 
     <% end %>
-    
+
     <div class="<%= local_assigns[:card_body_col] %>">
       <div class="card-body position-relative">
         <%= render 'trips/card/display_dates', { trip: trip } %>
@@ -22,9 +22,24 @@
           <% end %>
         </p>
         <p><strong>Trip Outrekers:</strong>
+        <br>
           <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
+            <% if trip.user.avatar.attached? %>
+              <%= cl_image_tag trip.user.avatar.key, height: '60px', width: '60px', style: "object-fit: cover", class: "rounded-circle"  %>
+            <% else %>
+              <div class="border-3 rounded-circle d-flex" width="40" height="40">
+                <i class="bi bi-person-bounding-box"></i>
+              </div>
+            <% end %>
           <% trip.invitations.each do |invitation| %>
             <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
+              <% if invitation.user.avatar.attached? %>
+                  <%= cl_image_tag invitation.user.avatar.key, height: '60px', width: '60px', style: "object-fit: cover", class: "rounded-circle"  %>
+                <% else %>
+                  <div class="border-3 rounded-circle d-flex" width="40" height="40">
+                    <i class="bi bi-person-bounding-box"></i>
+                  </div>
+                <% end %>
           <% end %>
         </p>
       </div>
