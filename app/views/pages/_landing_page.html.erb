@@ -1,0 +1,15 @@
+<%= content_for :header do %>
+  <% if user_signed_in? %>
+  <%# raise %>
+    <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: local_assigns[:trip] } %>
+                 ⬇<br>
+    render trip next here
+ <br>  ⬆
+  <% else %>
+    <%= render 'jumbotron' %>
+  <% end %>
+<% end %>
+
+<%= content_for :main do %>
+  <div class="display-1 text-white">Yield should be here</div>
+<% end %>

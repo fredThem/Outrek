@@ -1,0 +1,22 @@
+<div class="">
+  <div class="mt-3 pt-2 text-center">
+
+    <%= content_for :header%>
+
+    <%= show_svg('art/high-peaks-summit.svg') %>
+  </div>
+</div>
+<main class="linear-gradient-brand-main">
+  <div class="forestry-bg" style="height:100vh;">
+    <div class="container-sm" style="max-width:42em;">
+      <%# render "trips/new.html.erb" %>
+
+      <div class="display-1 text-white">
+
+        <%= content_for :main%>
+
+      </div>
+
+    </div>
+  </div>
+</main>
