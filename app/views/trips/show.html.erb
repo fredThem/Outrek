@@ -114,6 +114,11 @@
     <h4>Trip Info</h4>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
+        <div id="map"
+          style="width: 100%; height: 200px;"
+          data-center="<%= @center %>"
+          data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
         <% if @trip.end_date != nil %>
           <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %> <strong>to</strong> <%= @trip.end_date %></p>
         <% else %>
@@ -130,7 +135,6 @@
             <%= user.first_name.capitalize %>
           <% end %>
         </p>
-
         <div class="dropdown">
           <a class="text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-ellipsis-h"></i>
@@ -140,7 +144,6 @@
             <li><%= link_to "Cancel Trip", trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
           </ul>
         </div>
-
       </div>
     </div>
     <h4>Recommended for Your Activities:</h4>

@@ -28,11 +28,11 @@
   margin-bottom: -10vh;
 }
 .full-hike-bg {
-  background-image: url("art/full-hike-bg.svg");
+  background-image: url("../../assets/images/art/full-hike-bg.svg");
 }
 
 .forestry-bg {
-  background-image: linear-gradient($brand-bg-dark, #5a399a), url("art/forestry-bg.svg"),
+  background-image: linear-gradient($brand-bg-dark, #5a399a), url("../../assets/images/art/forestry-bg.svg"),
     linear-gradient($brand-bg-dark, #5a399a);
   background-size: 100% 100%;
   background-blend-mode: overlay;
