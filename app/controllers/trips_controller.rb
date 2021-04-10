@@ -11,14 +11,11 @@ class TripsController < ApplicationController
         @my_trips << invitation.trip if invitation.user == current_user
       end
     end
-    @my_trips = @my_trips.order(start_date: :asc)
-  end
-
-  def index_split
-    # raise
-    # @up_next = @my_trips.first
-    # @upcoming = @my_trips...
-    # @past_trip = @my_trips...
+    @my_trips = @my_trips.order(:start_date)
+    @trips_future = @my_trips.select { |trip| trip.start_date > Date.today}
+    @trip_next = @trips_future.first
+    @trips_future.delete_at(0)
+    @trips_past = @my_trips.select { |trip| trip.start_date < Date.today}
   end
 
   def new
@@ -44,8 +41,6 @@ class TripsController < ApplicationController
       end
       @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     end
-    @map_image = Down.download("https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s+601d72(#{@trip.longitude},#{@trip.latitude})/#{@trip.longitude},#{@trip.latitude},7,0/300x300?access_token=#{ENV[’MAPBOX_API_KEY‘]}")
-    @trip.photo.attach(io: @map_image, filename: 'map_image.png', content_type: 'image/png')
     if @trip.save && @checklist.save
       redirect_to trip_path(@trip)
     else

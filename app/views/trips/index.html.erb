@@ -1,8 +1,14 @@
 <div class="container-sm">
+  <h1 class="font-weight-light py-3 text-center"><%= (@trip_next.start_date - Date.today).to_i %> Days Left Until</h1>
+  <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
+  <%= render partial: "trips/card/trip_card", locals: { trip: @trip_next, map: true, myclass: 'hello' } %>
   <h1 class="font-weight-light py-3 text-center">Upcoming</h1>
-  <% @my_trips.each do |trip| %>
-  <% if !trip.finished %>
-    <%= render partial: "trips/card/trip_card", locals: { trip: trip } %>
+  <% @trips_future.each do |trip| %>
+    <%= render partial: "trips/card/trip_card", locals: { trip: trip, map: true } %>
+  <% end %>
+  <h1 class="font-weight-light py-3 text-center">Past Trips</h1>
+  <% @trips_past.each do |trip| %>
+    <%= render partial: "trips/card/trip_card", locals: { trip: trip, map: true} %>
   <% end %>
   <% end %>
   <h1 class="font-weight-light py-3 text-center">Past Trips</h1>
