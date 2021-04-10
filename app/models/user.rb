@@ -16,4 +16,5 @@ class User < ApplicationRecord
   has_person_name
   validates :first_name, presence: true
   validates :last_name, presence: true
+  # validates :avatar, presence: true
 end

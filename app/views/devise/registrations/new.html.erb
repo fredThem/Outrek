@@ -5,19 +5,21 @@
 
     <div class="form-inputs text-left">
 
-      <div class="form-group">
-        <%= f.text_field :name, 
-          autofocus: true, 
-          class: 'form-control' %>
-      </div>
+      <%#= f.label :first_name %>
+      <%= f.input :first_name, 
+        required: true,
+        input_html: { autocomplete: "first_name" } %>
+      <%#= f.label :last_name %>
+      <%= f.input :last_name,  
+        required: true,
+        input_html: { autocomplete: "last_name" } %>
 
       <div class="field">
         <%= f.label :avatar %>
-        <%= f.file_field :avatar %>
+        <%= f.file_field :avatar%>
       </div>
       <%= f.input :email,
                 required: true,
-                autofocus: true,
                 input_html: { autocomplete: "email" }%>
       <%= f.input :password,
                 required: true,
