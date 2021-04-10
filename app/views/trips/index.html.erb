@@ -10,5 +10,11 @@
   <% @trips_past.each do |trip| %>
     <%= render partial: "trips/card/trip_card", locals: { trip: trip, map: true} %>
   <% end %>
-
+  <% end %>
+  <h1 class="font-weight-light py-3 text-center">Past Trips</h1>
+    <% @my_trips.each do |trip| %>
+  <% if trip.finished %>
+    <%= render partial: "trips/card/trip_card", locals: { trip: trip } %>
+  <% end %>
+  <% end %>
 </div>

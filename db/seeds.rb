@@ -86,6 +86,7 @@ all_labels.each do |label|
 end
 puts "Done!"
 
+# Upcoming Trip 1
 trip = Trip.create!(
   {
     destination: "Big Sur, California",
@@ -99,6 +100,16 @@ trip = Trip.create!(
   }
 )
 
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
 Tripactivity6 = TripActivity.create({trip_id: trip.id, activity_id: Activity.first.id})
 
 invitation6 = Invitation.create([
@@ -106,6 +117,7 @@ invitation6 = Invitation.create([
   {trip_id: trip.id, user_id: user.third.id}
 ])
 
+# Upcoming Trip 2
 trip = Trip.create!(
   {
     destination: "Starved Rock State Park",
@@ -119,6 +131,16 @@ trip = Trip.create!(
   }
 )
 
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
 Tripactivity1 = TripActivity.create(
   {trip_id: trip.id, activity_id: Activity.first.id}
 )
@@ -127,6 +149,7 @@ invitation1 = Invitation.create(
   {trip_id: trip.id, user_id: user.second.id}
 )
 
+# Past Trip
 trip = Trip.create!(
   {
     destination: "Banff National Park",
@@ -139,6 +162,16 @@ trip = Trip.create!(
     user_id: user.first.id
   }
 )
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
 
 Tripactivity2 = TripActivity.create([
   {trip_id: trip.id, activity_id: Activity.first.id},
@@ -164,6 +197,16 @@ trip = Trip.create!(
   }
 )
 
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
 Tripactivity3 = TripActivity.create([
   {trip_id: trip.id, activity_id: Activity.third.id},
   {trip_id: trip.id, activity_id: Activity.second.id}
@@ -186,6 +229,16 @@ trip = Trip.create!(
     user_id: user.first.id
   }
 )
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
 
 Tripactivity4 = TripActivity.create([
   {trip_id: trip.id, activity_id: Activity.first.id},
@@ -213,23 +266,21 @@ trip = Trip.create!(
   }
 )
 
-Tripactivity5 = TripActivity.create([
-  {trip_id: trip.id, activity_id: Activity.first.id},
-  {trip_id: trip.id, activity_id: Activity.fourth.id}
-])
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
+TripActivity.create(trip: trip, activity: Activity.first)
 
 invitation5 = Invitation.create([
   {trip_id: trip.id, user_id: user.fourth.id},
   {trip_id: trip.id, user_id: user.fifth.id}
 ])
-
-checklist = Checklist.create!(trip_id: trip.id)
-
-# Activity.first.recommended_item_labels.each do |rec|
-#   unless relevant_labels.include? rec.label
-#     relevant_labels << rec.label
-#     ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
-#   end
-# end
 
 puts "Done with trip and activity create!"
