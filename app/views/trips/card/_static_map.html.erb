@@ -1,0 +1,3 @@
+
+<img class="card-img h-100" style="object-fit: cover; <%= local_assigns[:map_img_style] %>" 
+        src="https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/<%= trip.longitude %>,<%= trip.latitude %>,9,0/300x300@2x?access_token=<%= ENV['MAPBOX_API_KEY'] %>" alt="">
