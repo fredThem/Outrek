@@ -8,6 +8,8 @@
         <%= link_to 'Plan a trip', new_trip_path, class: 'btn btn-outline-primary my-2 my-sm-0 ml-2' %>
       </li>
       <% if user_signed_in? %>
+      <%# Adding quick link to log out for test purposes %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
         <li class="nav-item dropdown">
           <%= tag.i class: "bi bi-person-circle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
