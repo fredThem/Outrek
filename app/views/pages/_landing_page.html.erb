@@ -1,6 +1,7 @@
 <%= content_for :header do %>
   <% if user_signed_in? %>
-    <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
+  <%# raise %>
+    <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: local_assigns[:trip] } %>
                  ⬇<br>
     render trip next here
  <br>  ⬆
