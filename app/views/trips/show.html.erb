@@ -147,11 +147,23 @@
         </div>
       </div>
     </div>
-    <h4>Recommended for Your Activities:</h4>
+    <h4>Smart Recommendations:</h4>
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
         <% @recommendations.each do |recommendation| %>
-          <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
+          <% if !@trip.checklist.labels.include? recommendation %>
+            <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <h4>For Similar Trips, You Also Brought:</h4>
+    <div class="card" style="width: 18rem;">
+      <ul class="list-group list-group-flush">
+        <% @past_trip_recommendations.each do |ptr| %>
+          <% if !@trip.checklist.labels.include? ptr %>
+            <%= link_to "#{ptr.name} for #{ptr.category}",  trip_label_import_path(@trip, ptr), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
+          <% end %>
         <% end %>
       </ul>
     </div>

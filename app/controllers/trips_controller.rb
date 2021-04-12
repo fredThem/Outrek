@@ -50,16 +50,29 @@ class TripsController < ApplicationController
 
   def show
     @recommendations = []
+    @past_trip_recommendations = []
     @trip.activities.each do |activity|
       activity.recommended_item_labels.each do |recommendation|
         @recommendations << recommendation.label unless @recommendations.include? recommendation.label
+      end
+      @trips_past.each do |trip_past|
+        if trip_past != @trip
+          trip_past.activities.each do |past_activity|
+            if activity != past_activity
+              trip_past.checklist_items.each do |checklist_item|
+                unless @past_trip_recommendations.include? checklist_item.label
+                  @past_trip_recommendations << checklist_item.label
+                end
+              end
+            end
+          end
+        end
       end
     end
     @users = [@trip.user]
     @trip.invitations.each do |invitation|
       @users << invitation.user unless invitation.user == @trip.user
     end
-    @center = { lat: @trip.latitude, lng: @trip.longitude }.to_json
   end
 
   def edit
