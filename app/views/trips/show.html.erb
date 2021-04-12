@@ -137,10 +137,9 @@
         </p>
         <div class="dropdown">
           <a class="text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <div>•••</div>
+            <i class="fas fa-ellipsis-h"></i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><%= link_to "Edit Trip", edit_trip_path(@trip), class: "dropdown-item" %></li>
             <li><%= link_to "Invite an Outreker", new_trip_invitation_path(@trip, @invitation), class: "dropdown-item" %></li>
             <li><%= link_to "Cancel Trip", trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
           </ul>
