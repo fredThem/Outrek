@@ -22,7 +22,6 @@
       <% end %>
       <div class="card-body position-relative">
         <%= render 'trips/card/display_dates', { trip: trip } %>
-        <%# raise %>
         <%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark h3" %>
         <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
         <p class="card-text">
