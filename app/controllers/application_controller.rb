@@ -11,17 +11,19 @@ class ApplicationController < ActionController::Base
 
   def trips
     @trips = policy_scope(Trip).order(created_at: :desc)
-    @my_trips = current_user.trips
-    @trips.each do |trip|
-      trip.invitations.each do |invitation|
-        @my_trips << invitation.trip if invitation.user == current_user
+    if current_user
+      @my_trips = current_user.trips
+      @trips.each do |trip|
+        trip.invitations.each do |invitation|
+          @my_trips << invitation.trip if invitation.user == current_user
+        end
       end
+      @my_trips = @my_trips.order(:start_date)
+      @trips_future = @my_trips.select { |trip| trip.start_date > Date.today }
+      @trip_next = @trips_future.first
+      @trips_future.delete_at(0)
+      @trips_past = @my_trips.select { |trip| trip.start_date < Date.today }
     end
-    @my_trips = @my_trips.order(:start_date)
-    @trips_future = @my_trips.select { |trip| trip.start_date > Date.today}
-    @trip_next = @trips_future.first
-    @trips_future.delete_at(0)
-    @trips_past = @my_trips.select { |trip| trip.start_date < Date.today}
   end
 
   protected
