@@ -11,6 +11,15 @@
     <% end %>
 
     <div class="<%= local_assigns[:card_body_col] %>">
+      <% if local_assigns[:dynamic_map] %>
+
+          <div id="map"
+            style="height: 200px; object-fit: cover;"
+            data-center="<%= center %>"
+            data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+          </div>
+
+      <% end %>
       <div class="card-body position-relative">
         <%= render 'trips/card/display_dates', { trip: trip } %>
         <%# raise %>
