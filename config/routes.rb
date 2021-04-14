@@ -20,6 +20,6 @@ Rails.application.routes.draw do
 
   resources :checklist_items, only: [:edit, :update, :destroy]
   resources :invitations, only: [:update]
-  post '/invitation/:id', to: 'invitation#accept', as: :accept
+  get '/invitations/:id/accept', to: 'invitations#accept', as: :accept
   resources :trips, only: [:new, :edit, :update]
 end

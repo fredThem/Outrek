@@ -3,7 +3,7 @@ class InvitationMailer < ApplicationMailer
 
   def invite_email
     @email = params[:email]
-    @url = "https://outrek.herokuapp.com/invitations/:#{params[:invitation].id}/accept"
+    @url = "http://localhost:3000/invitations/#{params[:invitation].id}/accept"
     @trip = params[:trip]
     mail(to: @email, subject: "Outreker! You've Been Invited!")
   end
