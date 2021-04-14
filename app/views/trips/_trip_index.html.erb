@@ -2,7 +2,14 @@
 <%# TODO #132 replace all h1 for h2, pages should only have one h1 %>
   <h1 class="font-weight-light py-3 text-center">Next trip</h1>
   <%= render layout: 'pages/narrow_col' do %>
-    <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
+      <%= render partial: "trips/card/trip_card", locals: { trip: @trip_next} %>
+      <%#= render partial: "trips/card/trip_card", locals: { trip: @trip_next, center: @center, card_img_col: 'w-100', card_body_col: 'w-100', map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
+      
+      <%#= render partial: "trips/card/trip_card", locals: { trip: @trip, center: @center, card_img_col: 'w-100', card_body_col: 'w-100', dynamic_map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
+      <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
+       
+
+    <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
   <% end %>
 
 <% end %>
@@ -13,8 +20,9 @@
   
     <% if @trips_future.any? %>
       <h1 class="font-weight-light py-3 text-center text-white">Upcoming</h1>
+      
       <% @trips_future.each do |trip| %>
-
+            <%#= render partial: "trips/card/trip_card", locals: { trip: trip } %>
         <div class="display-4 text-white"><%= trip.description %></div>
         <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
       <% end %>
@@ -24,7 +32,7 @@
 
       <h1 class="font-weight-light py-3 text-center text-white">Past Trips</h1>
       <% @trips_past.each do |trip| %>
-        <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
+        <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
       <% end %>
 
     <% end %>
