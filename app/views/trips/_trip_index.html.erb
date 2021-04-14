@@ -9,22 +9,25 @@
 <%= content_for :main do %>
 
   <%= render layout: 'pages/narrow_col' do %>
-    <% raise %>
-    <h1 class="font-weight-light py-3 text-center text-white">Upcoming</h1>
-    <% puts "im out" %>
-    <% @trips_future.each do |trip| %>
-      <h1 class="font-weight-light py-3 text-center text-white">IM IN</h1>
-      <% puts "im in" %>
-      <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
-      <% raise %>
-    <% end %>
-    <h1 class="font-weight-light py-3 text-center text-white">Past Trips</h1>
-    <% @trips_past.each do |trip| %>
-      <%= render partial: "trips/card/trip_card", locals: { trip: trip, map: true} %>
+  
+    <% if @trips_future.any? %>
+      <h1 class="font-weight-light py-3 text-center text-white">Upcoming</h1>
+      <% puts "im out" %>
+      <% @trips_future.each do |trip| %>
+
+        <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
+        <% raise %>
+      <% end %>
     <% end %>
 
+    <% if @trips_past.any? %>
+
+      <h1 class="font-weight-light py-3 text-center text-white">Past Trips</h1>
+      <% @trips_past.each do |trip| %>
+        <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
+      <% end %>
+
+    <% end %>
   <% end %>
-
-  <%= render partial: "trips/card/trip_card", locals: { trip: @trip_next, map: true, myclass: 'hello' } %>
 
 <% end %>
