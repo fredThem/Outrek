@@ -3,15 +3,18 @@
 
     <%= content_for :header%>
 
+    <%# TODO #129 make content_for :header a z-index over high-peaks img %>
     <%= show_svg('art/high-peaks-summit.svg') %>
   </div>
 </div>
 <main class="linear-gradient-brand-main">
-  <div class="forestry-bg" style="height:100vh;">
-    <div class="container-sm" style="max-width:42em;">
-      <%# render "trips/new.html.erb" %>
-      <%= content_for :main%>
+  <div class="forestry-bg" >
+    <div class="overflow-auto" style="height:100vh;">
+      <div class="container-sm ">
 
+        <%= content_for :main%>
+
+      </div>
     </div>
   </div>
 </main>

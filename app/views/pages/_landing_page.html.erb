@@ -1,20 +1,14 @@
 <%= content_for :header do %>
   <div class="container narrow-col">
-    
-
-    <% if user_signed_in? %>
-      <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: local_assigns[:trip] } %>
-    <% else %>
+    <%= render layout: 'pages/narrow_col' do %>
       <%= render 'jumbotron' %>
     <% end %>
-    
-
   </div>
-
 <% end %>
 
 <%= content_for :main do %>
-  <div class="display-1 text-white">Yield should be here</div>
-
+    <%= render layout: 'pages/narrow_col' do %>
+  <div class="display-1 text-white">One day, i'll be a beautiful inline form</div>
+    <% end %>
   
 <% end %>
