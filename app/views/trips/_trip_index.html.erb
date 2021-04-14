@@ -1,4 +1,5 @@
 <%= content_for :header do %>
+<%# TODO #132 replace all h1 for h2, pages should only have one h1 %>
   <h1 class="font-weight-light py-3 text-center">Next trip</h1>
   <%= render layout: 'pages/narrow_col' do %>
     <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
@@ -12,11 +13,10 @@
   
     <% if @trips_future.any? %>
       <h1 class="font-weight-light py-3 text-center text-white">Upcoming</h1>
-      <% puts "im out" %>
       <% @trips_future.each do |trip| %>
 
-        <%= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
-        <% raise %>
+        <div class="display-4 text-white"><%= trip.description %></div>
+        <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: trip } %>
       <% end %>
     <% end %>
 
