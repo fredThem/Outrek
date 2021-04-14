@@ -89,11 +89,14 @@ all_labels.each do |label|
 end
 puts "Done!"
 
+
+Trip.destroy_all
+puts "Cleaning Trips..."
 # Upcoming Trip 1
 trip = Trip.create!(
   {
-    destination: "Big Sur, California",
-    description: "Ventana Big Sur. 48123 CA-1, Big Sur, CA 93920",
+    destination: "Ventana Big Sur. 48123 CA-1, Big Sur, CA 93920",
+    description: "Big Sur, California",
     start_date: "Sep 15, 2021",
     end_date: "Sep 23, 2021",
     meetup_time: "9:00",
@@ -123,8 +126,8 @@ invitation6 = Invitation.create([
 # Upcoming Trip 2
 trip = Trip.create!(
   {
-    destination: "Starved Rock State Park",
-    description: "2678 E 875th Rd, Oglesby, IL 61348",
+    destination: "Starved Rock Place, Huntley, Illinois, United States of America",
+    description: "Starved Rock State Park",
     start_date: "May 10, 2021",
     end_date: "May 10, 2021",
     meetup_time: "8:00",
@@ -155,8 +158,8 @@ invitation1 = Invitation.create(
 # Past Trip
 trip = Trip.create!(
   {
-    destination: "Banff National Park",
-    description: "224 Banff Ave, Banff, AB T1L 1B3",
+    destination: "Cave & Basin National Historic Site, Banff, Alberta, Canada",
+    description: "Banff National Park",
     start_date: "Feb 10, 2021",
     end_date: "Feb 17, 2021",
     meetup_time: "10:00",
@@ -189,8 +192,8 @@ invitation2 = Invitation.create([
 
 trip = Trip.create!(
   {
-    destination: "Mont Gosford via Frontier Trail SF6",
-    description: "901 Rant Tout-de-Joie, Woburn, QC G0Y 1R0",
+    destination: "Saint-Augustin-de-Woburn, Québec, Canada",
+    description: "Mont Gosford via Frontier Trail SF6",
     start_date: "Apr 24, 2020",
     end_date: "Apr 29, 2020",
     meetup_time: "8:00",
@@ -222,8 +225,8 @@ invitation3 = Invitation.create([
 
 trip = Trip.create!(
   {
-    destination: "Grand Canyon National Park",
-    description: "Grand Canyon, AZ 86023",
+    destination: "Grand Canyon Village, Arizona, United States of America",
+    description: "Grand Canyon National Park",
     start_date: "Sep 13, 2020",
     end_date: "Sep 20, 2020",
     meetup_time: "7:00",
@@ -258,8 +261,8 @@ invitation4 = Invitation.create([
 
 trip = Trip.create!(
   {
-    destination: "Yellowstone Park",
-    description: "2 Officers Row, Yellowstone National Park, WY 82190",
+    destination: "Yellowstone Park, Beaumont, California, United States of America",
+    description: "Yellowstone Park",
     start_date: "May 5, 2019",
     end_date: "May 10, 2019",
     meetup_time: "7:30",
