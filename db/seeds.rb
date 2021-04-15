@@ -10,5 +10,9 @@ seed_model_resets # reset all db
 
 seed_users
 
+
+
+
+
 # binding.pry
 puts "Hello"
