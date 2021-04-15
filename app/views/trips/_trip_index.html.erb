@@ -4,12 +4,6 @@
   <%= render layout: 'pages/narrow_col' do %>
       <%= render partial: "trips/card/trip_card", locals: { trip: @trip_next} %>
       <%#= render partial: "trips/card/trip_card", locals: { trip: @trip_next, center: @center, card_img_col: 'w-100', card_body_col: 'w-100', map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
-      
-      <%#= render partial: "trips/card/trip_card", locals: { trip: @trip, center: @center, card_img_col: 'w-100', card_body_col: 'w-100', dynamic_map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
-      <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
-       
-
-    <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: @trip_next } %>
   <% end %>
 
 <% end %>

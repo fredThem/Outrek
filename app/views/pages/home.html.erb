@@ -1,5 +1,5 @@
 
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @current_user.trips.any? %>
       <%= render partial: "trips/trip_index", layout: "pages/art_forestry_bg"%>
 
       <%#= render partial: "trips/card/trip_info", layout: "trips/card/card_horizontal_layout", locals: { trip: local_assigns[:trip] } %>
