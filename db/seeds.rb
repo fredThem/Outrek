@@ -2,6 +2,8 @@ require "open-uri"
 
 User.destroy_all
 
+# TODO implement UI-face (https://uifaces.co/api-key)
+
 def addUser(picture, name)
   user = User.create!(
     {email: "#{name}@email.com", first_name: name, last_name: "lee", password: "123456"}
