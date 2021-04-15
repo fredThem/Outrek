@@ -7,9 +7,9 @@ def addUser(picture, name)
     {email: "#{name}@email.com", first_name: name, last_name: "lee", password: "123456"}
   )
 
-  user.avatar.attach(
-    io: URI.open(picture), filename: "#{name}-pic.png"
-  )
+  # user.avatar.attach(
+  #   io: URI.open(picture), filename: "#{name}-pic.png"
+  # )
   return user
 end
 

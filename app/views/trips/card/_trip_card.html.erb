@@ -10,21 +10,13 @@
     <div class="col-md-8 order-md-0 pr-md-0">
       <div class="card-body">
         <%= render 'trips/card/display_dates', { trip: trip } %>
-        <%
-=begin %>
-        ... html and ruby code goes here
-        <%
-=end %>
 
         <%= link_to trip.description, trip_path(trip), class: "clearfix text-decoration-none text-dark h3" %>
-        <%# <% raise %>
         <%= link_to "https://maps.google.com/?q=#{trip.destination},15z", target: "_blank", rel: "nofollow", class: "clearfix small" do %>
-        
-        <i class="fas fa-map-marker-alt"></i> <%= trip.destination %>
+
+          <i class="fas fa-map-marker-alt"></i> <%= trip.destination %>
         <% end %>
-        
-        
-        
+
         <% trip.activities.each do |activity| %>
           <span class="badge bg-info"><%= activity.name %></span>
         <% end %>
@@ -38,3 +30,9 @@
 
   </div>
 </div>
+
+<%
+=begin %>
+... html and ruby code goes here
+<%
+=end %>
