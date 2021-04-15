@@ -1,5 +1,5 @@
 
-<div  class="p-0 avatar"
+<div  class="p-0 avatar <%= local_assigns[:avatar_classes] %>"
       style="width: <%= local_assigns[:square_size] || '80px' %>; 
       height: <%= local_assigns[:square_size] || '80px' %>;
       background-image: url(<%= cl_image_path(user.avatar.key, :transformation => {:effect => "blur:1000"}) %>);
