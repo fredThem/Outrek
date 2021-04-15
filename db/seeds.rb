@@ -2,15 +2,17 @@ require "open-uri"
 
 User.destroy_all
 
+# TODO implement UI-face (https://uifaces.co/api-key)
+
 def addUser(picture, name)
   user = User.create!(
     {email: "#{name}@email.com", first_name: name, last_name: "lee", password: "123456"}
   )
 
-  user.avatar.attach(
-    io: URI.open(picture), filename: "#{name}-pic.png"
-  )
-  return user
+  # user.avatar.attach(
+  #   io: URI.open(picture), filename: "#{name}-pic.png"
+  # )
+  # return user
 end
 
 janeAvatar = "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80"
@@ -105,6 +107,8 @@ trip = Trip.create!(
     user_id: jane.id
   }
 )
+
+
 
 checklist = Checklist.create!(trip_id: trip.id)
 

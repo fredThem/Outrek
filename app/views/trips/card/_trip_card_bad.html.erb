@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center">
+  <div class="card mb-4 shadow" style="max-width: 540px;">
+    <div class="row no-gutters">
+  
+      <% if local_assigns[:map] || local_assigns[:dynamic_map] %>
+  
+        <div class="<%= local_assigns[:card_img_col] || "col-md-4" %>" >
+          <% if local_assigns[:dynamic_map] %>
+            <div id="map"
+              style="height: 200px; object-fit: cover;"
+              data-center="<%= center %>"
+              data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+            </div>
+          </div>
+          <% elsif local_assigns[:map] %>
+            <%#= render 'trips/card/static_map', { trip: trip } %>
+ 
+          <div class="" style="background-image: url( <%="https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/#{trip.longitude},#{trip.latitude},9,0/300x300@2x?access_token=#{ENV['MAPBOX_API_KEY']}"%>);
+                  background-size: cover; width: 100%; height: 100%; background-position: center; background-repeat: no-repeat;"></div>
+        <% end %>
+      </div>
+  
+    <% end %>
+  
+    <div class="<%= local_assigns[:card_body_col] || "col-md-8" %>">
+      <% if local_assigns[:dynamic_map] %>
+  
+        <div id="map"
+              style="height: 200px; object-fit: cover;"
+              data-center="<%= center %>"
+              data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+  
+      <% end %>
+      <div class="card-body position-relative">
+        <%= render 'trips/card/display_dates', { trip: trip } %>
+        <%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark h3" %>
+        <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
+        <p class="card-text">
+          <% trip.activities.each do |activity| %>
+            <span class="badge bg-info"><%= activity.name %></span>
+          <% end %>
+        </p>
+        <p><strong>Trip Outrekers:</strong>
+          <br>
+          <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
+          <% if trip.user.avatar.attached? %>
+            <%= cl_image_tag trip.user.avatar.key, height: '60px', width: '60px', style: "object-fit: cover", class: "rounded-circle"  %>
+          <% else %>
+            <div class="border-3 rounded-circle d-flex" width="40" height="40">
+              <i class="bi bi-person-bounding-box"></i>
+            </div>
+          <% end %>
+          <% trip.invitations.each do |invitation| %>
+            <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
+            <% if invitation.user.avatar.attached? %>
+              <%= cl_image_tag invitation.user.avatar.key, height: '60px', width: '60px', style: "object-fit: cover", class: "rounded-circle"  %>
+            <% else %>
+              <div class="border-3 rounded-circle d-flex" width="40" height="40">
+                <i class="bi bi-person-bounding-box"></i>
+              </div>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,56 +1,52 @@
-<div class="card mb-4 shadow">
-  <div class="row no-gutters">
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4 order-md-1 pl-md-0">
 
-    <% if local_assigns[:map] %>
+      <div class="" style="background-image: url( <%="https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/#{trip.longitude},#{trip.latitude},9,0/300x300@2x?access_token=#{ENV['MAPBOX_API_KEY']}"%>);
+                  background-position: center; background-repeat: no-repeat; background-size: cover;
+                  width: 100%; height: 100%; min-height:210px; "></div>
 
-      <div class="<%= local_assigns[:card_img_col] %>">
-
-        <%= render 'trips/card/static_map', { trip: trip } %>
-      </div>
-
-    <% end %>
-
-    <div class="<%= local_assigns[:card_body_col] %>">
-      <% if local_assigns[:dynamic_map] %>
-
-          <div id="map"
-            style="height: 200px; object-fit: cover;"
-            data-center="<%= center %>"
-            data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-          </div>
-
-      <% end %>
-      <div class="card-body position-relative">
+    </div>
+    <div class="col-md-8 order-md-0 pr-md-0">
+      <div class="card-body">
         <%= render 'trips/card/display_dates', { trip: trip } %>
-        <%= link_to trip.description, trip_path(trip), class: "stretched-link text-decoration-none text-dark h3" %>
-        <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= trip.destination %></p>
-        <p class="card-text">
+
+        <%= link_to trip.description, trip_path(trip), class: "clearfix text-decoration-none text-dark h3" %>
+
+        <%= link_to "https://maps.google.com/?q=#{trip.destination},15z", target: "_blank", rel: "nofollow", class: "clearfix small" do %>
+          <i class="fas fa-map-marker-alt"></i> <%= trip.destination %>
+        <% end %>
+
+        <div class="clearfix my-2">
+
           <% trip.activities.each do |activity| %>
-            <span class="badge bg-info"><%= activity.name %></span>
+            <span class="btn btn-outline-success btn-sm"><%= activity.name %></span>
           <% end %>
-        </p>
-        <p><strong>Trip Outrekers:</strong>
-        <br>
-          <span class="badge badge-primary"><%= trip.user.first_name.capitalize %></span>
-            <% if trip.user.avatar.attached? %>
-              <%= cl_image_tag trip.user.avatar.key, height: '60px', width: '60px', style: "object-fit: cover", class: "rounded-circle"  %>
-            <% else %>
-              <div class="border-3 rounded-circle d-flex" width="40" height="40">
-                <i class="bi bi-person-bounding-box"></i>
-              </div>
-            <% end %>
+
+        </div>
+
+        <div class="clearfix avatar-group d-flex my-2">
+          <%= render partial: "shared/avatar", locals: { user: User.find(trip.user_id), square_size: "30px", avatar_classes: "mr-1 btn-outline-success outline-4"} %>
+
           <% trip.invitations.each do |invitation| %>
-            <span class="badge badge-secondary"><%= invitation.user.first_name.capitalize unless invitation.user == trip.user%></span>
-              <% if invitation.user.avatar.attached? %>
-                  <%= cl_image_tag invitation.user.avatar.key, height: '60px', width: '60px', style: "object-fit: cover", class: "rounded-circle"  %>
-                <% else %>
-                  <div class="border-3 rounded-circle d-flex" width="40" height="40">
-                    <i class="bi bi-person-bounding-box"></i>
-                  </div>
-                <% end %>
+            <%# raise %>
+            <% unless invitation.user.id == User.find(trip.user_id).id %>
+              <%= render partial: "shared/avatar", locals: { user: invitation.user, square_size: "30px", avatar_classes: "mr-1"} %>
+              
+            <% end %>
+
+            
           <% end %>
-        </p>
+        </div>
+
       </div>
     </div>
+
   </div>
 </div>
+
+<%
+=begin %>
+... html and ruby code goes here
+<%
+=end %>
