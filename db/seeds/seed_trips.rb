@@ -1,84 +1,62 @@
-
-@fake_trips = [
+@fake_trips = {
+    destination: "Ventana Big Sur. 48123 CA-1, Big Sur, CA 93920",
+    description: "Big Sur, California",
+    start_date: "Sep 15, 2021",
+    end_date: "Sep 23, 2021",
+    meetup_time: "9:00",
+    expected_end_time: "23:00",
+    finished: false,
+    user_id: jane.id
+  },
   {
     destination: "Ventana Big Sur. 48123 CA-1, Big Sur, CA 93920",
     description: "Big Sur, California",
-    # start_date: "Sep 15, 2021", ## randomize
-    # end_date: "Sep 23, 2021", ## start_date + rand(-10..10) if < 0 trip has no end date
-    # meetup_time: "9:00", ## randomize from 4:30AM to 3pm
-    # expected_end_time: "23:00", ## randomize from 3PM to 11:45pm
+    start_date: "Sep 15, 2021",
+    end_date: "Sep 23, 2021",
+    meetup_time: "9:00",
+    expected_end_time: "23:00",
     finished: false,
-    # user_id: jane.id ## user.find(rand(User.all.size))
-    label: ["ski"] ## 
+    user_id: jane.id
   },
-]
+  {
+    destination: "Ventana Big Sur. 48123 CA-1, Big Sur, CA 93920",
+    description: "Big Sur, California",
+    start_date: "Sep 15, 2021",
+    end_date: "Sep 23, 2021",
+    meetup_time: "9:00",
+    expected_end_time: "23:00",
+    finished: false,
+    user_id: jane.id
+  }
 
 
 
 
 
 
-
-
-@fake_trips.each 
-
-
-
+def seed_trips
+  @fake_trips.each do |fake_trip|
+    checklist = Checklist.create!(trip_id: trip.id)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-@fake_users_created = []
-def seed_users
-  p @fake_users
-    puts "__________________"
-  puts "Clearing all #{@fake_users_created.count} fake users from User database..."
-  puts "__________________"
-  @fake_users_created.each do |usr|
-    Trip.where(user_id: usr.id).each do |trip|
-      trip.destroy
-    end
-    usr.destroy
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
   end
-  @fake_users_created = []
+end
 
-  # Equipment.destroy_all
-  User.destroy_all
-  puts "creating #{@fake_users.size} new users"
 
-  @fake_users.each do |fake_user|
-    file = URI.open(fake_user[:photo])
-    # binding.pry
-    name = NameOfPerson::PersonName.full(fake_user[:name])
-    new_user = User.create(
-      email: fake_user[:email], 
-      first_name: name.first,
-      last_name: name.last,
-      password: "fakeuser1234")
-    new_user.avatar.attach(io: file, filename: "user_avatar.png", content_type: 'image/png')
+Tripactivity6 = TripActivity.create({trip_id: trip.id, activity_id: Activity.first.id})
 
-    @fake_users_created << new_user
+invitation6 = Invitation.create([
+  # TODO randomize from create users
+  {trip_id: trip.id, user_id: ross.id},
+  {trip_id: trip.id, user_id: rachel.id}
+])
+
 
   end
-  # puts User.all
-  User.all.each do |user|
-    puts user.name
-    puts user.email
-    puts "user has an avatar : #{User.first.avatar.attached?}"
-    p "\n"
-  end
-  # puts @fake_users_created
-
-  # seed_equipment_enhanced(@fake_users_created)
 end
