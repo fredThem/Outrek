@@ -1,6 +1,6 @@
 <%= content_for :header do %>
 <%# TODO #132 replace all h1 for h2, pages should only have one h1 %>
-  <h1 class="font-weight-light py-3 text-center"><%= (@trip_next.start_date - Date.today).to_i %> Days Left Until</h1>
+  <h1 id="title-trip-next" class="font-weight-light py-3 text-center"><%= (@trip_next.start_date - Date.today).to_i %> Days Left Until</h1>
   <%= render layout: 'pages/narrow_col' do %>
       <%= render partial: "trips/card/trip_card", locals: { trip: @trip_next} %>
       <%#= render partial: "trips/card/trip_card", locals: { trip: @trip_next, center: @center, card_img_col: 'w-100', card_body_col: 'w-100', map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
