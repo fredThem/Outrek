@@ -1,11 +1,10 @@
-<div class="container">
-  <h1>Invite a Friend to Your Trip</h1>
-  <hr>
-  <%# Select from list of friends? List of trips? %>
+<%#= render partial: "trips/trip_index", layout: "pages/art_forestry_bg" %>
 
-  <%= simple_form_for [ @trip, @invitation ] do |f| %>
-    <%= f.input :email %>
 
-    <%= f.button :submit, class:"btn btn-primary btn-block" %>
-  <% end %>
-</div>
+
+
+<%#= render partial: "trips/trip_index", layout: "pages/art_forestry_bg" %>
+
+
+<%= render partial: "invitations/new_invites", layout: "pages/art_forestry_bg" %>
+<%#= render partial: "invitations/new_invites", layout: "pages/art_forestry_bg" %>
