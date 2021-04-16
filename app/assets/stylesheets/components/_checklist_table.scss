@@ -2,16 +2,18 @@
   width: auto !important;
 }
 
-.table-fit {
-  @include width;
-  table-layout: auto !important;
-  thead th,
-  tfoot th {
+table {
+  &.table-fit {
     @include width;
-  }
-  tbody td,
-  tfoot td {
-    @include width;
+    table-layout: auto !important;
+    thead th,
+    tfoot th {
+      @include width;
+    }
+    tbody td,
+    tfoot td {
+      @include width;
+    }
   }
 }
 
