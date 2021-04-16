@@ -16,8 +16,8 @@ Rails.application.routes.draw do
     end
   end
   # Circle-plus actions.
-  post 'duties/to_bring', to: 'duties#claim', as: :claim
-
+  post 'duties/', to: 'duties#claim', as: :claim
+  resources :duties, only: [:destroy]
   resources :checklist_items, only: [:edit, :update, :destroy]
   resources :invitations, only: [:update]
   get '/invitations/:id/accept', to: 'invitations#accept', as: :accept
