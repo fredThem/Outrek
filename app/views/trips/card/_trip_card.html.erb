@@ -26,12 +26,12 @@
         </div>
 
         <div class="clearfix avatar-group d-flex my-2">
-          <%= render partial: "shared/avatar", locals: { user: User.find(trip.user_id), square_size: "30px", avatar_classes: "mr-1 btn-outline-success outline-4"} %>
+          <%= render partial: "shared/avatar", locals: { user: User.find(trip.user_id), square_size: "46px", avatar_classes: "mr-1 border border-success border-3"} %>
 
           <% trip.invitations.each do |invitation| %>
             <%# raise %>
             <% unless invitation.user.id == User.find(trip.user_id).id %>
-              <%= render partial: "shared/avatar", locals: { user: invitation.user, square_size: "30px", avatar_classes: "mr-1"} %>
+              <%= render partial: "shared/avatar", locals: { user: invitation.user, square_size: "46px", avatar_classes: "mr-1"} %>
               
             <% end %>
 
@@ -48,7 +48,7 @@
           </div>
         <% else %>
           <div class="progress">
-            <div class="progress-bar bg-warning" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Not Enough Duties to Start Tracking</div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Need at least one duty for each item to start progress tracking</div>
           </div>
         <% end %>
       </div>
