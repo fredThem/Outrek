@@ -1,0 +1,13 @@
+  <%= content_for :header do %>
+    <%#  %>
+  <% end %>
+
+  <%= content_for :main do %>
+
+   <%= render layout: 'pages/narrow_col' do %>
+      <br><br>
+      <h1 class="text-white">Plan a Trip</h1>
+      <br>
+      <%= render "form", trip: @trip %>
+    <% end %>
+  <% end %>
