@@ -1,7 +1,8 @@
+<div class="text-white">
 <%= simple_form_for(trip) do |f| %>
-  <%= f.input :description, label: false, placeholder: "Trip Name" %>
-  <%= f.input :destination, label: false, placeholder: "Where to meet" %>
-  <div class="container text-white">
+  <%= f.input :description, label: "Trip title" %>
+  <%= f.input :destination, label: "Where to meet" %>
+  <div class="container">
     <div class="row">
       <div class="d-flex flex-grow-1">
         <div class="flex-grow-1">
@@ -38,3 +39,4 @@
     document.querySelector('#trip_end_date').value = "";
   }
 </script>
+</div>
