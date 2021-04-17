@@ -35,7 +35,7 @@ th.participant, td.participant{
     padding-right:0;
     text-align:center;
 
-    i{ font-size: 1.6em;}
+    i, a[role="button"]{ font-size: 20px;}
 }
 
 // a.show > i:nth-child(1)
