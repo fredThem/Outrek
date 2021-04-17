@@ -38,7 +38,7 @@ chandler = addUser(chandlerAvatar, "chandler")
 
 # Labels seed 2.0
 labels = {
-  "navigation" => ["map", "compass"],
+  "navigation" => ["map", "compass", "binoculars", "GPS"],
   "sun protection" => ["sunglasses", "sunscreen"],
   "insulation" => ["extra clothing"],
   "illumination" => ["headlamp/flashlight"],
