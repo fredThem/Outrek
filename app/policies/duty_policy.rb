@@ -8,4 +8,8 @@ class DutyPolicy < ApplicationPolicy
   def claim?
     true
   end
+
+  def destroy?
+    true
+  end
 end
