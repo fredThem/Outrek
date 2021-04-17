@@ -1,23 +1,17 @@
 <div class="container-fluid">
-
 <div class="row">
-
   <main role="main" class="col-md-8 ml-sm-auto col-lg-9 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Dashboard</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-
-        
         <button type="button" class="btn btn-outline-primary">
           <i class="bi bi-plus-circle-fill"></i>
           <%= link_to 'Add item',  new_trip_checklist_item_path(@trip), class: "" %>
         </button>
       </div>
-
     </div>
     <div class="table-responsive">
       <table class="table caption-top">
-        
         <thead>
           <tr>
             <th role="trip_organizer" scope="col" class="px-1">
@@ -36,7 +30,6 @@
         <tbody>
           <% @trip.checklist_items.each do |item| %>
             <tr>
-
               <td role="trip_organizer">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <% if !item.users.include? @trip.user %>
@@ -46,7 +39,7 @@
                     <%= @duty.status %>
                   <% end %>
                 </a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <li class="py-0 px-2 border-bottom border-top bg-secondary text-white">Item Actions</li>
                   <li><%= link_to "✏️ Edit", edit_checklist_item_path(item), class: "dropdown-item" %></li>
                   <li><%= link_to "🗑 Delete", checklist_item_path(item), method: :delete, remote: true, class: "dropdown-item" %></li>
@@ -66,10 +59,10 @@
               </td>
               <% @trip.invitations.each do |invitation| %>
                 <% if invitation.user != @trip.user %>
-                  <td class="col-xs dropdown px-1">
+                  <td role="trip_organizer">
                     <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <% if !item.users.include? invitation.user %>
-                        <i class="fas fa-plus-circle"></i>
+                        <i class="text-secondary fas fa-plus-circle"></i>
                       <% else %>
                         <% @duty = invitation.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
                         <%= @duty.status %>
@@ -103,44 +96,41 @@
           <% end %>
         </tbody>
 
-        
       </table>
 
-
-
   </main>
-  <aside class="col-md-4 col-lg-3 d-md-block bg-light sidebar">
-
-    <%= render partial: "trips/card/trip_card", locals: { trip: @trip, center: @center, card_img_col: 'w-100', card_body_col: 'w-100', dynamic_map: true, map_img_style: 'max-height: 30vh; min-height:200px;' }  %>
-
+  <aside class="col-md-4 col-lg-3 d-md-block sidebar">
     <h4>Trip Info</h4>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
         <div id="map"
+          class="mb-2"
           style="width: 100%; height: 200px;"
           data-center="<%= @center %>"
           data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
         </div>
         <% if @trip.end_date != nil %>
-          <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %> <strong>to</strong> <%= @trip.end_date %></p>
-        <% else %>
-          <p class="card-text"><strong>Planned for</strong> <%= @trip.start_date %></p>
+          <%= render 'trips/card/display_dates', { trip: @trip } %>
         <% end %>
         <h5 class="card-title"><%= @trip.description %></h5>
-        <p class="text-primary"><i class="fas fa-map-marker-alt"></i> <%= @trip.destination %></p>
+        <%= link_to "https://maps.google.com/?q=#{@trip.destination},15z", target: "_blank", rel: "nofollow", class: "clearfix small" do %>
+          <i class="fas fa-map-marker-alt"></i> <%= @trip.destination %>
+        <% end %>
         <p class="card-text"></p>
         <% @trip.activities.each do |activity| %>
-          <span class="badge bg-info text-dark"><%= activity.name %></span>
+          <button type="button" class="btn btn-outline-success btn-sm" disabled><%= activity.name %></button>
         <% end %>
-        <p><strong>Trip Outrekers:</strong>
-          <% @users.each do |user| %>
-            <%= user.first_name.capitalize %>
+        <div class="clearfix avatar-group d-flex my-2">
+          <%= render partial: "shared/avatar", locals: { user: User.find(@trip.user_id), square_size: "46px", avatar_classes: "mr-1 border border-success border-3"} %>
+          <% @trip.invitations.each do |invitation| %>
+            <% unless invitation.user.id == User.find(@trip.user_id).id %>
+              <%= render partial: "shared/avatar", locals: { user: invitation.user, square_size: "46px", avatar_classes: "mr-1"} %>
+            <% end %>
           <% end %>
-        </p>
-
+        </div>
         <div class="dropdown">
           <a class="text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <div>•••</div>
+            <div><i class="fas fa-ellipsis-h"></i></div>
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li><%= link_to "Edit Trip", edit_trip_path(@trip), class: "dropdown-item" %></li>
@@ -148,11 +138,10 @@
             <li><%= link_to "Cancel Trip", trip_path(@trip), method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %></li>
           </ul>
         </div>
-
       </div>
     </div>
     <%# TODO #122 refactor recommended list layout @fredThem %>
-    <h4>Smart Recommendations:</h4>
+    <p class="mt-4">smart recommendations:</p>
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
         <% @recommendations.each do |recommendation| %>
@@ -162,7 +151,7 @@
         <% end %>
       </ul>
     </div>
-    <h4>For Similar Trips, You Also Brought:</h4>
+    <p class="mt-4">for similar trips, you also brought:</p>
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
         <% @past_trip_recommendations.each do |ptr| %>
