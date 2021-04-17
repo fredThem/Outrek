@@ -29,6 +29,9 @@
             </th>
             <th scope="col" class="px-1" role="label"><%= show_svg('icons/tag.svg') %> Label</th>
             <th scope="col" class="px-1" role="note">Note</th>
+            <th class="participant" scope="col" class="px-0">
+              #
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -83,6 +86,12 @@
               <td class="px-1" role="category"><%= item.label.category %></td>
               <td class="px-1" role="label"><%= item.label.name %></td>
               <td class="px-1" role="note"><%= item.detail %></td>
+              <td class="participant" scope="col" class="px-0">
+              <%= link_to edit_checklist_item_path(item) do %> 
+              <i class="bi bi-pencil-square"></i>
+              <% end %>
+              
+            </td>
             </tr>
           <% end %>
         </tbody>
