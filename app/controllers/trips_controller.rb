@@ -69,6 +69,12 @@ class TripsController < ApplicationController
         end
       end
     end
+    @recommendations.each do |recommendation|
+      @recommendations.delete_if { |recommendation| @trip.checklist.labels.include? recommendation }
+    end
+    @past_trip_recommendations.each do |ptr|
+      @past_trip_recommendations.delete_if { |ptr| @trip.checklist.labels.include? ptr }
+    end
     @users = [@trip.user]
     @trip.invitations.each do |invitation|
       @users << invitation.user unless invitation.user == @trip.user

@@ -127,12 +127,7 @@
       </div>
     </div>
     <%# TODO #122 refactor recommended list layout @fredThem %>
-    <% @recommendations.each do |recommendation| %>
-      <% if @trip.checklist.labels.include? recommendation %>
-        <% @recommendations.delete(recommendation) %>
-      <% end %>
-    <% end %>
-    <% if !@recommendations.nil? %>
+    <% unless @recommendations.empty? %>
       <p class="mt-4">smart recommendations:</p>
       <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
@@ -143,12 +138,7 @@
       </div>
     <% end %>
     
-    <% @past_trip_recommendations.each do |recommendation| %>
-      <% if @trip.checklist.labels.include? recommendation %>
-        <% @past_trip_recommendations.delete(recommendation) %>
-      <% end %>
-    <% end %>
-    <% if !@past_trip_recommendations.nil? %>
+    <% unless @past_trip_recommendations.empty? %>
       <p class="mt-4">for similar trips, you also brought:</p>
       <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
