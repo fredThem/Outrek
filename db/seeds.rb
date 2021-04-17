@@ -62,6 +62,9 @@ labels.keys.each do |category|
   end
 end
 
+Label.create(category: "navigation", name: "binoculars")
+Label.create(category: "navigation", name: "GPS")
+
   # Add Activity and Recommended_label
 activities = ['hiking', 'camping', 'hunting', 'fishing', 'canoeing', 'kayaking', 'rafting', 'sailing', 'motorboating', 'biking', 'rock climbing', 'horseback riding', 'skiing']
 
