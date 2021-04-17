@@ -17,4 +17,30 @@ table {
   }
 }
 
-[role=label] {}
+// [role=invited], [role=trip_organizer]
+.participant{
+
+}
+
+// class="participant"
+// role="invited"
+
+th.participant, td.participant{
+    // width:300px;
+    // padding: 200px;
+    // padding: 0 auto;
+
+    padding-left: 0;
+    width:3em;
+    padding-right:0;
+    text-align:center;
+
+    i{ font-size: 1.6em;}
+}
+
+// a.show > i:nth-child(1)
+
+th .icon {
+  width:20px;
+  height: auto;
+}
