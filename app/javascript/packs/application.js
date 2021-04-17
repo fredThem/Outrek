@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import {initAutocomplete} from "../plugins/init_autocomplete"
 import { initMapbox } from '../plugins/init_mapbox';
+import { tooltipList } from '../plugins/init_tooltip';
 
 Rails.start()
 Turbolinks.start()
@@ -21,7 +22,7 @@ ActiveStorage.start()
 
 // External imports
 import "bootstrap";
-import 'mapbox-gl/dist/mapbox-gl.css'
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -31,4 +32,6 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
   initAutocomplete();
   initMapbox();
+  tooltipList();
 });
+
