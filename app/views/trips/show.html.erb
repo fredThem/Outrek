@@ -52,6 +52,13 @@
                   <li><%= link_to "✅ Bringing", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "✅" }), method: :post, remote: true, class: "dropdown-item" %></li>
                   <li><%= link_to "🛒 Buying", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "🛒" }), method: :post, remote: true, class: "dropdown-item" %></li>
                   <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                  <li>
+                  <% if @trip.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
+                    <%= link_to duty_path(@duty, :trip_id => @trip.id), method: :delete, remote: true, class: "dropdown-item" do %>
+                      <i class="fas fa-plus-circle"></i> Not Needed
+                    <% end %>
+                  <% end %>
+                  </li>
                 </ul>
               </td>
               <% @trip.invitations.each do |invitation| %>
@@ -74,7 +81,14 @@
                       <li><%= link_to "🎒 To Bring", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "🎒" }), method: :post, remote: true, class: "dropdown-item" %></li>
                       <li><%= link_to "✅ Bringing", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "✅" }), method: :post, remote: true, class: "dropdown-item" %></li>
                       <li><%= link_to "🛒 Buying", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "🛒" }), method: :post, remote: true, class: "dropdown-item" %></li>
-                      <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => @trip.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                      <li><%= link_to "😭 Help", claim_path(:duty => {:user_id => invitation.user.id, :checklist_item_id => item.id, :status => "😭" }), method: :post, remote: true, class: "dropdown-item" %></li>
+                      <li>
+                      <% if invitation.user.duties.find { |duty| duty.checklist_item_id == item.id } %>
+                        <%= link_to duty_path(@duty, :trip_id => @trip.id), method: :delete, remote: true, class: "dropdown-item" do %>
+                          <i class="fas fa-plus-circle"></i> Not Needed
+                        <% end %>
+                      <% end %>
+                      </li>
                     </ul>
                   </td>
                 <% end %>
