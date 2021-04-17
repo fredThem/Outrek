@@ -38,7 +38,7 @@ chandler = addUser(chandlerAvatar, "chandler")
 
 # Labels seed 2.0
 labels = {
-  "navigation" => ["map", "compass", "binoculars", "GPS"],
+  "navigation" => ["map", "compass"],
   "sun protection" => ["sunglasses", "sunscreen"],
   "insulation" => ["extra clothing"],
   "illumination" => ["headlamp/flashlight"],
@@ -61,6 +61,9 @@ labels.keys.each do |category|
     puts "Done!"
   end
 end
+
+Label.create(category: "navigation", name: "binoculars")
+Label.create(category: "navigation", name: "GPS")
 
   # Add Activity and Recommended_label
 activities = ['hiking', 'camping', 'hunting', 'fishing', 'canoeing', 'kayaking', 'rafting', 'sailing', 'motorboating', 'biking', 'rock climbing', 'horseback riding', 'skiing']
