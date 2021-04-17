@@ -87,6 +87,11 @@ class TripsController < ApplicationController
 
   def update
     @trip.update(trips_params)
+    params[:trip][:activity_ids].map do |activity_id|
+      next unless activity_id != ""
+      @activity = Activity.find(activity_id)
+    end
+    @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     if @trip.save
       redirect_to trip_path(@trip)
     else
@@ -102,8 +107,7 @@ class TripsController < ApplicationController
   private
 
   def trips_params
-    params.require(:trip).permit(:destination, :description, :start_date, :meetup_time, :end_date, :expected_end_time,
-                                 :activity_ids)
+    params.require(:trip).permit(:destination, :description, :start_date, :meetup_time, :end_date, :expected_end_time, :activity_ids)
   end
 
   def set_trip
