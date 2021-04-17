@@ -15,6 +15,13 @@ class DutiesController < ApplicationController
     end
   end
 
+  def destroy
+    @duty = Duty.find(params[:id])
+    authorize @duty
+    @duty.destroy
+    redirect_to trip_path(Trip.find(params[:trip_id]))
+  end
+
   private
   
   def duty_params
