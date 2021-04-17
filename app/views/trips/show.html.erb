@@ -172,26 +172,27 @@
       </div>
     </div>
     <%# TODO #122 refactor recommended list layout @fredThem %>
-    <p class="mt-4">smart recommendations:</p>
-    <div class="card" style="width: 18rem;">
-      <ul class="list-group list-group-flush">
-        <% @recommendations.each do |recommendation| %>
-          <% if !@trip.checklist.labels.include? recommendation %>
+    <% unless @recommendations.empty? %>
+      <p class="mt-4">smart recommendations:</p>
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <% @recommendations.each do |recommendation| %>
             <%= link_to "#{recommendation.name} for #{recommendation.category}",  trip_label_import_path(@trip, recommendation), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
           <% end %>
-        <% end %>
-      </ul>
-    </div>
-    <p class="mt-4">for similar trips, you also brought:</p>
-    <div class="card" style="width: 18rem;">
-      <ul class="list-group list-group-flush">
-        <% @past_trip_recommendations.each do |ptr| %>
-          <% if !@trip.checklist.labels.include? ptr %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <% unless @past_trip_recommendations.empty? %>
+      <p class="mt-4">for similar trips, you also brought:</p>
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <% @past_trip_recommendations.each do |ptr| %>
             <%= link_to "#{ptr.name} for #{ptr.category}",  trip_label_import_path(@trip, ptr), method: :post, remote: true, class: "list-group-item p-1 btn btn-outline-dark" %>
           <% end %>
-        <% end %>
-      </ul>
-    </div>
+        </ul>
+      </div>
+    <% end %>
     <%# #122 end  %>
   </aside>
 </div>
