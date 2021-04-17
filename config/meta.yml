@@ -1,0 +1,5 @@
+meta_product_name: "Outrek"
+meta_title: "Overplan And Go With The Flow"
+meta_description: "Organize your next trip outdoors with Outrek's collaborative packing list"
+meta_image: "cover.png" # should exist in `app/assets/images/`
+twitter_account: "@outrek_app"   # required for Twitter Cards
