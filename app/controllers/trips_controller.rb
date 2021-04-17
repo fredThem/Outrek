@@ -74,6 +74,7 @@ class TripsController < ApplicationController
     end
     @past_trip_recommendations.each do |ptr|
       @past_trip_recommendations.delete_if { |ptr| @trip.checklist.labels.include? ptr }
+      @past_trip_recommendations.delete_if { |ptr| @recommendations.include? ptr } 
     end
     @users = [@trip.user]
     @trip.invitations.each do |invitation|
