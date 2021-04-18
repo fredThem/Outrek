@@ -40,6 +40,8 @@ gem 'geocoder', '~> 1.6', '>= 1.6.6'
 gem 'cloudinary', '~> 1.16.0'
 gem 'name_of_person'
 
+gem "non-stupid-digest-assets"
+
 # Stream downloads using net/http, http.rb or wget
 gem "down", "~> 5.0"
 

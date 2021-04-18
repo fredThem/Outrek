@@ -16,4 +16,8 @@ class InvitationPolicy < ApplicationPolicy
   def destroy?
     @user == @record.user
   end
+
+  def accept?
+    true
+  end
 end

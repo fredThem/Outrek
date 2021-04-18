@@ -4,6 +4,7 @@ const environment = require('./environment')
 
 module.exports = environment.toWebpackConfig()
 
+// IMPORTANT this is to enable scss hotreload - requires to run webpack-dev-server
 const chokidar = require("chokidar");
 environment.config.devServer.before = (app, server) => {
   chokidar

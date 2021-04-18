@@ -15,7 +15,7 @@ class TripsController < ApplicationController
     @trips_future = @my_trips.select { |trip| trip.start_date > Date.today}
     @trip_next = @trips_future.first
     @trips_future.delete_at(0)
-    @trips_past = @my_trips.select { |trip| trip.start_date < Date.today}
+    @trips_past = @my_trips.select { |trip| trip.start_date <= Date.today}
   end
 
   def new
@@ -50,10 +50,31 @@ class TripsController < ApplicationController
 
   def show
     @recommendations = []
+    @past_trip_recommendations = []
     @trip.activities.each do |activity|
       activity.recommended_item_labels.each do |recommendation|
         @recommendations << recommendation.label unless @recommendations.include? recommendation.label
       end
+      @trips_past.each do |trip_past|
+        if trip_past != @trip
+          trip_past.activities.each do |past_activity|
+            if activity != past_activity
+              trip_past.checklist_items.each do |checklist_item|
+                unless @past_trip_recommendations.include? checklist_item.label
+                  @past_trip_recommendations << checklist_item.label
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    @recommendations.each do |recommendation|
+      @recommendations.delete_if { |recommendation| @trip.checklist.labels.include? recommendation }
+    end
+    @past_trip_recommendations.each do |ptr|
+      @past_trip_recommendations.delete_if { |ptr| @trip.checklist.labels.include? ptr }
+      @past_trip_recommendations.delete_if { |ptr| @recommendations.include? ptr } 
     end
     @users = [@trip.user]
     @trip.invitations.each do |invitation|
@@ -67,6 +88,11 @@ class TripsController < ApplicationController
 
   def update
     @trip.update(trips_params)
+    params[:trip][:activity_ids].map do |activity_id|
+      next unless activity_id != ""
+      @activity = Activity.find(activity_id)
+    end
+    @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
     if @trip.save
       redirect_to trip_path(@trip)
     else
@@ -82,8 +108,7 @@ class TripsController < ApplicationController
   private
 
   def trips_params
-    params.require(:trip).permit(:destination, :description, :start_date, :meetup_time, :end_date, :expected_end_time,
-                                 :activity_ids)
+    params.require(:trip).permit(:destination, :description, :start_date, :meetup_time, :end_date, :expected_end_time, :activity_ids)
   end
 
   def set_trip

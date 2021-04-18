@@ -1,3 +1,4 @@
+<div class="text-white">
 <%= simple_form_for(trip) do |f| %>
   <%= f.input :description, label: "Trip title" %>
   <%= f.input :destination, label: "Where to meet" %>
@@ -18,17 +19,21 @@
         <%= f.input :expected_end_time %>
       </div>
     </div>
-    <button class="btn btn-link mb-3 p-0" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapseDateEnd" 
-          aria-expanded="false" 
+    <button class="btn btn-link mb-3 p-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseDateEnd"
+          aria-expanded="false"
           aria-controls="collapseDateEnd">
-      +/- End date and time
+      <p class="text-white">+/- End date and time</p>
     </button>
   </div>
-  <%= f.association :activities, as: :check_boxes%>
-  <%= f.button :submit, class:"btn btn-primary btn-block mt-3" %>
+  <div class="text-white">
+    <%= f.association :activities, as: :check_boxes %>
+  </div>
+  <%# Generate collaborative packing list %>
+  <%= f.button :submit, "Generate collaborative packing list", class:"btn btn-primary btn-block mt-3" %>
+<p class="mt-3 italic"> <em>Outrek’s smart packing recommendation capabilities and load outs, will get you ready in no time for the great outdoors!  </em></p>
 <% end %>
 <%# to clear the input field for DateEnd %>
 <script>
@@ -36,3 +41,4 @@
     document.querySelector('#trip_end_date').value = "";
   }
 </script>
+</div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light mb-5">
+<nav class="navbar navbar-expand-sm navbar-light">
   <div class="container-fluid justify-content-between">
     <%= link_to :root, class: "navbar-brand mb-2 mb-lg-0" do %>
       <%= show_svg('brand/Outrek_logoType.svg') %>
@@ -13,12 +13,19 @@
         </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <%= tag.i class: "bi bi-person-circle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= content_tag(:div, id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) do %>
+            <%= render partial: "shared/avatar", locals: { user: @current_user, square_size: "60px"} %>
+            <% end %>
+            
+            <%#= tag.i class: "bi bi-person-circle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
               <%= link_to 'Edit My Profile', edit_user_registration_path(@user),class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
               <%#= link_to "My profile", profile_path, class: "dropdown-item" %>
-              <%= link_to "My Trips", trips_path, class: "dropdown-item" %>
+              <% if @current_user.trips.any? %>
+                <%= link_to "My Trips", trips_path, class: "dropdown-item" %>
+              <% end %>
+
             </div>
           </li>
         <% else %>

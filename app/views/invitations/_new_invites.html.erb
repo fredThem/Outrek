@@ -1,0 +1,16 @@
+  <%= content_for :header do %>
+    <%#  %>
+  <% end %>
+
+  <%= content_for :main do %>
+
+   <%= render layout: 'pages/narrow_col' do %>
+      <br><br>
+      <h1 class="text-white">Invite a Friend to Your Trip</h1>
+      <br>
+      <%= simple_form_for [ @trip, @invitation ] do |f| %>
+        <%= f.input :email, label: false, placeholder: "Your friend's email" %>
+        <%= f.button :submit, class:"btn btn-primary btn-block" %>
+      <% end %>
+    <% end %>
+  <% end %>

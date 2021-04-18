@@ -1,0 +1,12 @@
+<%= content_for :main do %>
+    <%= render layout: 'pages/narrow_col' do %>
+      <div class="containter text-white">
+        <h2 class="text-white">Edit <%= @checklist_item.label.name %></h2>
+        <%= simple_form_for (@checklist_item) do |f| %>
+          <%= f.input :detail %>
+          <%= f.association :label %>
+          <%= f.button :submit, class:"btn btn-primary btn-block"%>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
