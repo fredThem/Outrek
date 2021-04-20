@@ -78,9 +78,7 @@ def seed_users
       last_name: name.last,
       password: "fakeuser1234")
     new_user.avatar.attach(io: file, filename: "user_avatar.png", content_type: 'image/png')
-
     @fake_users_created << new_user
-
   end
   # puts User.all
   User.all.each do |user|
