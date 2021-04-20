@@ -6,8 +6,8 @@ require_relative "seeds/activities"
 
 
 
-# seed_model_resets # reset all db
-# seed_users
+seed_model_resets # reset all db
+seed_users
 # seed_activities
 # seed_trips
 
@@ -15,4 +15,4 @@ require_relative "seeds/activities"
 
 
 # binding.pry
-puts "Hello"
+# puts "Hello"
