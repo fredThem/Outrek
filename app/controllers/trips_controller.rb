@@ -33,7 +33,7 @@ class TripsController < ApplicationController
       next unless activity_id != ""
       @activity = Activity.find(activity_id)
       relevant_labels = []
-      @activity.recommended_item_labels.each do |rec|
+      @activity.recommended_item_labels.first(15).each do |rec|
         unless relevant_labels.include? rec.label
           relevant_labels << rec.label
           ChecklistItem.create(label: rec.label, checked: false, checklist: @checklist)
@@ -58,7 +58,7 @@ class TripsController < ApplicationController
       @trips_past.each do |trip_past|
         if trip_past != @trip
           trip_past.activities.each do |past_activity|
-            if activity != past_activity
+            if activity == past_activity
               trip_past.checklist_items.each do |checklist_item|
                 unless @past_trip_recommendations.include? checklist_item.label
                   @past_trip_recommendations << checklist_item.label
