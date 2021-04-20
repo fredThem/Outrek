@@ -4,14 +4,15 @@ class TripsController < ApplicationController
   before_action :set_trip, only: %i[show edit update destroy]
 
   def index
-    @trips = policy_scope(Trip).order(created_at: :desc)
-    @my_trips = current_user.trips
+    @trips = policy_scope(Trip).order(:start_date)
+    @my_trips = []
     @trips.each do |trip|
       trip.invitations.each do |invitation|
-        @my_trips << invitation.trip if invitation.user == current_user
+        unless @my_trips.include? trip
+          @my_trips << invitation.trip if trip.user == current_user ||invitation.user == current_user 
+        end
       end
     end
-    @my_trips = @my_trips.order(:start_date)
     @trips_future = @my_trips.select { |trip| trip.start_date > Date.today}
     @trip_next = @trips_future.first
     @trips_future.delete_at(0)
@@ -76,9 +77,10 @@ class TripsController < ApplicationController
       @past_trip_recommendations.delete_if { |ptr| @trip.checklist.labels.include? ptr }
       @past_trip_recommendations.delete_if { |ptr| @recommendations.include? ptr } 
     end
-    @users = [@trip.user]
+    @users = []
+    @users << @trip.user
     @trip.invitations.each do |invitation|
-      @users << invitation.user unless invitation.user == @trip.user
+      @users << invitation.user
     end
     @center = { lat: @trip.latitude, lng: @trip.longitude }.to_json
   end

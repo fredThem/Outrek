@@ -13,8 +13,7 @@ class InvitationsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
     @invitation.trip = @trip
     #be mindful with line 16. The invitation actually shouldn't be assigned to the @trip.user, but the object won't create without a user assigned. Unfortunately, to allow user to sign-up after receiving the invitation, the real user assignment has to happen in a different action.
-    assign_invitee(@trip.user)
-    @invitation.status = "Pending"
+    @invitation.update(status: "Pending")
     authorize @invitation
     if @invitation.save
       InvitationMailer.with(email: params[:invitation][:email], invitation: @invitation, trip: @trip).invite_email.deliver
@@ -25,8 +24,7 @@ class InvitationsController < ApplicationController
   end
 
   def accept
-    assign_invitee(current_user)
-    @invitation.status = "Accepted"
+    @invitation.update(user: current_user, status: "Accepted")
     if @invitation.save
       redirect_to trip_path(@invitation.trip)
     end
@@ -43,10 +41,6 @@ class InvitationsController < ApplicationController
   end
 
   private
-
-  def assign_invitee(user)
-    @invitation.user = user
-  end
 
   def invitation_params
     params.require(:invitation).permit(:email)

@@ -29,7 +29,7 @@
 
           <% trip.invitations.each do |invitation| %>
             <%# raise %>
-            <% unless invitation.user.id == User.find(trip.user_id).id %>
+            <% if invitation.user %>
               <%= render partial: "shared/avatar", locals: { user: invitation.user, square_size: "46px", avatar_classes: "mr-1"} %>
               
             <% end %>
