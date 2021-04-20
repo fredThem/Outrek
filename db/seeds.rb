@@ -395,9 +395,9 @@ invitation5 = Invitation.create([
   {trip_id: trip.id, user_id: l.id},
   {trip_id: trip.id, user_id: m.id},
   {trip_id: trip.id, user_id: n.id},
-  {trip_id: trip.id, user_id: o.id},
-  {trip_id: trip.id, user_id: p.id},
-  {trip_id: trip.id, user_id: q.id},
+  {trip_id: trip.id, user_id: r.id},
+  {trip_id: trip.id, user_id: s.id},
+  {trip_id: trip.id, user_id: t.id},
   {trip_id: trip.id, user_id: ross.id}
 ])
 
