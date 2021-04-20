@@ -83,8 +83,8 @@ curated_recommendations = [
         "Bailer or bilge pump",
         "Sponges"
       },
-      "Core Gear": {
-        "Maps and charts in waterproof case",
+      "Core Gear": { # category
+        "Maps and charts in waterproof case", #name
         "Compass",
         "GPS",
         "Matches/lighter/fire starter in waterproof container",
