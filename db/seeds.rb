@@ -4,6 +4,10 @@ User.destroy_all
 
 # TODO implement UI-face (https://uifaces.co/api-key)
 
+# TODO Random User => User.order("RANDOM()").limit(10)
+# TODO Put checklist and label create into a method
+
+
 def addUser(picture, first_name, last_name)
   user = User.create!(
     {email: "#{first_name}@email.com", first_name: first_name, last_name: last_name, password: "123456"}
