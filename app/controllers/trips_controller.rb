@@ -8,7 +8,9 @@ class TripsController < ApplicationController
     @my_trips = []
     @trips.each do |trip|
       trip.invitations.each do |invitation|
-        @my_trips << invitation.trip if trip.user == current_user ||invitation.user == current_user
+        unless @my_trips.include? trip
+          @my_trips << invitation.trip if trip.user == current_user ||invitation.user == current_user 
+        end
       end
     end
     @trips_future = @my_trips.select { |trip| trip.start_date > Date.today}
