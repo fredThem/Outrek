@@ -6,6 +6,7 @@ User.destroy_all
 
 # TODO Random User => User.order("RANDOM()").limit(10)
 # TODO Put checklist and label create into a method
+# TODO Can checklist be populated according to the activity?
 
 
 def addUser(picture, first_name, last_name)
