@@ -6,35 +6,35 @@ User.destroy_all
 
 def addUser(picture, name)
   user = User.create!(
-    {email: "#{name}@email.com", first_name: name, last_name: "lee", password: "123456"}
+    {email: "#{name}@email.com", first_name: name, last_name: "Lee", password: "123456"}
   )
 
-  user.avatar.attach(
-    io: URI.open(picture), filename: "#{name}-pic.png"
-  )
-  return user
+  # user.avatar.attach(
+  #   io: URI.open(picture), filename: "#{name}-pic.png"
+  # )
+  # return user
 end
 
 janeAvatar = "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80"
-jane = addUser(janeAvatar, "jane")
+jane = addUser(janeAvatar, "Jane")
 
 rossAvatar = "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-ross = addUser(rossAvatar, "ross")
+ross = addUser(rossAvatar, "Ross")
 
 rachelAvatar = "https://images.unsplash.com/photo-1498551172505-8ee7ad69f235?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-rachel = addUser(rachelAvatar, "rachel")
+rachel = addUser(rachelAvatar, "Rachel")
 
 joeyAvatar = "https://images.unsplash.com/photo-1590086782957-93c06ef21604?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8bWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-joey = addUser(joeyAvatar, "joey")
+joey = addUser(joeyAvatar, "Joey")
 
 monicaAvatar = "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8d29tYW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-monica = addUser(monicaAvatar, "monica")
+monica = addUser(monicaAvatar, "Monica")
 
 phoebeAvatar = "https://images.unsplash.com/photo-1482849297070-f4fae2173efe?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTA0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-phoebe = addUser(phoebeAvatar, "phoebe")
+phoebe = addUser(phoebeAvatar, "Phoebe")
 
 chandlerAvatar = "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTd8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-chandler = addUser(chandlerAvatar, "chandler")
+chandler = addUser(chandlerAvatar, "Chandler")
 
 # Labels seed 2.0
 labels = {
@@ -47,7 +47,7 @@ labels = {
   "repair kit and tools" => ["knife", "cordage", "duct tape"],
   "nutrition" => ["extra food"],
   "hydration" => ["extra water"],
-  "emergency shelter" => ["tent/emergency blanket"]
+  "shelter" => ["tent", "emergency blanket"]
 }
 
 puts "cleaning labels..."
@@ -79,17 +79,27 @@ all_labels = Label.all
 puts "cleaning recommendations..."
 RecommendedItemLabel.destroy_all
 
-puts "Populating recommendations for hiking..."
+puts "Populating essential recommendations for all activities"
 all_labels.each do |label|
-  Activity.first.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: Activity.first)
+  Activity.all.each do |activity|
+    activity.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: activity)
+  end
 end
 puts "Done!"
 
-puts "Populating recommendations for camping..."
-all_labels.each do |label|
-  Activity.first.recommended_item_labels << RecommendedItemLabel.create!(label: label, activity: Activity.first)
+#add more recommendations for individual activity
+extra_labels = {
+  "clothing" => ["base-layer", "mid-layer", "rain wear"],
+  "gadget" => ["cell phone", "walkie-talkie"]
+}
+
+extra_labels.keys.each do |category|
+  extra_labels[category].each do |name|
+    puts "Adding label '#{name}' of category '#{category}' to labels"
+    Label.create(category: category, name: name)
+    puts "Done!"
+  end
 end
-puts "Done!"
 
 
 Trip.destroy_all
@@ -107,6 +117,8 @@ trip = Trip.create!(
     user_id: jane.id
   }
 )
+
+
 
 checklist = Checklist.create!(trip_id: trip.id)
 
