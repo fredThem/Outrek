@@ -90,11 +90,20 @@ class TripsController < ApplicationController
 
   def update
     @trip.update(trips_params)
-    params[:trip][:activity_ids].map do |activity_id|
+    @activities = []
+    params[:trip][:activity_ids].each do |activity_id|
       next unless activity_id != ""
       @activity = Activity.find(activity_id)
+      @activities << @activity
+      unless @trip.activities.include? @activity
+        TripActivity.create(trip: @trip, activity: @activity)
+      end
     end
-    @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
+    @trip.trip_activities.each do |trip_activity|
+      unless @activities.include? trip_activity.activity
+        trip_activity.destroy
+      end
+    end
     if @trip.save
       redirect_to trip_path(@trip)
     else
