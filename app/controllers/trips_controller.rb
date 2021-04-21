@@ -30,17 +30,19 @@ class TripsController < ApplicationController
     @trip.user = current_user
     authorize @trip
     @checklist = Checklist.new(trip: @trip)
-    params[:trip][:activity_ids].map do |activity_id|
+    @relevant_labels = []
+    params[:trip][:activity_ids].each do |activity_id|
       next unless activity_id != ""
-      @activity = Activity.find(activity_id)
-      relevant_labels = []
-      @activity.recommended_item_labels.first(15).each do |rec|
-        unless relevant_labels.include? rec.label
-          relevant_labels << rec.label
-          ChecklistItem.create(label: rec.label, checked: false, checklist: @checklist)
+      activity = Activity.find(activity_id)
+      activity.recommended_item_labels.first(15).each do |rec|
+        unless @relevant_labels.include? rec.label
+          @relevant_labels << rec.label
         end
       end
-      @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
+      TripActivity.create(trip: @trip, activity: activity)
+    end
+    @relevant_labels.each do |relevant_label|
+      ChecklistItem.create(label: relevant_label, checked: false, checklist: @checklist)
     end
     if @trip.save && @checklist.save
       redirect_to trip_path(@trip)
@@ -90,11 +92,20 @@ class TripsController < ApplicationController
 
   def update
     @trip.update(trips_params)
-    params[:trip][:activity_ids].map do |activity_id|
+    @activities = []
+    params[:trip][:activity_ids].each do |activity_id|
       next unless activity_id != ""
       @activity = Activity.find(activity_id)
+      @activities << @activity
+      unless @trip.activities.include? @activity
+        TripActivity.create(trip: @trip, activity: @activity)
+      end
     end
-    @trip_activity = TripActivity.create(trip: @trip, activity: @activity)
+    @trip.trip_activities.each do |trip_activity|
+      unless @activities.include? trip_activity.activity
+        trip_activity.destroy
+      end
+    end
     if @trip.save
       redirect_to trip_path(@trip)
     else
