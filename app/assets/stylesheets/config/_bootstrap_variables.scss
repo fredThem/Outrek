@@ -4,6 +4,7 @@
 // 3. You can override them below!
 $enable-responsive-font-sizes: true;
 $enable-grid-classes: true;
+$enable-shadows: true;
 
 $brand: Outrek !default;
 $brand-color: #00307b !default;
@@ -13,7 +14,8 @@ $brand-background-1: hsla(0,
 0%,
 97%,
 1) !default;
-$brand-gradient-primary: -webkit-linear-gradient(0deg, #00307B 0%, #6F42C1 100%);
+$brand-gradient-primary: -webkit-linear-gradient(90deg, #00307B -50%, #6F42C1 150%);
+$brand-gradient-primary-hovered: -webkit-linear-gradient(270deg, #00307B -50%, #6F42C1 150%);
 $brand-bg-dark: $brand-color !default;
 // General style
 // $font-family-sans-serif:  $body-font;
@@ -22,7 +24,7 @@ $brand-bg-dark: $brand-color !default;
 // $font-size-base: 1rem;
 // Colors
 // $body-color: $gray;
-$primary:    $indigo;
+// $primary:    $indigo;
 // $success:    $green;
 // $info:       $yellow;
 // $danger:     $red;

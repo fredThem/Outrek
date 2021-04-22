@@ -1,6 +1,6 @@
 <div class="">
   <div class="">
-    <div style="z-index: 980;">
+    <div style="z-index: 980; position:relative;">
 
       <%= content_for :header%>
     </div>
@@ -10,13 +10,13 @@
   </div>
 </div>
 <main class="linear-gradient-brand-main">
-  <div class="forestry-bg mountaineer-bg" >
+  <div class="forestry-bg" >
     <%# TODO #134 split the bg-img (clouds-hills-forest) see if better scroll optional %>
-    <div class="overflow-auto" style="height:100vh;">
-      <div class="overflow-auto ">
-
-        <%= content_for :main%>
-
+    <div class="mountaineer-bg">
+      <div class="overflow-auto" style="height:100vh;">
+        <div class="overflow-auto ">
+          <%= content_for :main%>
+        </div>
       </div>
     </div>
 
