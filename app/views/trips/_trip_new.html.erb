@@ -4,12 +4,14 @@
 
   <%= content_for :main do %>
 
-   <%= render layout: 'pages/narrow_col' do %>
-      <br><br>
-      <h1 class="text-white">Plan a Trip</h1>
-      <br>
-      <%= render "form", trip: @trip %>
-    <% end %>
+
+<div class="container pt-4" style="max-width: 620px;">
+  
+        <h1 class="text-white">Plan a Trip</h1>
+        <br>
+        <%= render "form", trip: @trip %>
+  
+</div>
 
   <% end %>
 
