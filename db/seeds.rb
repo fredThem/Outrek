@@ -147,7 +147,7 @@ labels.keys.each do |category|
 end
 
   # Add Activity and Recommended_label
-activities = ['hiking', 'camping', 'hunting', 'fishing', 'canoeing', 'kayaking', 'rafting', 'sailing', 'motorboating', 'biking', 'rock climbing', 'horseback riding', 'skiing']
+activities = ['hiking', 'camping', 'fishing', 'canoeing', 'biking', 'kayaking', 'rafting', 'sailing', 'motorboating', 'rock climbing', 'horseback riding', 'skiing']
 
 puts "cleaning activities..."
 Activity.destroy_all
@@ -189,7 +189,7 @@ Trip.destroy_all
 puts "Cleaning Trips..."
 
 # -------------------------------------------------------------
-# Upcoming Trip 1
+# Upcoming Trips
 # -------------------------------------------------------------
 trip = Trip.create!(
   {
@@ -214,7 +214,11 @@ relevant_labels = []
     end
 end
 
-Tripactivity6 = TripActivity.create({trip_id: trip.id, activity_id: Activity.first.id})
+Tripactivity6 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.second.id},
+  {trip_id: trip.id, activity_id: Activity.third.id}
+])
 
 invitation6 = Invitation.create([
   {trip_id: trip.id, user_id: a.id},
@@ -223,7 +227,121 @@ invitation6 = Invitation.create([
   {trip_id: trip.id, user_id: d.id}
 ])
 
-# Upcoming Trip 2
+# -------------------------------------------------------------
+trip = Trip.create!(
+  {
+    destination: "Sudbury District, Ontario",
+    description: "The Crack Trail, Ontario",
+    start_date: "July 9, 2021",
+    end_date: "July 12, 2021",
+    meetup_time: "8:00",
+    expected_end_time: "20:00",
+    finished: false,
+    user_id: first.id
+  }
+)
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+  Activity.first.recommended_item_labels.each do |rec|
+    unless relevant_labels.include? rec.label
+      relevant_labels << rec.label
+      ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+    end
+end
+
+Tripactivity7 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.second.id},
+  {trip_id: trip.id, activity_id: Activity.fourth.id}
+])
+
+invitation7 = Invitation.create([
+  {trip_id: trip.id, user_id: w.id},
+  {trip_id: trip.id, user_id: x.id},
+  {trip_id: trip.id, user_id: y.id}
+])
+# -------------------------------------------------------------
+trip = Trip.create!(
+  {
+    destination: "Centennial Ridges Trail, Ontario",
+    description: "Centennial Ridges Trail, Centennial Ridges Road, ON K0J 2M0",
+    start_date: "August 9, 2021",
+    end_date: "August 12, 2021",
+    meetup_time: "8:00",
+    expected_end_time: "20:00",
+    finished: false,
+    user_id: first.id
+  }
+)
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+  Activity.first.recommended_item_labels.each do |rec|
+    unless relevant_labels.include? rec.label
+      relevant_labels << rec.label
+      ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+    end
+end
+
+Tripactivity8 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.fifth.id},
+  {trip_id: trip.id, activity_id: Activity.fourth.id}
+])
+
+invitation8 = Invitation.create([
+  {trip_id: trip.id, user_id: z.id},
+  {trip_id: trip.id, user_id: ross.id},
+  {trip_id: trip.id, user_id: joey.id},
+  {trip_id: trip.id, user_id: phoebe.id},
+  {trip_id: trip.id, user_id: monica.id}
+])
+
+# -------------------------------------------------------------
+trip = Trip.create!(
+  {
+    destination: "Death Valley National Park",
+    description: "Death Valley National Park, Furnace Creek, CA 92328, USA",
+    start_date: "December 26, 2021",
+    end_date: "December 30, 2021",
+    meetup_time: "10:00",
+    expected_end_time: "21:30",
+    finished: false,
+    user_id: first.id
+  }
+)
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+  Activity.first.recommended_item_labels.each do |rec|
+    unless relevant_labels.include? rec.label
+      relevant_labels << rec.label
+      ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+    end
+end
+
+Tripactivity9 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.second.id},
+  {trip_id: trip.id, activity_id: Activity.fifth.id}
+])
+
+invitation9 = Invitation.create([
+  {trip_id: trip.id, user_id: r.id},
+  {trip_id: trip.id, user_id: s.id},
+  {trip_id: trip.id, user_id: t.id},
+  {trip_id: trip.id, user_id: o.id},
+  {trip_id: trip.id, user_id: l.id},
+  {trip_id: trip.id, user_id: v.id},
+  {trip_id: trip.id, user_id: c.id},
+  {trip_id: trip.id, user_id: w.id}
+])
+
+# -------------------------------------------------------------
 trip = Trip.create!(
   {
     destination: "Starved Rock Place, Huntley, Illinois, United States of America",
@@ -251,12 +369,14 @@ Tripactivity1 = TripActivity.create(
   {trip_id: trip.id, activity_id: Activity.first.id}
 )
 
-invitation2 = Invitation.create([
+invitation1 = Invitation.create([
   {trip_id: trip.id, user_id: monica.id},
   {trip_id: trip.id, user_id: e.id}
 ])
 
-# Past Trip
+# -------------------------------------------------------------
+# PAST TRIPS
+# -------------------------------------------------------------
 trip = Trip.create!(
   {
     destination: "Cave & Basin National Historic Site, Banff, Alberta, Canada",
@@ -294,7 +414,7 @@ invitation2 = Invitation.create([
   {trip_id: trip.id, user_id: t.id},
   {trip_id: trip.id, user_id: u.id}
 ])
-
+# -------------------------------------------------------------
 trip = Trip.create!(
   {
     destination: "Saint-Augustin-de-Woburn, Québec, Canada",
@@ -328,7 +448,7 @@ invitation3 = Invitation.create([
   {trip_id: trip.id, user_id: g.id},
   {trip_id: trip.id, user_id: h.id}
 ])
-
+# -------------------------------------------------------------
 trip = Trip.create!(
   {
     destination: "Grand Canyon Village, Arizona, United States of America",
@@ -364,7 +484,7 @@ invitation4 = Invitation.create([
   {trip_id: trip.id, user_id: j.id},
   {trip_id: trip.id, user_id: ross.id}
 ])
-
+# -------------------------------------------------------------
 trip = Trip.create!(
   {
     destination: "Yellowstone Park, Beaumont, California, United States of America",
@@ -388,7 +508,12 @@ Activity.first.recommended_item_labels.each do |rec|
   end
 end
 
-TripActivity.create(trip: trip, activity: Activity.first)
+Tripactivity5 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.third.id},
+  {trip_id: trip.id, activity_id: Activity.second.id},
+  {trip_id: trip.id, activity_id: Activity.fourth.id},
+])
 
 invitation5 = Invitation.create([
   {trip_id: trip.id, user_id: k.id},
@@ -399,6 +524,120 @@ invitation5 = Invitation.create([
   {trip_id: trip.id, user_id: s.id},
   {trip_id: trip.id, user_id: t.id},
   {trip_id: trip.id, user_id: ross.id}
+])
+# -------------------------------------------------------------
+
+trip = Trip.create!(
+  {
+    destination: "Mutianyu Great Wall, Mutianyu, 北京市, People's Republic of China",
+    description: "Great Wall of China",
+    start_date: "September 15, 2019",
+    end_date: "September 30, 2019",
+    meetup_time: "13:30",
+    expected_end_time: "12:00",
+    finished: true,
+    user_id: first.id
+  }
+)
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
+Tripactivity10 = TripActivity.create(
+  {trip_id: trip.id, activity_id: Activity.first.id}
+)
+
+invitation10 = Invitation.create([
+  {trip_id: trip.id, user_id: u.id},
+  {trip_id: trip.id, user_id: b.id},
+  {trip_id: trip.id, user_id: c.id},
+  {trip_id: trip.id, user_id: w.id},
+  {trip_id: trip.id, user_id: e.id},
+  {trip_id: trip.id, user_id: ross.id},
+  {trip_id: trip.id, user_id: chandler.id}
+])
+
+# -------------------------------------------------------------
+
+trip = Trip.create!(
+  {
+    destination: "Onsen, 鹿児島県, Japan",
+    description: "The Basho Wayfarer, Japan",
+    start_date: "February 2, 2020",
+    end_date: "February 25, 2020",
+    meetup_time: "7:30",
+    expected_end_time: "18:00",
+    finished: true,
+    user_id: first.id
+  }
+)
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
+Tripactivity11 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.third.id}
+])
+
+invitation11 = Invitation.create([
+  {trip_id: trip.id, user_id: d.id},
+  {trip_id: trip.id, user_id: f.id},
+  {trip_id: trip.id, user_id: i.id},
+  {trip_id: trip.id, user_id: monica.id},
+  {trip_id: trip.id, user_id: joey.id}
+])
+
+# -------------------------------------------------------------
+
+trip = Trip.create!(
+  {
+    destination: "Tahoe Rim Trail",
+    description: "Tahoe Rim Trail, Tahoe City, California, United States of America",
+    start_date: "June 9, 2020",
+    end_date: "June 16, 2020",
+    meetup_time: "8:30",
+    expected_end_time: "10:30",
+    finished: true,
+    user_id: first.id
+  }
+)
+
+checklist = Checklist.create!(trip_id: trip.id)
+
+relevant_labels = []
+Activity.first.recommended_item_labels.each do |rec|
+  unless relevant_labels.include? rec.label
+    relevant_labels << rec.label
+    ChecklistItem.create(label: rec.label, checked: false, checklist: checklist)
+  end
+end
+
+Tripactivity12 = TripActivity.create([
+  {trip_id: trip.id, activity_id: Activity.first.id},
+  {trip_id: trip.id, activity_id: Activity.fifth.id}
+])
+
+invitation12 = Invitation.create([
+  {trip_id: trip.id, user_id: q.id},
+  {trip_id: trip.id, user_id: x.id},
+  {trip_id: trip.id, user_id: g.id},
+  {trip_id: trip.id, user_id: e.id},
+  {trip_id: trip.id, user_id: joey.id}
 ])
 
 puts "Done with trips and activities create!"
