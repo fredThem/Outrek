@@ -1,51 +1,29 @@
- .mountaineer{
-      // background-image: url("art/mountaineer.svg");
-      // background-position: left bottom;
-      // background-repeat: no-repeat;
-      // background-size: auto 60%;
-      // width:auto;
-      // position: absolute;
-      // // position: relative;   
-      // // top: 100%;
-      // left:0;
-      // height:300px;
-      // top: 100%;
+.mountaineer-bg {
+      background-image: url("art/mountaineer.svg");
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      background-size: auto 60%;
+      height: 80vh;
+      @media screen and (max-width: 1080px) {
+            & {
+                  background-image: none;
+            }
+      }
+      @media screen and (min-width: 1320px) {
+            & {
+                       background-size: auto 80%;
+            }
+      }
+}
 
-      width: auto;
-position: absolute;
-left: 0;
-height: 300px;
-top: 100%;
-margin-top: -300px;
-
-      // bottom:-30%;
-    }
-
-    // @media screen and (max-width: 940px) {
-    //   .mountaineer{
-    //     background-position: -10vh 110%;
-    //     background-size: auto 60%;
-        
-    //   }
-   
-    // }
-    // @media screen and (max-width: 740px) {
-
-    //   .mountaineer{
-    //     background-position: -10vh 130%;
-    //     background-size: auto 60%;
-        
-    //   }
-      
-    // }
-    
-    // @media screen and (max-width: 420px) {
-
-    //   .mountaineer{
-    //     background-position: left 130%;
-    //     background-size: auto 50%;
-        
-    //   }
-      
-    // }
-    
+.mountaineer-img {
+      display: none;
+      @media screen and (max-width: 1080px) {
+            & {
+                  display: block;
+                  width: 100%;
+                  height: auto;
+                  margin-top: 30px;
+            }
+      }
+}

@@ -38,10 +38,14 @@ h2 {
     font-display: swap;
     // background: -webkit-linear-gradient(92.77deg, #00307B -50%, #6F42C1 150%);
     // background: -webkit-linear-gradient(90deg, #00307B 0%, #6F42C1 100%);
-    background: -webkit-linear-gradient(0deg, #00307b 0%, #6f42c1 100%);
+
+  }
+}
+
+header.text-brand-gradient{
+      background: -webkit-linear-gradient(0deg, #00307b 0%, #6f42c1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
 }
 
 // $headings-font-family:        "Noe Display" !default;
