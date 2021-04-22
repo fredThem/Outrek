@@ -1,7 +1,7 @@
 <%= content_for :header do %>
 <%# TODO #132 replace all h1 for h2, pages should only have one h1 %>
   <% if !@trip_next.nil? %>
-    <h2 id="title-trip-next" class="font-weight-light py-3 text-center display-4 h1 mb-0 pb-0"><%= (@trip_next.start_date - Date.today).to_i %> Days Left Until</h2>
+    <h2 id="title-trip-next" class="font-weight-light py-3 text-center display-4 h1 mb-0 pb-0 text-brand-gradient"><%= (@trip_next.start_date - Date.today).to_i %> Days Left Until</h2>
     <%= render layout: 'pages/narrow_col' do %>
         <%= render partial: "trips/card/trip_card", locals: { trip: @trip_next} %>
     <% end %>
