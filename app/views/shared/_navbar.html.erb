@@ -8,15 +8,16 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav justify-content-end align-items-center flex-row">
-        <li class="nav-item active">
-          <%= link_to 'Plan a trip', new_trip_path, class: 'btn btn-primary my-2 my-sm-0 ml-2' %>
-        </li>
+
         <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to 'Plan a trip', new_trip_path, class: 'btn btn-primary my-2 my-sm-0 ml-2' %>
+          </li>
           <li class="nav-item dropdown">
             <%= content_tag(:div, id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) do %>
-            <%= render partial: "shared/avatar", locals: { user: @current_user, square_size: "60px"} %>
+              <%= render partial: "shared/avatar", locals: { user: @current_user, square_size: "60px"} %>
             <% end %>
-            
+
             <%#= tag.i class: "bi bi-person-circle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
               <%= link_to 'Edit My Profile', edit_user_registration_path(@user),class: "dropdown-item" %>
@@ -29,6 +30,9 @@
             </div>
           </li>
         <% else %>
+          <li class="nav-item active">
+            <%= link_to 'Plan a trip', new_trip_path, class: 'btn btn-outline-primary my-2 my-sm-0 ml-2' %>
+          </li>
           <li class="nav-item">
             <%= link_to "Login", new_user_session_path, class: "nav-link ml-3" %>
           </li>
