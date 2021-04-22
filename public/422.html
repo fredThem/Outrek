@@ -7,37 +7,221 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script src="https://kit.fontawesome.com/5bf1e60951.js" crossorigin="anonymous"></script>
   <style>
-  .rails-default-error-page { 
-    background-image: url("images/422.png"), url("images/mountaineer.png"), url("images/full-hike-bg.png"), url("images/bg-topographic.png");
-    background-repeat: no-repeat;
-    background-size: 18em, 60%, cover, cover;
-    background-position-x: center, left, center, center;
-    background-position-y: 32vh, 16em, 0em, 0em;
-    text-align: center;
-    margin: 0;
-  }
 
-  .rails-default-error-page div.dialog {
-    font-family: 'Special Elite', cursive;
-    color: white;
-    position: relative;
-    top: 54vh;
-    margin: auto;
-    width: 18em;
-  }
+    /* meyer reset
+    PLEASE ADVISE THIS IS STANDARD
+    */
 
-  a {
-    text-decoration: none;
-    color: white;
-  }
+    /* http://meyerweb.com/eric/tools/css/reset/
+    v2.0 | 20110126
+    License: none (public domain)
+    */
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+    }
+    ol, ul {
+      list-style: none;
+    }
+    blockquote, q {
+      quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /* meyer reset END -------------------------------------------------------------------- */
+
+    .back-btn{
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+      --blue: #007bff; --indigo: #6610f2; --purple: #6f42c1; --pink: #e83e8c; --red: #dc3545; --orange: #fd7e14; --yellow: #ffc107; --green: #28a745; --teal: #20c997; --cyan: #17a2b8; --white: #fff; --gray: #6c757d; --gray-dark: #343a40; --primary: #007bff; --secondary: #6c757d; --success: #28a745; --info: #17a2b8; --warning: #ffc107; --danger: #dc3545; --light: #f8f9fa; --dark: #343a40;
+      --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      box-sizing: border-box;
+      margin: 0;
+      font-family: inherit;
+      overflow: visible;
+      text-transform: none;
+      -webkit-appearance: button;
+      display: inline-block;
+      font-weight: 400;
+      text-align: center;
+      vertical-align: middle;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: .25rem;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      color: #f8f9fa;
+      border-color: #f8f9fa;
+      margin-top: .25rem;
+      margin-bottom: .25rem;
+      cursor: pointer;
+      /* custom */
+      width: fit-content;
+      display: flex;
+      text-decoration: none;
+      color: white;
+      margin:10px auto 20px;
+    }
+
+    body {
+      background-image: url("images/bg-topographic.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .trail-to-summit {
+      width: 100%;
+      height: 100%;
+      background-image: url("images/full-hike-bg.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+
+      background-position: top center;
+    }
+
+    .default-error-page div.dialog {
+      font-family: 'Special Elite', cursive;
+      color: white;
+
+    }
+    .mountaineer-bg{
+      background-image: url("images/mountaineer.svg");
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      background-size: auto 60%;
+      width:100%;
+      height: 100%;
+    }
+    .dialog {
+      height: 100%;
+      color: white;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-content: center;
+      flex-direction: column;
+      text-align: center;
+
+      grid-gap: 2em;
+      justify-content: center;
+      align-items: center;
+      margin:auto;
+    }
+    .dialog p, .dialog h2{
+      font-size: 1.4em;
+      line-height: 1.4;
+    }
+
+    @media screen and (max-width: 940px) {
+      .mountaineer-bg{
+        background-position: -10vh 110%;
+        background-size: auto 60%;
+
+      }
+      .dialog {
+
+        width: 80%;
+      }
+    }
+    @media screen and (max-width: 740px) {
+      .dialog  {
+        grid-gap: 1em;
+        width: 100%;
+        height:80vh;
+        /* padding-bottom: 20vh; */
+        font-size: 1em !important;
+      }
+      .dialog img {
+        width:60%;
+
+      }
+      .mountaineer-bg{
+        background-position: -10vh 130%;
+        background-size: auto 60%;
+
+      }
+
+    }
+
+    @media screen and (max-width: 420px) {
+      .dialog  {
+
+        width: 80%;
+        height:90vh;
+
+        /* padding-bottom: 20vh; */
+      }
+      .dialog img {
+        width:80%;
+
+      }
+      .mountaineer-bg{
+        background-position: left 130%;
+        background-size: auto 50%;
+
+      }
+
+    }
+
   </style>
 </head>
-<body class="rails-default-error-page">
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>that's weird</h1>
-    <p>were you looking for a cat?</p>
-    <a href="javascript:history.back()"><i class="fas fa-shoe-prints"></i></a>
+<body class="default-error-page">
+<div class="trail-to-summit">
+    <div class="mountaineer-bg">
+      <div class="dialog">
+        <img src="images/422.svg" alt="422" max-width="80%;" width="400px;" height="auto">
+        <div class="quotation">
+
+          <h2>Getting lost?</h2>
+          <a class="back-btn" href="javascript:history.back()"> Take me back</a>
+          <p style="font-size:1em; margin-top: 10px;">No need to call the rescue yet</p>
+
+        </div>
+        <!-- <i class="fas fa-shoe-prints"></i> -->
+        
+
+      </div>
+    </div>
+
   </div>
 
 </body>
