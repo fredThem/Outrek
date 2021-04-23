@@ -1,14 +1,12 @@
 <%= content_for :header do %>
-  <div class="container narrow-col">
+  
+<% end %>
+
+<%= content_for :main do %>
+   <div class="container narrow-col">
     <%= render layout: 'pages/narrow_col' do %>
       <%= render 'jumbotron' %>
     <% end %>
   </div>
-<% end %>
-
-<%= content_for :main do %>
-    <%= render layout: 'pages/narrow_col' do %>
-  <div class="display-1 text-white"></div>
-    <% end %>
   
 <% end %>

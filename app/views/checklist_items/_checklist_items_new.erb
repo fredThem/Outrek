@@ -1,13 +1,22 @@
 <%= content_for :main do %>
-  <%= render layout: 'pages/narrow_col' do %>
+
+<div class="container pt-4" style="max-width: 460px;">
     <div class="containter text-white">
-      <h1>Create a new item for your trip to <%= @trip.destination %></h1>
+      <div class="d-flex" style="gap:26px;">
+        <h2 class="flex-grow-1 flex-shrink-0">New item</h2>
+        
+      </div>
+       <p>* <em>for your trip to <%= @trip.destination %></em></p>
       <%= simple_form_for [@trip, @checklist_item] do |f| %>
+        <%# UX readability should we change detail to note ? %>
         <%= f.input :detail %>
+        <%# UX readability should we call label items ? %>
         <%= f.association :label %>
+        
         <%= f.button :submit, class:"btn btn-primary btn-block" %>
+               
       <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>
 
