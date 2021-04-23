@@ -2,16 +2,49 @@
 // @import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
 
-// Define fonts for body and headers
-// $body-font: "Work Sans", "Helvetica", "sans-serif";
-// $headers-font: "Nunito", "Helvetica", "sans-serif";
+@font-face {
+    font-family: 'Noe Display';
+    src: url('NoeDisplay-Black.woff2') format('woff2'),
+        url('NoeDisplay-Black.woff') format('woff'),
+        url('NoeDisplay-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
 
-// To use a font file (.woff) uncomment following lines
-// @font-face {
-//   font-family: "Font Name";
-//   src: font-url('FontFile.eot');
-//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
-//        font-url('FontFile.woff') format('woff'),
-//        font-url('FontFile.ttf') format('truetype')
-// }
-// $my-font: "Font Name";
+@font-face {
+    font-family: 'Noe Display';
+    src: url('NoeDisplay-Bold.woff2') format('woff2'),
+        url('NoeDisplay-Bold.woff') format('woff'),
+        url('NoeDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+// $brand-font-primary: "Noe Display";
+
+.display-3{
+  // font-family: 'Noe Display';
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  // background: -webkit-linear-gradient(92.77deg, #00307B -50%, #6F42C1 150%);
+  // background: -webkit-linear-gradient(90deg, #00307B 0%, #6F42C1 100%);
+  background: -webkit-linear-gradient(0deg, #00307B 0%, #6F42C1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.h1, .h2 {
+  font-family:  "Noe Display";
+    font-weight: bold;
+  font-style: normal;
+  line-height:1.1 !important;
+  // font-display: swap;
+}
+// $headings-font-family:        "Noe Display" !default;
+// $headings-font-style:         null !default;
+// $headings-font-weight:        500 !default;
+// $headings-line-height:        1.1 !default;
+$headings-color:              null !default;

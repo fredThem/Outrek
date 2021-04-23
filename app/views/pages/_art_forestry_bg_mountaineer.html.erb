@@ -1,7 +1,9 @@
 <div class="">
   <div class="">
+    <div style="z-index: 980;">
 
-    <%= content_for :header%>
+      <%= content_for :header%>
+    </div>
 
     <%# TODO #129 make content_for :header a z-index over high-peaks img %>
     <%= show_svg('art/high-peaks-summit.svg') %>
@@ -9,7 +11,7 @@
 </div>
 <main class="linear-gradient-brand-main">
   <div class="forestry-bg mountaineer-bg" >
- <%# TODO #134 split the bg-img (clouds-hills-forest) see if better scroll optional %>
+    <%# TODO #134 split the bg-img (clouds-hills-forest) see if better scroll optional %>
     <div class="overflow-auto" style="height:100vh;">
       <div class="overflow-auto ">
 
@@ -20,4 +22,3 @@
 
   </div>
 </main>
-
