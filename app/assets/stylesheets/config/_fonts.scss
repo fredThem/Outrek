@@ -1,50 +1,51 @@
 // Import Google fonts
 // @import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap");
 
 @font-face {
-    font-family: 'Noe Display';
-    src: url('NoeDisplay-Black.woff2') format('woff2'),
-        url('NoeDisplay-Black.woff') format('woff'),
-        url('NoeDisplay-Black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Noe Display";
+  src: url("NoeDisplay-Black.woff2") format("woff2"), url("NoeDisplay-Black.woff") format("woff"),
+    url("NoeDisplay-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Noe Display';
-    src: url('NoeDisplay-Bold.woff2') format('woff2'),
-        url('NoeDisplay-Bold.woff') format('woff'),
-        url('NoeDisplay-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Noe Display";
+  src: url("NoeDisplay-Bold.woff2") format("woff2"), url("NoeDisplay-Bold.woff") format("woff"),
+    url("NoeDisplay-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 // $brand-font-primary: "Noe Display";
 
-.display-3{
-  // font-family: 'Noe Display';
+h1,
+h2 {
+  font-family: "Noe Display";
   font-weight: bold;
   font-style: normal;
-  font-display: swap;
-  // background: -webkit-linear-gradient(92.77deg, #00307B -50%, #6F42C1 150%);
-  // background: -webkit-linear-gradient(90deg, #00307B 0%, #6F42C1 100%);
-  background: -webkit-linear-gradient(0deg, #00307B 0%, #6F42C1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1.1 !important;
+  // font-display: swap;
+
+  &.display-3,
+  &.display-4 {
+    // font-family: 'Noe Display';
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+    // background: -webkit-linear-gradient(92.77deg, #00307B -50%, #6F42C1 150%);
+    // background: -webkit-linear-gradient(90deg, #00307B 0%, #6F42C1 100%);
+    background: -webkit-linear-gradient(0deg, #00307b 0%, #6f42c1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
-.h1, .h2 {
-  font-family:  "Noe Display";
-    font-weight: bold;
-  font-style: normal;
-  line-height:1.1 !important;
-  // font-display: swap;
-}
 // $headings-font-family:        "Noe Display" !default;
 // $headings-font-style:         null !default;
 // $headings-font-weight:        500 !default;
 // $headings-line-height:        1.1 !default;
-$headings-color:              null !default;
+$headings-color: null !default;
