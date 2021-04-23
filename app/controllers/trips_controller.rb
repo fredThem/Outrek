@@ -7,11 +7,15 @@ class TripsController < ApplicationController
     @trips = policy_scope(Trip).order(:start_date)
     @my_trips = []
     @trips.each do |trip|
-      trip.invitations.each do |invitation|
-        unless @my_trips.include? trip
-          @my_trips << invitation.trip if trip.user == current_user ||invitation.user == current_user 
+      if trip.user == current_user
+        @my_trips << trip
+      else
+        trip.invitations.each do |invitation|
+          unless @my_trips.include? trip
+            @my_trips << invitation.trip if invitation.user == current_user 
+          end
         end
-      end
+      end  
     end
     @trips_future = @my_trips.select { |trip| trip.start_date > Date.today}
     @trip_next = @trips_future.first
