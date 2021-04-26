@@ -1,8 +1,7 @@
 # Welcome to Outrek - Group Safety Adventure Planner
 
-Le Wagon Coding Bootcamp Final Project (MVP)
 
-➤ https://www.outrek.app/
+➤ https://www.outrek.app/   (Le Wagon Coding Bootcamp Final Project (MVP))
 
 ### Organize your next trip outdoors with Outrek's collaborative packing list.
 
